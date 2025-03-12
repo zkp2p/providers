@@ -1,0 +1,112 @@
+{
+  "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
+  "method": "GET",
+  "body": "",
+  "proofMetadataSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].amount"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].currency"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].recipient.username"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].completedDate"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].state"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].id"
+    }
+  ],
+  "metadata": {
+    "platform": "revolut",
+    "urlRegex": "https://app.revolut.com/api/retail/user/current/transactions/last\\?count=20$",
+    "method": "GET",
+    "fallbackUrlRegex": "https://app.revolut.com/api/retail/user/current/transactions/last\\?count=20&\\S+",
+    "fallbackMethod": "GET",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.recipient.username",
+        "amount": "$.amount",
+        "date": "$.completedDate",
+        "paymentId": "$.id",
+        "currency": "$.currency"
+      }
+    }
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "x-device-id",
+    "Cookie"
+  ],
+  "secretHeaders": [
+    "x-device-id",
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\-]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"completedDate\":(?<completedDate>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"currency\":\"(?<currency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"id\":\"(?<id>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"state\":\"(?<state>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"username\":\"(?<username>[^\"]+)\"",
+      "hash": true
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.[{{INDEX}}].amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.[{{INDEX}}].completedDate",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.[{{INDEX}}].currency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.[{{INDEX}}].id",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.[{{INDEX}}].recipient.username",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.[{{INDEX}}].state",
+      "xPath": ""
+    }
+  ]
+}
