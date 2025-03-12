@@ -1,0 +1,113 @@
+{
+  "url": "https://wise.com/gateway/v3/profiles/{{PROFILE_ID}}/transfers/{{TRANSACTION_ID}}",
+  "method": "GET",
+  "body": "",
+  "proofMetadataSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].primaryAmount"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].resource.id"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].title"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].visibleOn"
+    }
+  ],
+  "metadata": {
+    "platform": "wise",
+    "urlRegex": "https://wise.com/gateway/v1/profiles/\\S+/activities/list",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$",
+      "transactionJsonPathSelectors": {
+        "amount": "$.primaryAmount",
+        "paymentId": "$.resource.id",
+        "recipient": "$.title",
+        "date": "$.visibleOn",
+        "currency": "$.currency"
+      }
+    }
+  },
+  "paramNames": [
+    "TRANSACTION_ID",
+    "PROFILE_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].resource.id"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].ownedByProfile"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "Cookie",
+    "X-Access-Token"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"id\":(?<paymentId>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"state\":\"(?<state>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"state\":\"OUTGOING_PAYMENT_SENT\",\"date\":(?<timestamp>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"targetAmount\":(?<targetAmount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"targetCurrency\":\"(?<targetCurrency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"targetRecipientId\":(?<targetRecipientId>[0-9]+)",
+      "hash": true
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.id",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.state",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.stateHistory",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.targetAmount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.targetCurrency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.targetRecipientId",
+      "xPath": ""
+    }
+  ]
+}
