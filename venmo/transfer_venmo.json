@@ -1,0 +1,95 @@
+{
+  "url": "https://account.venmo.com/api/stories?feedType=me&externalId={{SENDER_ID}}",
+  "method": "GET",
+  "body": "",
+  "proofMetadataSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.stories[{{INDEX}}].amount"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.stories[{{INDEX}}].paymentId"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.stories[{{INDEX}}].title.receiver.username"
+    }
+  ],
+  "metadata": {
+    "platform": "venmo",
+    "urlRegex": "https://account.venmo.com/api/stories\\?feedType=me&externalId=\\S+",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.stories",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.title.receiver.username",
+        "amount": "$.amount",
+        "date": "$.date",
+        "paymentId": "$.paymentId",
+        "currency": "$.currency"
+      }
+    }
+  },
+  "paramNames": [
+    "SENDER_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.stories[{{INDEX}}].title.sender.id"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"amount\":\"- \\$(?<amount>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"date\":\"(?<date>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"paymentId\":\"(?<paymentId>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"id\":\"(?<receiverId>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"subType\":\"none\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.stories[{{INDEX}}].amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.stories[{{INDEX}}].date",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.stories[{{INDEX}}].paymentId",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.stories[{{INDEX}}].title.receiver.id",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.stories[{{INDEX}}].subType",
+      "xPath": ""
+    }
+  ]
+}
