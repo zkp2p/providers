@@ -1,0 +1,108 @@
+{
+  "url": "https://www.mercadopago.com.ar/activities/detail/{{PAYMENT_ID}}?from={{URL_PARAMS_FROM}}",
+  "method": "GET",
+  "body": "",
+  "proofMetadataSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].title"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].amount.fraction"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].id"
+    }
+  ],
+  "metadata": {
+    "platform": "mercadopago",
+    "urlRegex": "https://www.mercadopago.com.ar/home",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "<script\\s+[^>]*id=[\"']__PRELOADED_STATE__[\"'][^>]*>([\\s\\S]*?)</script>",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.pageState.mpHome.result.sections.activities.content.activities_container.results",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.title",
+        "amount": "$.amount.fraction",
+        "date": "$.date",
+        "paymentId": "$.id",
+        "currency": "$.amount.currency_id"
+      }
+    }
+  },
+  "paramNames": [
+    "PAYMENT_ID",
+    "URL_PARAMS_FROM"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].id"
+    },
+    {
+      "type": "regex",
+      "value": "(mp-home)"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "v2__detail\">CVU: (?<recipientId>[0-9]+)</li>",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(?<amt>[0-9.]+)</span><span aria-hidden=\"true\">,</span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(?<cents>[0-9]+)</span>"
+    },
+    {
+      "type": "regex",
+      "value": "Total\",\"amount\":{\"currency_id\":\"(?<curr>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": ",\"date\":\"(?<date>[^\"]+)\",\"sections\""
+    },
+    {
+      "type": "regex",
+      "value": "\"operationId\":\"(?<paymentId>[^\"]+)\",\"activityName\":\"(?<paymentType>[^\"]+)\",\"activityStatus\":\"(?<paymentStatus>[^\"]+)\",\"activityStatusDetail\":\"accredited\",\"activityType\":\"sender\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "v2__detail\">CVU: (.*?)</li>"
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(.*?)<\/span><span aria-hidden=\"true\">,<\/span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(.*?)<\/span>"
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\"Total\",\"amount\":{\"currency_id\":\"(.*?)\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": ",\"date\":\"(.*)\",\"sections\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\"operationId\":\"(.*?)\",\"activityName\":\"(.*?)\",\"activityStatus\":\"(.*?),\"activityStatusDetail\":\"accredited\",\"activityType\":\"sender\""
+    }
+  ]
+}
