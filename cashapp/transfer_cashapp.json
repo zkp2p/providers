@@ -1,0 +1,113 @@
+{
+  "url": "https://cash.app/cash-app/activity/v1.0/page",
+  "method": "POST",
+  "body": "{\"activity_token\":{\"activity_token_type\":\"CUSTOMER_TOKEN\",\"token\":\"{{SENDER_ID}}\"},\"activity_scope\":\"MY_ACTIVITY_WEB_V2\",\"caller_token\":\"{{SENDER_ID}}\",\"page_size\":15,\"request_context\":{}}",
+  "proofMetadataSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.amount.amount"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.amount.currency_code"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.token"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.recipient.cashtag"
+    }
+  ],
+  "metadata": {
+    "platform": "cashapp",
+    "urlRegex": "https://cash.app/cash-app/activity/v1.0/page",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.activity_rows",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.payment_history_inputs_row.recipient.cashtag",
+        "amount": "$.payment_history_inputs_row.payment.amount.amount",
+        "date": "$.payment_history_inputs_row.payment.display_date",
+        "paymentId": "$.payment_history_inputs_row.payment.token",
+        "currency": "$.payment_history_inputs_row.payment.amount.currency_code"
+      }
+    }
+  },
+  "paramNames": [
+    "SENDER_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.sender_id"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "Cookie",
+    "Content-Type",
+    "X-CBF",
+    "X-CSRF-Token",
+    "X-Request-Signature",
+    "X-Request-UUID",
+    "Cash-Web-Request"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"currency_code\":\"(?<currency_code>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"display_date\":(?<date>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"token\":\"(?<paymentId>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"state\":\"(?<state>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.amount.amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.amount.currency_code",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.display_date",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.recipient.cashtag",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.token",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.state",
+      "xPath": ""
+    }
+  ]
+}
