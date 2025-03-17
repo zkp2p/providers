@@ -1,25 +1,8 @@
 {
+  "authLink": "https://wise.com/all-transactions?direction=OUTGOING",
   "url": "https://wise.com/gateway/v3/profiles/{{PROFILE_ID}}/transfers/{{TRANSACTION_ID}}",
   "method": "GET",
   "body": "",
-  "proofMetadataSelectors": [
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].primaryAmount"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].resource.id"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].title"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].visibleOn"
-    }
-  ],
   "metadata": {
     "platform": "wise",
     "urlRegex": "https://wise.com/gateway/v1/profiles/\\S+/activities/list",
@@ -36,7 +19,25 @@
         "date": "$.visibleOn",
         "currency": "$.currency"
       }
-    }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].primaryAmount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].resource.id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].title"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].visibleOn"
+      }
+    ]
   },
   "paramNames": [
     "TRANSACTION_ID",

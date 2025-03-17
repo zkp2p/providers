@@ -1,21 +1,8 @@
 {
+  "authLink": "https://account.venmo.com/?feed=mine",
   "url": "https://account.venmo.com/api/stories?feedType=me&externalId={{SENDER_ID}}",
   "method": "GET",
   "body": "",
-  "proofMetadataSelectors": [
-    {
-      "type": "jsonPath",
-      "value": "$.stories[{{INDEX}}].amount"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.stories[{{INDEX}}].paymentId"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.stories[{{INDEX}}].title.receiver.username"
-    }
-  ],
   "metadata": {
     "platform": "venmo",
     "urlRegex": "https://account.venmo.com/api/stories\\?feedType=me&externalId=\\S+",
@@ -32,7 +19,21 @@
         "paymentId": "$.paymentId",
         "currency": "$.currency"
       }
-    }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.stories[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.stories[{{INDEX}}].paymentId"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.stories[{{INDEX}}].title.receiver.username"
+      }
+    ]
   },
   "paramNames": [
     "SENDER_ID"

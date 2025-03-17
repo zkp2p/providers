@@ -1,33 +1,8 @@
 {
+  "authLink": "https://app.revolut.com/home",
   "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
   "method": "GET",
   "body": "",
-  "proofMetadataSelectors": [
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].amount"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].currency"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].recipient.username"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].completedDate"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].state"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.[{{INDEX}}].id"
-    }
-  ],
   "metadata": {
     "platform": "revolut",
     "urlRegex": "https://app.revolut.com/api/retail/user/current/transactions/last\\?count=20$",
@@ -44,7 +19,33 @@
         "paymentId": "$.id",
         "currency": "$.currency"
       }
-    }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].currency"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].recipient.username"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].completedDate"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].state"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].id"
+      }
+    ]
   },
   "paramNames": [],
   "paramSelectors": [],

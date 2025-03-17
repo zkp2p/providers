@@ -1,21 +1,8 @@
 {
+  "authLink": "https://www.mercadopago.com.ar/home",
   "url": "https://www.mercadopago.com.ar/activities/detail/{{PAYMENT_ID}}?from={{URL_PARAMS_FROM}}",
   "method": "GET",
   "body": "",
-  "proofMetadataSelectors": [
-    {
-      "type": "jsonPath",
-      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].title"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].amount.fraction"
-    },
-    {
-      "type": "jsonPath",
-      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].id"
-    }
-  ],
   "metadata": {
     "platform": "mercadopago",
     "urlRegex": "https://www.mercadopago.com.ar/home",
@@ -32,7 +19,21 @@
         "paymentId": "$.id",
         "currency": "$.amount.currency_id"
       }
-    }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].title"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].amount.fraction"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].id"
+      }
+    ]
   },
   "paramNames": [
     "PAYMENT_ID",
