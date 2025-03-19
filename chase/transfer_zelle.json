@@ -60,7 +60,7 @@
     },
     {
       "type": "regex",
-      "value": "\"state\":\"OUTGOING_PAYMENT_SENT\",\"date\":(?<timestamp>[0-9]+)"
+      "value": "\"date\":\"(?<date>[^\"]+)\""
     },
     {
       "type": "regex",
