@@ -1,4 +1,5 @@
 {
+  "actionType": "transfer_cashapp",
   "authLink": "https://cash.app/account/activity",
   "url": "https://cash.app/cash-app/activity/v1.0/page",
   "method": "POST",

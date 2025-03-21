@@ -1,4 +1,5 @@
 {
+  "actionType": "transfer_venmo",
   "authLink": "https://account.venmo.com/?feed=mine",
   "url": "https://account.venmo.com/api/stories?feedType=me&externalId={{SENDER_ID}}",
   "method": "GET",
