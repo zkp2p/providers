@@ -77,7 +77,7 @@
     },
     {
       "type": "regex",
-      "value": "\"operationId\":\"(?<paymentId>[^\"]+)\",\"activityName\":\"(?<paymentType>[^\"]+)\",\"activityStatus\":\"(?<paymentStatus>[^\"]+)\",\"activityStatusDetail\":\"accredited\",\"activityType\":\"sender\""
+      "value": "\"operationId\":\"(?<paymentId>[^\"]+)\",\"activityName\":\"(?<paymentType>[^\"]+)\",\"activityStatus\":\"(?<paymentStatus>[^\"]+)\","
     }
   ],
   "responseRedactions": [
@@ -104,7 +104,7 @@
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "\"operationId\":\"(.*?)\",\"activityName\":\"(.*?)\",\"activityStatus\":\"(.*?),\"activityStatusDetail\":\"accredited\",\"activityType\":\"sender\""
+      "regex": "\"operationId\":\"(.*?)\",\"activityName\":\"(.*?)\",\"activityStatus\":\"(.*?),"
     }
   ]
 }
