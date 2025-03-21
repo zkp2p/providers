@@ -1,4 +1,5 @@
 {
+  "actionType": "transfer_mercado_pago",
   "authLink": "https://www.mercadopago.com.ar/home",
   "url": "https://www.mercadopago.com.ar/activities/detail/{{PAYMENT_ID}}?from={{URL_PARAMS_FROM}}",
   "method": "GET",
@@ -59,7 +60,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "v2__detail\">CVU: (?<recipientId>[0-9]+)</li>",
+      "value": "v2__detail\">(.*?)CVU: (?<recipientId>[0-9]+)</li>",
       "hash": true
     },
     {
@@ -83,7 +84,7 @@
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "v2__detail\">CVU: (.*?)</li>"
+      "regex": "v2__detail\">(.*?)CVU: (.*?)</li>"
     },
     {
       "jsonPath": "",
