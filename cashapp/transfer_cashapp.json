@@ -49,7 +49,15 @@
       "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.sender_id"
     }
   ],
-  "skipRequestHeaders": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Content-Type",
+    "X-CBF",
+    "X-CSRF-Token",
+    "X-Request-Signature",
+    "X-Request-UUID",
+    "Cash-Web-Request"
+  ],
   "secretHeaders": [
     "Cookie",
     "Content-Type",
