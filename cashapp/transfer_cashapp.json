@@ -50,13 +50,7 @@
     }
   ],
   "skipRequestHeaders": [
-    "Cookie",
-    "Content-Type",
-    "X-CBF",
-    "X-CSRF-Token",
-    "X-Request-Signature",
-    "X-Request-UUID",
-    "Cash-Web-Request"
+    "Cookie"
   ],
   "secretHeaders": [
     "Cookie",
