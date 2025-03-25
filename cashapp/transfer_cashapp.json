@@ -50,7 +50,8 @@
     }
   ],
   "skipRequestHeaders": [
-    "Cookie"
+    "Cookie",
+    "Accept-Encoding"
   ],
   "secretHeaders": [
     "Cookie",
