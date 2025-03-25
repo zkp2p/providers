@@ -49,10 +49,7 @@
       "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.sender_id"
     }
   ],
-  "skipRequestHeaders": [
-    "Cookie",
-    "Accept-Encoding"
-  ],
+  "skipRequestHeaders": [],
   "secretHeaders": [
     "Cookie",
     "Content-Type",
