@@ -16,7 +16,7 @@
       "transactionJsonPathSelectors": {
         "recipient": "$.title",
         "amount": "$.amount.fraction",
-        "date": "$.date",
+        "date": "$.creationDate",
         "paymentId": "$.id",
         "currency": "$.amount.currency_id"
       }
