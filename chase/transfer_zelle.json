@@ -1,0 +1,105 @@
+{
+  "actionType": "transfer_zelle",
+  "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/singleDoor/payments/activity;params=qp,sentactivity",
+  "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list",
+  "method": "POST",
+  "body": "pageId=&sortBy=PROCESS_DATE&orderBy=DESC",
+  "metadata": {
+    "platform": "chase",
+    "urlRegex": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list$",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.listItems",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount",
+        "paymentId": "$.id",
+        "recipient": "$.recipientName",
+        "date": "$.date",
+        "currency": "$.currency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.listItems[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.listItems[{{INDEX}}].id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.listItems[{{INDEX}}].recipientName"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.listItems[{{INDEX}}].date"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "x-jpmc-channel",
+    "x-jpmc-csrf-token",
+    "referer",
+    "origin"
+  ],
+  "secretHeaders": [
+    "Cookie",
+    "x-jpmc-channel",
+    "x-jpmc-csrf-token",
+    "referer",
+    "origin"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"id\":(?<id>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"date\":\"(?<date>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"recipientId\":(?<recipientId>[0-9]+)",
+      "hash": true
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.listItems[{{INDEX}}].id",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.listItems[{{INDEX}}].status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.listItems[{{INDEX}}].date",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.listItems[{{INDEX}}].amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.listItems[{{INDEX}}].recipientId",
+      "xPath": ""
+    }
+  ]
+}
