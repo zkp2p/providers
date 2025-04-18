@@ -1,0 +1,89 @@
+{
+  "actionType": "transfer_interac",
+  "authLink": "https://www1.royalbank.com/sgw1/olb/index-en/#/payment-history",
+  "url": "https://www1.royalbank.com/sgw5/digital/emt-presentation-service/v1/{{PAYMENT_ID}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "royalbankcanada",
+    "urlRegex": "https://www1.royalbank.com/sgw5/digital/payment-history-presentation-service/v1/summary\\?timestamp=\\S+",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.paymentHistoryList",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount",
+        "paymentId": "$.paymentID",
+        "recipient": "$.payeeAccount",
+        "date": "$.date",
+        "currency": "$.currency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.paymentHistoryList[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.paymentHistoryList[{{INDEX}}].paymentId"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.paymentHistoryList[{{INDEX}}].payeeAccount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.paymentHistoryList[{{INDEX}}].date"
+      }
+    ]
+  },
+  "paramNames": [
+    "PAYMENT_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.paymentHistoryList[{{INDEX}}].paymentID"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "x-dtpc"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"email\":\"(?<email>[^\"]+)\"",
+      "hash": true
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.email",
+      "xPath": ""
+    }
+  ]
+}
