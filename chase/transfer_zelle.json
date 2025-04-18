@@ -1,11 +1,12 @@
 {
+  "actionType": "transfer_zelle",
   "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/singleDoor/payments/activity;params=qp,sentactivity",
-  "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/detail/list",
+  "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list",
   "method": "POST",
   "body": "pageId=&sortBy=PROCESS_DATE&orderBy=DESC",
   "metadata": {
     "platform": "chase",
-    "urlRegex": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/detail/list$",
+    "urlRegex": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list$",
     "method": "POST",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
@@ -41,7 +42,14 @@
   },
   "paramNames": [],
   "paramSelectors": [],
-  "skipRequestHeaders": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "x-jpmc-channel",
+    "x-jpmc-csrf-token",
+    "referer",
+    "origin"
+  ],
   "secretHeaders": [
     "Cookie",
     "x-jpmc-channel",
