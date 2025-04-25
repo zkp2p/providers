@@ -16,9 +16,10 @@ To get started building a new provider, you will need to setup a local version o
 ## Creating a Provider
 1. Inspect network tab in Dev Tools after logging into your payment website. Or turn on Intercepted Requests in ZKP2P sidebar
 2. Find a request that contains amount, timestamp / date, recipient ID at a minimum. Look for additional params such as status (to see if payment finalized), currency (if platform supports more than 1 currency)
-3. Based on the request, populate the template.
+3. A tip is to look for where the transactions page is. Sometimes the transactions are expandable so you can log those too
+4. Based on the request, populate the template.
 
-## Select Template Parameters
+## Select Template Definitions
 - **fallbackUrlRegex**: This is for if the original urlRegex does not exist for certain accounts. It's rare, but view the Revolut template for an example.
 - **preprocessRegex**: If the response for the metadata is in HTML, we assume that there is a JSON somewhere that contains this metadata. The preprocess regex removes all of the surrounding HTML. View Mercado Pago for an example
 - **skipRequestHeaders**: If the array is empty then no request headers will be populated besides the ones that you input in secretHeaders. If there are headers, then these will be skipped and the rest will be sent to the server
