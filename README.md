@@ -19,13 +19,13 @@ To get started building a new provider, you will need to setup a local version o
 3. A tip is to look for where the transactions page is. Sometimes the transactions are expandable so you can log those too
 4. Based on the request, populate the template.
 
-## Select Template Definitions
+### Select Template Definitions
 - **fallbackUrlRegex**: This is for if the original urlRegex does not exist for certain accounts. It's rare, but view the Revolut template for an example.
 - **preprocessRegex**: If the response for the metadata is in HTML, we assume that there is a JSON somewhere that contains this metadata. The preprocess regex removes all of the surrounding HTML. View Mercado Pago for an example
 - **skipRequestHeaders**: If the array is empty then no request headers will be populated besides the ones that you input in secretHeaders. If there are headers, then these will be skipped and the rest will be sent to the server
 - **secretHeaders**: If there are secret headers, you must add them to skip request headers too if the array is populated. If empty, then you do not need to. Secret headers are not seen by the notary proxy, so keep Cookies and other authorization keys here
 
-## Common Issues
+### Common Issues
 - **Authenticate does not open desired auth link**: Check the Base URL you have set in the extension. Ensure you are running the server which is hosted in port 8080
 - **Authenticated into your payment platform but not redirected back to developer.zkp2p.xyz**: There is an issue with the urlRegex for metadata extraction. Double check your regex is correct
 - **Metadata returned to app, but Prove fails**: There is an issue with the response redactions or headers for the server call. If error is JSON path not found or regex not found then check your response redactions parameters. If it returns a error that is not 200, the server has rejected your request, so there is an issue with your headers, request body.
