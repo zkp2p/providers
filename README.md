@@ -25,13 +25,8 @@ To get started building a new provider, you will need to setup a local version o
 - **secretHeaders**: If there are secret headers, you must add them to skip request headers too if the array is populated. If empty, then you do not need to. Secret headers are not seen by the notary proxy, so keep Cookies and other authorization keys here
 
 ## Common Issues
-### Authenticate does not open desired auth link
-Check the Base URL you have set in the extension. Ensure you are running the server which is hosted in port 8080
-
-### Authenticated into your payment platform but not redirected back to developer.zkp2p.xyz
-There is an issue with the urlRegex for metadata extraction. Double check your regex is correct
-
-### Metadata returned to app, but Prove fails
-There is an issue with the response redactions or headers for the server call. If error is JSON path not found or regex not found then check your response redactions parameters. If it returns a error that is not 200, the server has rejected your request, so there is an issue with your headers, request body.
+- **Authenticate does not open desired auth link**: Check the Base URL you have set in the extension. Ensure you are running the server which is hosted in port 8080
+- **Authenticated into your payment platform but not redirected back to developer.zkp2p.xyz**: There is an issue with the urlRegex for metadata extraction. Double check your regex is correct
+- **Metadata returned to app, but Prove fails**: There is an issue with the response redactions or headers for the server call. If error is JSON path not found or regex not found then check your response redactions parameters. If it returns a error that is not 200, the server has rejected your request, so there is an issue with your headers, request body.
 
 ![X-blob-background-1500x500px](https://github.com/zkp2p/zk-p2p/assets/6797244/65e8ae36-eb8b-4b53-85e9-fa0801bafcf0)
