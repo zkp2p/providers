@@ -1,0 +1,97 @@
+{
+  "actionType": "transfer_zelle",
+  "authLink": "https://secure.bankofamerica.com/pay-transfer-pay-portal/?request_locale=en-us&returnSiteIndicator=GAIEC&target=paymentactivity#/",
+  "url": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
+  "method": "POST",
+  "body": "{\"filterV1\":{\"dateFilter\":{\"timeframeForHistory\":\"DEFAULTDAYS\"}},\"sortCriteriaV1\":{\"fieldName\":\"DATE\",\"order\":\"DESCENDING\"},\"pageInfo\":{\"pageNum\":1,\"pageSize\":\"\"}}",
+  "metadata": {
+    "platform": "bankofamerica",
+    "urlRegex": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.completedTransactions",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount",
+        "paymentId": "$.confirmationNumber",
+        "recipient": "$.targetAccount.aliasToken",
+        "date": "$.transactionDate",
+        "currency": "$.currency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].confirmationNumber"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].targetAccount.aliasToken"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].transactionDate"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"confirmationNumber\":\"(?<confirmationNumber>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"transactionDate\":\"(?<transactionDate>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"aliasToken\":\"(?<aliasToken>[^\"]+)\"",
+      "hash": true
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.completedTransactions[{{INDEX}}].confirmationNumber",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.completedTransactions[{{INDEX}}].status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.completedTransactions[{{INDEX}}].transactionDate",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.completedTransactions[{{INDEX}}].amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.completedTransactions[{{INDEX}}].targetAccount.aliasToken",
+      "xPath": ""
+    }
+  ]
+}
