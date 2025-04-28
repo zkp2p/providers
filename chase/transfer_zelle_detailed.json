@@ -1,9 +1,9 @@
 {
   "actionType": "transfer_zelle",
   "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/singleDoor/payments/activity;params=qp,sentactivity",
-  "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list",
+  "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/detail/list",
   "method": "POST",
-  "body": "pageId=&sortBy=PROCESS_DATE&orderBy=DESC",
+  "body": "paymentId={{PAYMENT_ID}}",
   "metadata": {
     "platform": "chase",
     "urlRegex": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list$",
@@ -40,8 +40,15 @@
       }
     ]
   },
-  "paramNames": [],
-  "paramSelectors": [],
+  "paramNames": [
+    "PAYMENT_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.listItems[{{INDEX}}].id"
+    }
+  ],
   "skipRequestHeaders": [
     "Cookie",
     "Accept-Encoding",
@@ -60,36 +67,21 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"id\":(?<id>[0-9]+)"
+      "value": "\"paymentId\":(?<paymentId>[0-9]+)"
     },
     {
       "type": "regex",
-      "value": "\"status\":\"(?<status>[^\"]+)\""
-    },
-    {
-      "type": "regex",
-      "value": "\"date\":\"(?<date>[^\"]+)\""
-    },
-    {
-      "type": "regex",
-      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+      "value": "\"recipientEmail\":\"(?<recipientEmail>[^\"]+)\"",
+      "hash": true
     }
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.listItems[{{INDEX}}].id",
+      "jsonPath": "$.paymentId",
       "xPath": ""
     },
     {
-      "jsonPath": "$.listItems[{{INDEX}}].status",
-      "xPath": ""
-    },
-    {
-      "jsonPath": "$.listItems[{{INDEX}}].date",
-      "xPath": ""
-    },
-    {
-      "jsonPath": "$.listItems[{{INDEX}}].amount",
+      "jsonPath": "$.recipientEmail",
       "xPath": ""
     }
   ]
