@@ -1,0 +1,98 @@
+{
+  "actionType": "transfer_zelle",
+  "authLink": "https://online.citi.com/US/nga/zelle/transfer",
+  "url": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/pastActivityTransactions?transactionCount=20&pageId=0&tab=All",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "citi",
+    "urlRegex": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/pastActivityTransactions\\?transactionCount=20&pageId=0&tab=All",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.content.paymentTransactionsData",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount",
+        "paymentId": "$.paymentID",
+        "recipient": "$.partyToken",
+        "date": "$.updatedTimeStamp",
+        "currency": "$.currency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.content.paymentTransactionsData[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content.paymentTransactionsData[{{INDEX}}].paymentID"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content.paymentTransactionsData[{{INDEX}}].partyToken"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content.paymentTransactionsData[{{INDEX}}].updatedTimeStamp"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "accept-encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"paymentID\":\"(?<paymentID>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"paymentStatus\":\"(?<paymentStatus>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"updatedTimeStamp\":\"(?<updatedTimeStamp>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":\"(?<amount>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"partyToken\":\"(?<partyToken>[^\"]+)\"",
+      "hash": true
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].paymentID",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].paymentStatus",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].updatedTimeStamp",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].partyToken",
+      "xPath": ""
+    }
+  ]
+}
