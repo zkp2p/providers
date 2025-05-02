@@ -67,19 +67,11 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"paymentId\":(?<paymentId>[0-9]+)"
-    },
-    {
-      "type": "regex",
       "value": "\"recipientEmail\":\"(?<recipientEmail>[^\"]+)\"",
       "hash": true
     }
   ],
   "responseRedactions": [
-    {
-      "jsonPath": "$.paymentId",
-      "xPath": ""
-    },
     {
       "jsonPath": "$.recipientEmail",
       "xPath": ""
