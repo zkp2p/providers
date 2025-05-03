@@ -1,6 +1,6 @@
 {
   "actionType": "transfer_revolut",
-  "authLink": "https://app.revolut.com/home",
+  "authLink": "https://app.revolut.com/home/accounts?accountId=all_accounts&accountType=account",
   "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
   "method": "GET",
   "body": "",
