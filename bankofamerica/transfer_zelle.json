@@ -1,44 +1,21 @@
 {
   "actionType": "transfer_zelle",
-  "authLink": "https://secure.bankofamerica.com/pay-transfer-pay-portal/?request_locale=en-us&returnSiteIndicator=GAIEC&target=paymentactivity#/",
+  "authLink": "https://secure.bankofamerica.com/myaccounts/signin/signIn.go?returnSiteIndicator=GAIMW&langPref=en-us&request_locale=en-us&capturemode=N&newuser=false&bcIP=F",
   "url": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
   "method": "POST",
   "body": "{\"filterV1\":{\"dateFilter\":{\"timeframeForHistory\":\"DEFAULTDAYS\"}},\"sortCriteriaV1\":{\"fieldName\":\"DATE\",\"order\":\"DESCENDING\"},\"pageInfo\":{\"pageNum\":1,\"pageSize\":\"\"}}",
   "metadata": {
     "platform": "bankofamerica",
-    "urlRegex": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
-    "method": "POST",
+    "urlRegex": "https://secure.bankofamerica.com/myaccounts/omni/rest/CommunicationBarkerCount",
+    "method": "GET",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
     "preprocessRegex": "",
     "transactionsExtraction": {
-      "transactionJsonPathListSelector": "$.completedTransactions",
-      "transactionJsonPathSelectors": {
-        "amount": "$.amount",
-        "paymentId": "$.confirmationNumber",
-        "recipient": "$.targetAccount.aliasToken",
-        "date": "$.transactionDate",
-        "currency": "$.currency"
-      }
+      "transactionJsonPathListSelector": "$",
+      "transactionJsonPathSelectors": {}
     },
-    "proofMetadataSelectors": [
-      {
-        "type": "jsonPath",
-        "value": "$.completedTransactions[{{INDEX}}].amount"
-      },
-      {
-        "type": "jsonPath",
-        "value": "$.completedTransactions[{{INDEX}}].confirmationNumber"
-      },
-      {
-        "type": "jsonPath",
-        "value": "$.completedTransactions[{{INDEX}}].targetAccount.aliasToken"
-      },
-      {
-        "type": "jsonPath",
-        "value": "$.completedTransactions[{{INDEX}}].transactionDate"
-      }
-    ]
+    "proofMetadataSelectors": []
   },
   "paramNames": [],
   "paramSelectors": [],
