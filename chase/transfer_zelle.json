@@ -64,7 +64,7 @@
     },
     {
       "type": "regex",
-      "value": "\"status\":\"(?<status>[^\"]+)\""
+      "value": "\"verboseStatus\":\"(?<verboseStatus>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -81,7 +81,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.listItems[{{INDEX}}].status",
+      "jsonPath": "$.listItems[{{INDEX}}].verboseStatus",
       "xPath": ""
     },
     {
