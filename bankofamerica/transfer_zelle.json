@@ -1,21 +1,44 @@
 {
   "actionType": "transfer_zelle",
-  "authLink": "https://secure.bankofamerica.com/myaccounts/signin/signIn.go?returnSiteIndicator=GAIMW&langPref=en-us&request_locale=en-us&capturemode=N&newuser=false&bcIP=F",
+  "authLink": "https://secure.bankofamerica.com/pay-transfer-pay-portal/?request_locale=en-us&returnSiteIndicator=GAIMW&target=paymentactivity#/",
   "url": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
   "method": "POST",
   "body": "{\"filterV1\":{\"dateFilter\":{\"timeframeForHistory\":\"DEFAULTDAYS\"}},\"sortCriteriaV1\":{\"fieldName\":\"DATE\",\"order\":\"DESCENDING\"},\"pageInfo\":{\"pageNum\":1,\"pageSize\":\"\"}}",
   "metadata": {
+    "shouldReplayRequestInPage": true,
     "platform": "bankofamerica",
-    "urlRegex": "https://secure.bankofamerica.com/myaccounts/omni/rest/CommunicationBarkerCount",
-    "method": "GET",
-    "fallbackUrlRegex": "",
-    "fallbackMethod": "",
+    "urlRegex": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
+    "method": "POST",
+    "fallbackUrlRegex": "https://secure.bankofamerica.com/myaccounts/omni/rest/CommunicationBarkerCount",
+    "fallbackMethod": "GET",
     "preprocessRegex": "",
     "transactionsExtraction": {
-      "transactionJsonPathListSelector": "$",
-      "transactionJsonPathSelectors": {}
+      "transactionJsonPathListSelector": "$.completedTransactions",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.targetAccount.displayName",
+        "amount": "$.amount",
+        "date": "$.transactionDate",
+        "paymentId": "$.confirmationNumber"
+      }
     },
-    "proofMetadataSelectors": []
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].confirmationNumber"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].targetAccount.displayName"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.completedTransactions[{{INDEX}}].transactionDate"
+      }
+    ]
   },
   "paramNames": [],
   "paramSelectors": [],
