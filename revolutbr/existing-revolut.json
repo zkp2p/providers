@@ -1,0 +1,123 @@
+{
+    "id": "3bc6807f-70d5-49ed-be19-096c6a28a478",
+    "witnessClaimRequest": {
+        "name": "http",
+        "context": {
+            "contextAddress": "0x0",
+            "contextMessage": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "params": {
+            "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
+            "method": "GET",
+            "body": "",
+            "headers": {
+                "sec-ch-ua-platform": "\"Windows\"",
+                "sec-ch-ua": "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"",
+                "x-browser-application": "WEB_CLIENT",
+                "x-timezone": "America/Sao_Paulo",
+                "sec-ch-ua-mobile": "?0",
+                "baggage": "sentry-environment=production,sentry-release=master-dc10020cf29b725c932b8e34ed68573496e2e38d-5521,sentry-public_key=99852aa6d4384772b017317194049963,sentry-trace_id=99e8ca8c55dc4823ad6a3b4795e0c46a,sentry-sample_rate=0.03,sentry-sampled=false",
+                "sentry-trace": "99e8ca8c55dc4823ad6a3b4795e0c46a-b875d8a98219b7e1-0",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "x-client-version": "100.0",
+                "DNT": "1",
+                "Sec-Fetch-Site": "same-origin",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Dest": "empty",
+                "Referer": "https://app.revolut.com/home/accounts?accountId=all_accounts&accountType=account",
+                "Accept-Encoding": "gzip, deflate, br, zstd",
+                "Accept-Language": "en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7"
+            },
+            "paramValues": {},
+            "responseMatches": [
+                {
+                    "type": "regex",
+                    "value": "\"amount\":(?<amount>[0-9\\-]+)"
+                },
+                {
+                    "type": "regex",
+                    "value": "\"completedDate\":(?<completedDate>[0-9]+)"
+                },
+                {
+                    "type": "regex",
+                    "value": "\"currency\":\"(?<currency>[^\"]+)\""
+                },
+                {
+                    "type": "regex",
+                    "value": "\"id\":\"(?<id>[^\"]+)\""
+                },
+                {
+                    "type": "regex",
+                    "value": "\"state\":\"(?<state>[^\"]+)\""
+                },
+                {
+                    "type": "regex",
+                    "value": "\"username\":\"(?<username>[^\"]+)\"",
+                    "hash": true
+                }
+            ],
+            "responseRedactions": [
+                {
+                    "jsonPath": "$.[19].amount",
+                    "xPath": ""
+                },
+                {
+                    "jsonPath": "$.[19].completedDate",
+                    "xPath": ""
+                },
+                {
+                    "jsonPath": "$.[19].currency",
+                    "xPath": ""
+                },
+                {
+                    "jsonPath": "$.[19].id",
+                    "xPath": ""
+                },
+                {
+                    "jsonPath": "$.[19].recipient.username",
+                    "xPath": ""
+                },
+                {
+                    "jsonPath": "$.[19].state",
+                    "xPath": ""
+                }
+            ]
+        },
+        "secretParams": {
+            "headers": {
+                "x-device-id": "AAAAAT2GPywAfbqWaddqZAXilnzy2peJOUXHMcWomnOokTggyVuOGU14D3ebH4m+M03S3buoA6YnoLZkJc90ng=="
+            },
+            "cookieStr": "revo_hardware_id=7cb27ab5-a910-489b-baa3-939a3b140cd6; revo_device_id=ac7ff017-c146-5244-a08c-e47d24af6513; rev_cid=34d6241f-7773-4691-80df-db770791ceae; rwa_geo={\"payload\":{\"region\":\"BR\"}}; __cf_bm=FU6Tj6fdr_bGx2.I7azJNdM9Ec.iJQFu.ZER_.1CqZE-1746838877-1.0.1.1-qm3Buyq85sQOXpunNQEl4f198oPdc2TbeENZPy_UEFK.AGqIBV6Low5cJWQ552erAwq7qouJP07p0CvmUVUaiC8dG7ragzdfxoocYY_4Deo; _cfuvid=HkXnp6RT37iqiGFuTt2wAgz2vIt8uyT8d0.gclvdn7Q-1746838877430-0.0.1.1-604800000; revo_theme_mode=dark; revo_theme_background=blue; sso_all_code_verifier=[{\"codeVerifier\":\"747XSP3Wh89CGyw0PbAJmc0nesjLPlYxl1bEoXVV8v7z9y6YCz1aEztrNbREh2kE\",\"state\":\"bIEFkveTCIgiMI1E\"},{\"codeVerifier\":\"DILmLA8jG8xNmN1CkVkZIN8LYzAHEbk4trD7QYbo1o7UTwgVO4j9AKnZif2PQFnS\",\"state\":\"5TyQHvil2SDGMFXE\"}]; credentials=YjlhZTA4ZTItNWJjNy00NmMxLWFjNWItYTQ1MGMwM2I2Y2I3OnE3VWdTQUx2SXo1UFhCTEh2U1pKYlpJUW5zT2FhNUcwTHo5ZFVlN3BRRzQ=; refresh-token=YjlhZTA4ZTItNWJjNy00NmMxLWFjNWItYTQ1MGMwM2I2Y2I3OmszQXJHbGFQSThGc3RYcS0zWDVJWlk0ZjRvS2dLTWtzdC1yZVJDakxSWUk=; sso_code_verifier=[{\"codeVerifier\":\"747XSP3Wh89CGyw0PbAJmc0nesjLPlYxl1bEoXVV8v7z9y6YCz1aEztrNbREh2kE\",\"state\":\"bIEFkveTCIgiMI1E\"}]"
+        },
+        "ownerPrivateKey": "0x0123788edad59d7c013cdc85e4372f350f828e2cec62d9a2de4560e69aec7f89",
+        "client": {
+            "url": "wss://witness-proxy.zkp2p.xyz/ws"
+        },
+        "zkProofConcurrency": 4
+    },
+    "metadata": [
+        "Sat, 10 May 2025 01:01:57 GMT",
+        [
+            -20700
+        ],
+        [
+            "USD"
+        ],
+        [
+            "richardlz"
+        ],
+        [
+            1741128851539
+        ],
+        [
+            "COMPLETED"
+        ],
+        [
+            "04ac0932-f3b7-e31f-01c0-001040042071"
+        ]
+    ],
+    "actionType": "transfer_revolut",
+    "timestamp": 1746838982996,
+    "status": ""
+}

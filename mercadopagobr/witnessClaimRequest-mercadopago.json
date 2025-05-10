@@ -1,0 +1,98 @@
+{
+    "name": "http",
+    "context": {
+        "contextAddress": "0x0",
+        "contextMessage": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "params": {
+        "url": "https://www.mercadopago.com.br/activities/detail/{{PAYMENT_ID}}?from={{URL_PARAMS_FROM}}",
+        "method": "GET",
+        "body": "",
+        "headers": {
+            "device-memory": "8",
+            "dpr": "1.25",
+            "viewport-width": "1157",
+            "rtt": "100",
+            "downlink": "2.05",
+            "ect": "4g",
+            "sec-ch-ua": "\"Chromium\";v=\"136\", \"Google Chrome\";v=\"136\", \"Not.A/Brand\";v=\"99\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "DNT": "1",
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "Referer": "https://www.mercadopago.com.br/home",
+            "Origin": "https://www.mercadopago.com.br",
+            "Cache-Control": "max-age=0",
+            "Connection": "keep-alive",
+            "Sec-Fetch-Site": "same-origin",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Dest": "document",
+            "Accept-Language": "en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7"
+        },
+        "paramValues": {
+            "PAYMENT_ID": "pix_transfer_mo_payout_movement-2763a2de9906f477b0a07ad4a076295c05f4dafd",
+            "URL_PARAMS_FROM": "mp-home"
+        },
+        "responseMatches": [
+            {
+                "type": "regex",
+                "value": "v2__detail\">(.*?)CVU: (?<recipientId>[0-9]+)</li>",
+                "hash": true
+            },
+            {
+                "type": "regex",
+                "value": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(?<amt>[0-9.]+)</span><span aria-hidden=\"true\">,</span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(?<cents>[0-9]+)</span>"
+            },
+            {
+                "type": "regex",
+                "value": "Total\",\"amount\":{\"currency_id\":\"(?<curr>[^\"]+)\""
+            },
+            {
+                "type": "regex",
+                "value": ",\"date\":\"(?<date>[^\"]+)\",\"sections\""
+            },
+            {
+                "type": "regex",
+                "value": "\"operationId\":(?<paymentId>[^,]+),\"activityName\":\"(?<paymentType>[^\"]+)\",\"activityStatus\":\"(?<paymentStatus>[^\"]+)\","
+            }
+        ],
+        "responseRedactions": [
+            {
+                "jsonPath": "",
+                "regex": "v2__detail\">(.*?)CVU: (.*?)</li>",
+                "xPath": ""
+            },
+            {
+                "jsonPath": "",
+                "regex": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(.*?)</span><span aria-hidden=\"true\">,</span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(.*?)</span>",
+                "xPath": ""
+            },
+            {
+                "jsonPath": "",
+                "regex": "\"Total\",\"amount\":{\"currency_id\":\"(.*?)\"",
+                "xPath": ""
+            },
+            {
+                "jsonPath": "",
+                "regex": ",\"date\":\"(.*)\",\"sections\"",
+                "xPath": ""
+            },
+            {
+                "jsonPath": "",
+                "regex": "\"operationId\":(.*?),\"activityName\":\"(.*?)\",\"activityStatus\":\"(.*?),",
+                "xPath": ""
+            }
+        ]
+    },
+    "secretParams": {
+        "headers": {},
+        "cookieStr": "cb_user_id=null; cb_group_id=null; cb_anonymous_id=%229b71900a-d2f2-43f1-afd2-440c6464ed35%22; _gcl_au=1.1.1143268374.1746020845; __hs_cookie_cat_pref=1:false_2:false_3:false; _hjSessionUser_1798523=eyJpZCI6IjE0NmVjZjdkLTgyMWYtNWYzYy04Zjc3LWFlNjNiZjM2ZDdhNSIsImNyZWF0ZWQiOjE3NDYwMjA4NTExMzMsImV4aXN0aW5nIjpmYWxzZX0=; _fbp=fb.2.1746020851327.8625820337329775; _ga=GA1.1.647695879.1746656378; _d2id=5c1b896c-f778-4d32-a91b-cf50ab88d965; ssid=ghy-050718-9aYuY3z9Rk1Cz3TBfO2X7BtfvWhcyO-__-73160335-__-1841352120745--RRR_0-RRR_0; orguserid=9hH90dtdHH9; orguseridp=73160335; orgnickp=ICAROPH; ftid=cwTtdtBPH4MJMGW8wOlPJ6LYqVnqFWOJ-1611504790318; cookiesPreferencesLoggedFallback=%7B%22userId%22%3A73160335%2C%22categories%22%3A%7B%22advertising%22%3Atrue%2C%22functionality%22%3Atrue%2C%22performance%22%3Atrue%2C%22traceability%22%3Atrue%7D%7D; cookiesPreferencesNotLogged=%7B%22categories%22%3A%7B%22advertising%22%3Atrue%2C%22functionality%22%3Atrue%2C%22performance%22%3Atrue%2C%22traceability%22%3Atrue%7D%7D; mp_wsid=eyJhbGciOiJSUzI1NiIsImtpZCI6IlBNREhlSGt2WEdPZ2JmWFNXZ2VnMDRzeEVTZG1yV0N1TndKcFl1N3lGUjg9IiwidHlwIjoiSldUIn0.eyJhZG1pbl9vdHAiOmZhbHNlLCJhdXRoX2Zsb3ciOiJhY2Nlc3MiLCJjbGllbnRfaWQiOjY0OTUyMTMwOTkwNDY1NywiZXhwIjoxODQxMzUyMTIwLCJpYXQiOjE3NDY2NTg0NzAsImlzcyI6InVybjphdXRoLXNlcnZlcjpzZXNzaW9ucyIsImp0aSI6IjM2MzcyMWMyLTNiMjEtNDJjYS05YTRiLTQ4OTViMmRlMzNiNSIsInByb2R1Y3RfaWQiOjIsInNpdGVfaWQiOiJtbGIiLCJzc2kiOiI5NGIxNzZiMC0zNGY1LTQ1YTItYjM2Mi0wY2M5Y2RlZWY5NDkiLCJzdWIiOiJ1cm46dXNlcnM6NzMxNjAzMzUifQ.MJEin2S9cLTWerQjm1-5SVNPT4SYvgMzrHzaGnW_LeuZQuhQpj8BR6EDtYVaiVrZW6M796uS1_APAd9FGKHo0Z0-Iq42Uj28ThZ9iafwzjOEn99kBENS3OqIOYhEL2xsX7BgFyl9FXiUsSkvcKag_pAhL6WuwTGXkFpd40QjE3WVWHBRGgpchMqjtdyaqYdoboSgJkVYdhx9zYL01sADgvEP395cCzmpmYdmSuewPU9RaSqi1NuAlw5FGWye2-_rW03jYcr9PhVDflSXoS5op6FumTuJJY_DEIUtIgaWSTPJLVPkoCmWzS3Lb-OujMBHTwwYsr3KlGO0J-LZMgH-ZQ; p_dsid=5543ac09-1f76-4707-89d3-a3e251cdfe9e-1746658472244; _hjSessionUser_492923=eyJpZCI6ImQyNTRkNjk3LTg3ZDktNTU2NC1iMDY2LWQ4NjM4ZDk4MDA1YiIsImNyZWF0ZWQiOjE3NDY2NTg0NzY3MTAsImV4aXN0aW5nIjp0cnVlfQ==; QSI_SI_23SnzFDvtxRGSZ8_intercept=true; _ga_XJRJL56B0Z=GS2.1.s1746748497$o2$g1$t1746748910$j0$l0$h0; _csrf=4hhGrziu9BjQs5N8OV_NuGuc; _mldataSessionId=ddce412f-6aa4-4dee-9fe6-10c09e6e90e2; QSI_SI_cDgJbLqs7Lb08Hs_intercept=true; QSI_HistorySession=https%3A%2F%2Fwww.mercadopago.com.br%2Fhome~1746835999874%7Chttps%3A%2F%2Fwww.mercadopago.com.br%2Fhome%23from-section%3Dmenu~1746837179450%7Chttps%3A%2F%2Fwww.mercadopago.com.br%2Fhome~1746837454480%7Chttps%3A%2F%2Fwww.mercadopago.com.br%2Fhome%23from-section%3Dmenu~1746837668654%7Chttps%3A%2F%2Fwww.mercadopago.com.br%2Fhome~1746838329795%7Chttps%3A%2F%2Fwww.mercadopago.com.br%2Fhome%23from-section%3Dmenu~1746838530732%7Chttps%3A%2F%2Fwww.mercadopago.com.br%2Fhome~1746838537736; app-theme=yellowblue-light; hide-cookie-banner=73160335-COOKIE_PREFERENCES_ALREADY_SET; ttl=1746839445315; hide-cookie-banner_73160335=COOKIE_PREFERENCES_ALREADY_SET; p_edsid=4062551e-e0ba-3855-b3a2-7bf939ab1ba4-1746839446657; x-meli-session-id=armor.d6bd434db750678a86071814d3e712b37d49951fd4bcb1bac61ac3297f114ac8d0398d9ef759a91c1da2db4a45496e65133bbc2e587afadf3ea6af3b575c8897b034503bf3bb42e23e3d919d221881af3fade4e5919ec5d3c31f6449370667e4.e6521d5a49d32618d17dad03f11b5504; cookiesPreferencesLogged=%7B%22userId%22%3A73160335%2C%22categories%22%3A%7B%22advertising%22%3Atrue%2C%22functionality%22%3Atrue%2C%22performance%22%3Atrue%2C%22traceability%22%3Atrue%7D%7D"
+    },
+    "ownerPrivateKey": "0x0123788edad59d7c013cdc85e4372f350f828e2cec62d9a2de4560e69aec7f89",
+    "client": {
+        "url": "wss://witness-proxy.zkp2p.xyz/ws"
+    },
+    "zkProofConcurrency": 4
+}

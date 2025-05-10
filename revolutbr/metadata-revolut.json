@@ -1,0 +1,51 @@
+{
+    "requestId": "6315",
+    "metadata": [
+        {
+            "recipient": "marcuspg4o",
+            "amount": -15000,
+            "date": 1746469010568,
+            "paymentId": "04bfedf8-ae33-e34d-01c0-005e1a573981",
+            "currency": "USD",
+            "hidden": false,
+            "originalIndex": 6
+        },
+        {
+            "recipient": "marcuspg4o",
+            "amount": -4500,
+            "date": 1746468059933,
+            "paymentId": "04bfed10-9b2f-e3d6-01c0-00f05f3f9acf",
+            "currency": "USD",
+            "hidden": false,
+            "originalIndex": 7
+        },
+        {
+            "recipient": "richardlz",
+            "amount": -20700,
+            "date": 1741128851539,
+            "paymentId": "04ac0932-f3b7-e31f-01c0-001040042071",
+            "currency": "USD",
+            "hidden": false,
+            "originalIndex": 19
+        },
+        {
+            "recipient": "richardlz",
+            "amount": -10100,
+            "date": 1740826989593,
+            "paymentId": "04aae952-31cd-e3d0-01c0-001320565bc6",
+            "currency": "USD",
+            "hidden": false,
+            "originalIndex": 21
+        },
+        {
+            "recipient": "richardlz",
+            "amount": -10000,
+            "date": 1740826709014,
+            "paymentId": "04aae90d-ad59-e3ca-01c0-0011ae9469dc",
+            "currency": "USD",
+            "hidden": false,
+            "originalIndex": 22
+        }
+    ],
+    "platform": "revolut"
+}
