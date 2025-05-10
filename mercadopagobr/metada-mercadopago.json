@@ -1,0 +1,96 @@
+{
+    "requestId": "7019",
+    "metadata": [
+        {
+            "recipient": "Janete Pereira",
+            "amount": "-10",
+            "date": "2025-05-08T11:09:06.000Z",
+            "paymentId": "pix_transfer_mo_payout_movement-2763a2de9906f477b0a07ad4a076295c05f4dafd",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 0
+        },
+        {
+            "recipient": "Icaro Pereira Hoff",
+            "amount": "-10",
+            "date": "2025-05-07T23:43:44.000Z",
+            "paymentId": "pix_transfer_mo_payout_movement-78711072109fcc0e6bccfa366e35357cf30e4f8d",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 1
+        },
+        {
+            "recipient": "Icaro Pereira Hoff",
+            "amount": "100",
+            "date": "2025-05-07T23:20:11.000Z",
+            "paymentId": "pix_transfer_mi_movement-1857763404fad5b47aec1235ae4c1f922df30c5e",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 2
+        },
+        {
+            "recipient": "Mercado Livre",
+            "amount": "-449",
+            "date": "2025-04-02T16:26:26.000Z",
+            "paymentId": "purchase_v3-43981aa52a6f24e7c32e1a1a6fbe9b458720bcb",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 3
+        },
+        {
+            "recipient": "Mercado Livre",
+            "amount": "-95",
+            "date": "2025-01-28T13:28:19.000Z",
+            "paymentId": "order-baebfde68f1390b582502da78c64a5ac8b103cae",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 4
+        },
+        {
+            "recipient": "Mercado Livre",
+            "amount": "-1.329",
+            "date": "2024-11-22T12:12:40.000Z",
+            "paymentId": "order-70b167d48f188e9fb235f870d77ded18b33dec39",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 5
+        },
+        {
+            "recipient": "Meli+",
+            "amount": "-27",
+            "date": "2024-11-21T14:03:28.000Z",
+            "paymentId": "recurring_payment-6288f1dcda7c540698d4aed0cd5bc41eb29207e0",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 6
+        },
+        {
+            "recipient": "Meli+",
+            "amount": "-27",
+            "date": "2024-11-17T20:05:06.000Z",
+            "paymentId": "recurring_payment-97d5f89d4875e18303582c8106d0dec7767c252f",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 7
+        },
+        {
+            "recipient": "Meli+",
+            "amount": "-27",
+            "date": "2024-11-14T02:02:07.000Z",
+            "paymentId": "recurring_payment-64d7400a63314f750169d33b1aa73aeb23a5075",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 8
+        },
+        {
+            "recipient": "Mercado Livre",
+            "amount": "-159",
+            "date": "2024-10-25T16:04:44.000Z",
+            "paymentId": "order-1d7604a51356ca1db347fcb31068ce3704d4a186",
+            "currency": "BRL",
+            "hidden": false,
+            "originalIndex": 9
+        }
+    ],
+    "platform": "mercadopago"
+}
