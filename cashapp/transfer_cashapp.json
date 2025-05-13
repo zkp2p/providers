@@ -49,15 +49,27 @@
       "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.sender_id"
     }
   ],
-  "skipRequestHeaders": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "x-csrf-token",
+    "x-device-name",
+    "x-request-signature",
+    "x-request-uuid",
+    "cash-web-request",
+    "x-web-device-info",
+    "x-web-context",
+    "x-bt-id"
+  ],
   "secretHeaders": [
     "Cookie",
-    "Content-Type",
-    "X-CBF",
-    "X-CSRF-Token",
-    "X-Request-Signature",
-    "X-Request-UUID",
-    "Cash-Web-Request"
+    "x-csrf-token",
+    "x-device-name",
+    "x-request-signature",
+    "x-request-uuid",
+    "cash-web-request",
+    "x-web-device-info",
+    "x-web-context",
+    "x-bt-id"
   ],
   "responseMatches": [
     {
