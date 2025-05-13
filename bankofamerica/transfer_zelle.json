@@ -6,7 +6,7 @@
   "body": "{\"filterV1\":{\"dateFilter\":{\"timeframeForHistory\":\"DEFAULTDAYS\"}},\"sortCriteriaV1\":{\"fieldName\":\"DATE\",\"order\":\"DESCENDING\"},\"pageInfo\":{\"pageNum\":1,\"pageSize\":\"\"}}",
   "metadata": {
     "shouldReplayRequestInPage": true,
-    "platform": "bankofamerica",
+    "platform": "zelle",
     "urlRegex": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
     "method": "POST",
     "fallbackUrlRegex": "https://secure.bankofamerica.com/myaccounts/omni/rest/CommunicationBarkerCount",

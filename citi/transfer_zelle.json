@@ -5,7 +5,7 @@
   "method": "GET",
   "body": "",
   "metadata": {
-    "platform": "citi",
+    "platform": "zelle",
     "urlRegex": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/pastActivityTransactions\\?transactionCount=20&pageId=0&tab=All",
     "method": "GET",
     "fallbackUrlRegex": "",
