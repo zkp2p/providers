@@ -5,7 +5,7 @@
   "method": "POST",
   "body": "paymentId={{PAYMENT_ID}}",
   "metadata": {
-    "platform": "chase",
+    "platform": "zelle",
     "urlRegex": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list$",
     "method": "POST",
     "fallbackUrlRegex": "",
