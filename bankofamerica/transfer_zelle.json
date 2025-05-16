@@ -1,6 +1,5 @@
 {
   "actionType": "transfer_zelle",
-  "providerType": "bankofamerica",
   "authLink": "https://secure.bankofamerica.com/pay-transfer-pay-portal/?request_locale=en-us&returnSiteIndicator=GAIMW&target=paymentactivity#/",
   "url": "https://secure.bankofamerica.com/ogateway/payment-activity/api/v4/activity",
   "method": "POST",
