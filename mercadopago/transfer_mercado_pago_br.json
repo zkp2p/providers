@@ -1,12 +1,13 @@
 {
-  "actionType": "transfer_mercado_pago",
-  "authLink": "https://www.mercadopago.com.ar/home",
-  "url": "https://www.mercadopago.com.ar/activities/detail/{{PAYMENT_ID}}?from={{URL_PARAMS_FROM}}",
+  "countryCode": "br",
+  "actionType": "transfer_mercado_pago_br",
+  "authLink": "https://www.mercadopago.com.br/home",
+  "url": "https://www.mercadopago.com.br/activities/detail/{{PAYMENT_ID}}?from={{URL_PARAMS_FROM}}",
   "method": "GET",
   "body": "",
   "metadata": {
     "platform": "mercadopago",
-    "urlRegex": "https://www.mercadopago.com.ar/home",
+    "urlRegex": "https://www.mercadopago.com.br/home",
     "method": "GET",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
@@ -60,51 +61,60 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "v2__detail\">(.*?)CVU: (?<recipientId>[0-9]+)</li>",
+      "value": "\"name\":\"(?<recipientName>[^\"]+)\",\"email\":\"",
       "hash": true
     },
     {
       "type": "regex",
-      "value": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(?<amt>[0-9.]+)</span><span aria-hidden=\"true\">,</span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(?<cents>[0-9]+)</span>"
+      "value": "\"fraction\":\"(?<amt>[0-9]+)\",\"decimal_separator\":\",\",\"cents\":\"(?<cents>[0-9]+)\""
     },
     {
       "type": "regex",
-      "value": "Total\",\"amount\":{\"currency_id\":\"(?<curr>[^\"]+)\""
+      "value": "\"currency_id\":\"(?<curr>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": ",\"date\":\"(?<date>[^\"]+)\",\"sections\""
+      "value": "\"date\":\"(?<date>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"operationId\":(?<paymentId>[^,]+),\"activityName\":\"(?<paymentType>[^\"]+)\",\"activityStatus\":\"(?<paymentStatus>[^\"]+)\","
+      "value": "\"operationId\":(?<paymentId>[^,]+),\"activityName\":\"(?<paymentType>[^\"]+)\",\"activityStatus\":\"(?<paymentStatus>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"ID de transa(?:ção|Ã§Ã£o) Pix: (?<pixId>[A-Za-z0-9]+)\""
     }
   ],
   "responseRedactions": [
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "v2__detail\">(.*?)CVU: (.*?)</li>"
+      "regex": "\"name\":\"([^\"]+)\",\"email\":\""
     },
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(.*?)<\/span><span aria-hidden=\"true\">,<\/span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(.*?)<\/span>"
+      "regex": "\"fraction\":\"([0-9]+)\",\"decimal_separator\":\",\",\"cents\":\"([0-9]+)\""
     },
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "\"Total\",\"amount\":{\"currency_id\":\"(.*?)\""
+      "regex": "\"currency_id\":\"([^\"]+)\""
     },
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": ",\"date\":\"(.*)\",\"sections\""
+      "regex": "\"date\":\"([^\"]+)\""
     },
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "\"operationId\":(.*?),\"activityName\":\"(.*?)\",\"activityStatus\":\"(.*?),"
+      "regex": "\"operationId\":([^,]+),\"activityName\":\"([^\"]+)\",\"activityStatus\":\"([^\"]+)\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\"ID de transa(?:ção|Ã§Ã£o) Pix: ([A-Za-z0-9]+)\""
     }
   ]
 }
