@@ -77,16 +77,20 @@
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.listItems[{{INDEX}}].id"
+      "jsonPath": "$.listItems[{{INDEX}}].id",
+      "xPath": ""
     },
     {
-      "jsonPath": "$.listItems[{{INDEX}}].verboseStatus"
+      "jsonPath": "$.listItems[{{INDEX}}].verboseStatus",
+      "xPath": ""
     },
     {
-      "jsonPath": "$.listItems[{{INDEX}}].date"
+      "jsonPath": "$.listItems[{{INDEX}}].date",
+      "xPath": ""
     },
     {
-      "jsonPath": "$.listItems[{{INDEX}}].amount"
+      "jsonPath": "$.listItems[{{INDEX}}].amount",
+      "xPath": ""
     }
   ],
   "additionalProofs": [
