@@ -92,5 +92,48 @@
       "jsonPath": "$.listItems[{{INDEX}}].amount",
       "xPath": ""
     }
+  ],
+  "additionalProofs": [
+    {
+      "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/detail/list",
+      "method": "POST",
+      "body": "paymentId={{PAYMENT_ID}}",
+      "paramNames": [
+        "PAYMENT_ID"
+      ],
+      "paramSelectors": [
+        {
+          "type": "jsonPath",
+          "value": "$.listItems[{{INDEX}}].id"
+        }
+      ],
+      "skipRequestHeaders": [
+        "Cookie",
+        "Accept-Encoding",
+        "x-jpmc-channel",
+        "x-jpmc-csrf-token",
+        "referer",
+        "origin"
+      ],
+      "secretHeaders": [
+        "Cookie",
+        "x-jpmc-channel",
+        "x-jpmc-csrf-token",
+        "referer",
+        "origin"
+      ],
+      "responseMatches": [
+        {
+          "type": "regex",
+          "value": "\"recipientEmail\":\"(?<recipientEmail>[^\"]+)\"",
+          "hash": true
+        }
+      ],
+      "responseRedactions": [
+        {
+          "jsonPath": "$.recipientEmail"
+        }
+      ]
+    }
   ]
 }
