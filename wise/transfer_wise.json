@@ -111,5 +111,9 @@
       "jsonPath": "$.targetRecipientId",
       "xPath": ""
     }
-  ]
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "actionLink": "https://wise.com/send#/contact-beta/existing"
+  }
 }
