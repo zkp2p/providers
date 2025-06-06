@@ -114,6 +114,7 @@
   ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
-    "actionLink": "https://wise.com/send#/contact-beta/existing"
+    "actionLink": "https://wise.com/send/",
+    "actionCompletedUrlRegex": "https://wise.com/success/transfer/\\S+"
   }
 }
