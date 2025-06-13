@@ -123,5 +123,12 @@
       "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.state",
       "xPath": ""
     }
-  ]
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "actionLink": "https://cash.app/{{RECEIVER_ID}}/{{AMOUNT}}",
+    "isExternalLink": true,
+    "appStoreLink": "https://apps.apple.com/us/app/cash-app-mobile-banking/id711923939",
+    "playStoreLink": "https://play.google.com/store/apps/details?id=com.squareup.cash"
+  }
 }

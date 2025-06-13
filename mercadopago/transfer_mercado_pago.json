@@ -112,6 +112,7 @@
       "mercadolibre.com",
       "www.mercadolibre.com"
     ],
-    "actionLink": "https://www.mercadopago.com.ar/money-out/transfer/"
+    "actionLink": "https://www.mercadopago.com.ar/money-out/transfer/",
+    "actionCompletedUrlRegex": ""
   }
 }
