@@ -106,5 +106,13 @@
       "xPath": "",
       "regex": "\"operationId\":(.*?),\"activityName\":\"(.*?)\",\"activityStatus\":\"(.*?),"
     }
-  ]
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [
+      "mercadolibre.com",
+      "www.mercadolibre.com"
+    ],
+    "actionLink": "https://www.mercadopago.com.ar/money-out/transfer/",
+    "actionCompletedUrlRegex": ""
+  }
 }
