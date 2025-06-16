@@ -126,7 +126,7 @@
   ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
-    "actionLink": "https://cash.app/{{RECEIVER_ID}}/{{AMOUNT}}",
+    "actionLink": "squarecash://cash?recipient=${{RECEIVER_ID}}&amount={{AMOUNT}}",
     "isExternalLink": true,
     "appStoreLink": "https://apps.apple.com/us/app/cash-app-mobile-banking/id711923939",
     "playStoreLink": "https://play.google.com/store/apps/details?id=com.squareup.cash"
