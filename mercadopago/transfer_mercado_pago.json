@@ -113,6 +113,6 @@
       "www.mercadolibre.com"
     ],
     "actionLink": "https://www.mercadopago.com.ar/money-out/transfer/",
-    "actionCompletedUrlRegex": ""
+    "actionCompletedUrlRegex": "https://www.mercadopago.com.ar/money-out/transfer/congrats\\?data=\\S+"
   }
 }
