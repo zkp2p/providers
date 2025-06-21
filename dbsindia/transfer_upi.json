@@ -1,0 +1,95 @@
+{
+  "actionType": "transfer_upi",
+  "authLink": "https://internet-banking.retail.dbsbank.in/login",
+  "url": "https://internet-banking.retail.dbsbank.in/services/kgp/DBINEAPIService/banking/deposit-accounts/transactions/inquiry",
+  "method": "POST",
+  "body": "",
+  "metadata": {
+    "platform": "dbsindia",
+    "urlRegex": "https://internet-banking.retail.dbsbank.in/services/kgp/DBINEAPIService/banking/deposit-accounts/transactions/inquiry$",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.transactions",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount.balance",
+        "paymentId": "$.description.textValue",
+        "recipient": "$.description.textValue",
+        "date": "$.transactionDate.value",
+        "currency": "$.amount.currency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].amount.balance"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].description.textValue"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].description.textValue"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].transactionDate.value"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Authorization",
+    "dbsasecret",
+    "Accept-Encoding",
+    "referer",
+    "origin"
+  ],
+  "secretHeaders": [
+    "Cookie",
+    "Authorization",
+    "dbsasecret",
+    "referer",
+    "origin"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"description\":{\"textValue\":\"(?<id>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"transactionDate\":{\"value\":\"(?<date>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":{\"balance\":\"(?<amount>[0-9\\.]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].description.textValue",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].transactionDate.value",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].amount.balance",
+      "xPath": ""
+    }
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "actionLink": "chase://",
+    "isExternalLink": true,
+    "appStoreLink": "https://apps.apple.com/bb/app/chase-mobile-u-s/id298867247",
+    "playStoreLink": "https://play.google.com/store/apps/details?id=com.chase.sig.android"
+  }
+}
