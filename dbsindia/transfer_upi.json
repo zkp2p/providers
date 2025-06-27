@@ -3,7 +3,7 @@
   "authLink": "https://internet-banking.retail.dbsbank.in/login",
   "url": "https://internet-banking.retail.dbsbank.in/services/kgp/DBINEAPIService/banking/deposit-accounts/transactions/inquiry",
   "method": "POST",
-  "body": "",
+  "body": "{\"globalAccountId\":\"{{ACCOUNT_ID}}\",\"countPerPage\":\"\",\"cursorID\":\"0\",\"productCode\":\"\",\"transactionCurrencyCode\":\"\",\"pageNumber\":0,\"transactionStatus\":\"\"}",
   "metadata": {
     "platform": "dbsindia",
     "urlRegex": "https://internet-banking.retail.dbsbank.in/services/kgp/DBINEAPIService/banking/deposit-accounts/transactions/inquiry$",
@@ -15,9 +15,8 @@
       "transactionJsonPathListSelector": "$.transactions",
       "transactionJsonPathSelectors": {
         "amount": "$.amount.balance",
-        "paymentId": "$.description.textValue",
         "recipient": "$.description.textValue",
-        "date": "$.transactionDate.value",
+        "date": "$.postedDate.value",
         "currency": "$.amount.currency"
       }
     },
@@ -32,16 +31,16 @@
       },
       {
         "type": "jsonPath",
-        "value": "$.transactions[{{INDEX}}].description.textValue"
-      },
-      {
-        "type": "jsonPath",
-        "value": "$.transactions[{{INDEX}}].transactionDate.value"
+        "value": "$.transactions[{{INDEX}}].postedDate.value"
       }
     ]
   },
-  "paramNames": [],
-  "paramSelectors": [],
+  "paramNames": ["ACCOUNT_ID"],
+  "paramSelectors": [{
+    "type": "jsonPath",
+    "value": "$.globalAccountId",
+    "source": "requestBody"
+  }],
   "skipRequestHeaders": [
     "Cookie",
     "Authorization",
@@ -60,15 +59,15 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"description\":{\"textValue\":\"(?<id>[^\"]+)\""
+      "value": "\"textValue\":\"UPI(~|\\s)(?<ref>[^~\\s]+)(~|\\s)(?<id>[^~\\s]+)(~|\\s)(?<name>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"transactionDate\":{\"value\":\"(?<date>[^\"]+)\""
+      "value": "\"value\":\"(?<date>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"amount\":{\"balance\":\"(?<amount>[0-9\\.]+)\""
+      "value": "\"balance\":\"(?<amount>[0-9\\.]+)\""
     }
   ],
   "responseRedactions": [
@@ -77,19 +76,12 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.transactions[{{INDEX}}].transactionDate.value",
+      "jsonPath": "$.transactions[{{INDEX}}].postedDate.value",
       "xPath": ""
     },
     {
       "jsonPath": "$.transactions[{{INDEX}}].amount.balance",
       "xPath": ""
     }
-  ],
-  "mobile": {
-    "includeAdditionalCookieDomains": [],
-    "actionLink": "chase://",
-    "isExternalLink": true,
-    "appStoreLink": "https://apps.apple.com/bb/app/chase-mobile-u-s/id298867247",
-    "playStoreLink": "https://play.google.com/store/apps/details?id=com.chase.sig.android"
-  }
+  ]
 }
