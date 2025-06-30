@@ -1,0 +1,53 @@
+{
+  "actionType": "transfer_paypal",
+  "authLink": "https://www.paypal.com/myaccount/activities/",
+  "url": "https://www.paypal.com/myaccount/activities/details/inline/{{PAYMENT_ID}}?fetchWorldReadyMetadata=true",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "paypal",
+    "urlRegex": "https://www.paypal.com/myaccount/activities/\\?free_text_search\\S+",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionRegexListSelector": "js_transactionItem-([A-Z0-9]+)"
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "regex",
+        "value": "js_transactionItem-([A-Z0-9]+)"
+      }
+    ]
+  },
+  "paramNames": [
+    "PAYMENT_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "js_transactionItem-([A-Z0-9]+)"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"email\":\"(?<email>[^\"]+)\"",
+      "hash": true
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data.p2pRedirect.repeatTxn.email",
+      "xPath": ""
+    }
+  ]
+}
