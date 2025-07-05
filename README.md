@@ -123,7 +123,7 @@ This guide explains how to create and configure provider templates for the ZKP2P
   "preprocessRegex": "window\\.__data\\s*=\\s*({.*?});",
   "transactionsExtraction": {
     "transactionJsonPathListSelector": "$.data.transactions",
-    "transactionRegexListSelectors": {
+    "transactionRegexSelectors": {
       "paymentId": "js_transactionItem-([A-Z0-9]+)"
     },
     "transactionJsonPathSelectors": {
@@ -210,7 +210,7 @@ interface ParamSelector {
 
 #### `mobile` (optional)
 - **Type**: `object`
-- **Description**: Configuration for mobile app deep linking and functionality
+- **Description**: Special configurations for the ZKP2P mobile SDK.
 
 ```json
 "mobile": {
@@ -296,9 +296,20 @@ Use regular expressions for pattern matching:
 ##### `transactionRegexSelectors` (optional)
 - **Type**: `string`
 - **Description**: Regular expression pattern to extract transaction identifiers from HTML/text responses
-- **Alternative to**: `transactionJsonPathListSelector` when dealing with non-JSON responses
-- **Example**: `"js_transactionItem-([A-Z0-9]+)"`
 - **Use case**: Use this when transactions are embedded in HTML or when the response is not structured JSON
+- **Example**: 
+```json
+{
+  transactionsExtraction: {
+    transactionRegexSelectors: {
+      amount: '<td class="amount">\\$([\\d,\\.]+)</td>',
+      recipient: '<td class="recipient">([^<]+)</td>',
+      date: '<td class="date">(\\d{2}/\\d{2}/\\d{4})</td>',
+      paymentId: 'data-payment-id="(\\d+)"'
+    }
+  }
+}
+```
 
 **Note**: Use either `transactionJsonPathListSelector` (for JSON responses) or `transactionRegexSelectors` (for HTML/text responses), not both.
 
