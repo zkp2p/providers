@@ -47,23 +47,19 @@
     },
     {
       "type": "regex",
-      "value": "\"value\":\"(?<value>[^\"]+)\"",
-      "hash": true
+      "value": "\"value\":\"(?<value>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"currencyCode\":\"(?<currencyCode>[^\"]+)\"",
-      "hash": true
+      "value": "\"currencyCode\":\"(?<currencyCode>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"status\":\"(?<status>[^\"]+)\"",
-      "hash": true
+      "value": "\"status\":\"(?<status>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"primitiveTimeCreated\":\"(?<primitiveTimeCreated>[^\"]+)\"",
-      "hash": true
+      "value": "\"primitiveTimeCreated\":\"(?<primitiveTimeCreated>[^\"]+)\""
     }
   ],
   "responseRedactions": [
