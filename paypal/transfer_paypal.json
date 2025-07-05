@@ -1,0 +1,87 @@
+{
+  "actionType": "transfer_paypal",
+  "authLink": "https://www.paypal.com/myaccount/activities/",
+  "url": "https://www.paypal.com/myaccount/activities/details/inline/{{PAYMENT_ID}}?fetchWorldReadyMetadata=true",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "paypal",
+    "urlRegex": "https://www.paypal.com/myaccount/activities/$",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionRegexSelectors": {
+        "paymentId": "js_transactionItem-([A-Z0-9]+)"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "regex",
+        "value": "js_transactionItem-([A-Z0-9]+)"
+      }
+    ]
+  },
+  "paramNames": [
+    "PAYMENT_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "js_transactionItem-([A-Z0-9]+)"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"email\":\"(?<email>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"value\":\"(?<value>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"currencyCode\":\"(?<currencyCode>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"primitiveTimeCreated\":\"(?<primitiveTimeCreated>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data.p2pRedirect.repeatTxn.email",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.amount.rawAmounts.gross.value",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.amount.rawAmounts.gross.currencyCode",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.primitiveTimeCreated",
+      "xPath": ""
+    }
+  ]
+}
