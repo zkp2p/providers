@@ -6,7 +6,7 @@
   "body": "",
   "metadata": {
     "platform": "paypal",
-    "urlRegex": "https://www.paypal.com/myaccount/activities/\\?free_text_search\\S+",
+    "urlRegex": "https://www.paypal.com/myaccount/activities/$",
     "method": "GET",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
@@ -42,11 +42,47 @@
       "type": "regex",
       "value": "\"email\":\"(?<email>[^\"]+)\"",
       "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"value\":\"(?<value>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"currencyCode\":\"(?<currencyCode>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"status\":\"(?<status>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"primitiveTimeCreated\":\"(?<primitiveTimeCreated>[^\"]+)\"",
+      "hash": true
     }
   ],
   "responseRedactions": [
     {
       "jsonPath": "$.data.p2pRedirect.repeatTxn.email",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.amount.rawAmounts.gross.value",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.amount.rawAmounts.gross.currencyCode",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.primitiveTimeCreated",
       "xPath": ""
     }
   ]
