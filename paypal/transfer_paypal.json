@@ -12,7 +12,9 @@
     "fallbackMethod": "",
     "preprocessRegex": "",
     "transactionsExtraction": {
-      "transactionRegexListSelector": "js_transactionItem-([A-Z0-9]+)"
+      "transactionRegexSelectors": {
+        "paymentId": "js_transactionItem-([A-Z0-9]+)"
+      }
     },
     "proofMetadataSelectors": [
       {
