@@ -1,0 +1,109 @@
+{
+  "actionType": "transfer_idfc",
+  "authLink": "https://my.idfcfirstbank.com/pay/history",
+  "url": "https://app.my.idfcfirstbank.com/api/pfm/v2/transactions",
+  "method": "POST",
+  "body": "{\"accountNumbers\":[\"{{SENDER_ID}}\"],\"skip\":0,\"take\":20,\"upiStatus\":[\"SUCCESS\"]}",
+  "metadata": {
+    "shouldSkipCloseTab": true,
+    "shouldReplayRequestInPage": true,
+    "platform": "upi",
+    "urlRegex": "https://app.my.idfcfirstbank.com/api/pfm/v2/transactions",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",  
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.data",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.toPayeeName",
+        "amount": "$.amount",
+        "date": "$.timestamp",
+        "paymentId": "$.sourceTransactionId",
+        "currency": "$.accountCurrencyCode"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.data[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data[{{INDEX}}].sourceTransactionId"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data[{{INDEX}}].toPayeeName"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data[{{INDEX}}].timestamp"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data[{{INDEX}}].accountCurrencyCode"
+      }
+    ]
+  },
+  "paramNames": [
+    "SENDER_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.data[{{INDEX}}].userAccountNumber"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Accept-Encoding",
+    "User-Agent"
+  ],
+  "secretHeaders": [
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[^\"]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"timestamp\":\"(?<timestamp>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"sourceTransactionId\":\"(?<paymentId>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"toPayeeName\":\"(?<receiverId>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"accountCurrencyCode\":\"(?<currency>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data[{{INDEX}}].amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data[{{INDEX}}].timestamp",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data[{{INDEX}}].sourceTransactionId",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data[{{INDEX}}].toPayeeName",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data[{{INDEX}}].accountCurrencyCode",
+      "xPath": ""
+    }
+  ]
+}
