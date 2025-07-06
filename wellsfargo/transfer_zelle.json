@@ -15,7 +15,9 @@
       "transactionJsonPathListSelector": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities",
       "transactionJsonPathSelectors": {
         "amount": "$.amount",
-        "paymentId": "$.confirmationCode"
+        "paymentId": "$.confirmationCode",
+        "date": "$.dateTimeStamp",
+        "recipient": "$.token"
       }
     },
     "proofMetadataSelectors": [
@@ -26,6 +28,14 @@
       {
         "type": "jsonPath",
         "value": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].confirmationCode"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].dateTimeStamp"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].token"
       }
     ]
   },
