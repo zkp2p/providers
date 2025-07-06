@@ -36,12 +36,12 @@
   "paramSelectors": [
     {
       "type": "regex",
-      "value": "https://connect.secure.wellsfargo.com/zelletransfers/p2p/pendingActivities\\?F=J&_x=([^&]+)&_=",
+      "value": "https://connect.secure.wellsfargo.com/zelletransfers/p2p/send/activities\\?_x=([^&]+)",
       "source": "url"
     },
     {
       "type": "regex",
-      "value": "&_=([0-9]+)",
+      "value": "firstTimeLoadFlag=true&direction=OUTBOUND&_=([^&]+)&F=J",
       "source": "url"
     }
   ],
@@ -56,21 +56,51 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"confirmationCode\":\"(?<confirmationCode>[^\"]+)\""
+      "value": "\\\\\"confirmationCode\\\\\":\\\\\"(?<confirmationCode>[^\\\\\"]+)\\\\\""
     },
     {
       "type": "regex",
-      "value": "\"amount\":\"(?<amount>[^\"]+)\""
+      "value": "\\\\\"amount\\\\\":\\\\\"(?<amount>[^\\\\\"]+)\\\\\""
+    },
+    {
+      "type": "regex",
+      "value": "\\\\\"token\\\\\":\\\\\"(?<token>[^\\\\\"]+)\\\\\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\\\\\"dateTimeStamp\\\\\":\\\\\"(?<dateTimeStamp>[^\\\\\"]+)\\\\\""
+    },
+    {
+      "type": "regex",
+      "value": "\\\\\"status\\\\\":\\\\\"(?<status>[^\\\\\"]+)\\\\\""
     }
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].confirmationCode",
-      "xPath": ""
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"confirmationCode\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
     },
     {
-      "jsonPath": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].amount",
-      "xPath": ""
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"amount\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"token\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"dateTimeStamp\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"status\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
     }
   ],
   "additionalClientOptions": {
