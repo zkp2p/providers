@@ -46,6 +46,7 @@ This guide explains how to create and configure provider templates for the ZKP2P
     "platform": "venmo",
     "urlRegex": "https://account.venmo.com/api/stories\\?feedType=me&externalId=\\S+",
     "method": "GET",
+    "shouldSkipCloseTab": false,
     "transactionsExtraction": {
       "transactionJsonPathListSelector": "$.stories"
     }
@@ -53,7 +54,8 @@ This guide explains how to create and configure provider templates for the ZKP2P
   "paramNames": ["SENDER_ID"],
   "paramSelectors": [{
     "type": "jsonPath",
-    "value": "$.stories[{{INDEX}}].title.sender.id"
+    "value": "$.stories[{{INDEX}}].title.sender.id",
+    "source": "responseBody"
   }],
   "secretHeaders": ["Cookie"],
   "responseMatches": [{
@@ -115,6 +117,7 @@ This guide explains how to create and configure provider templates for the ZKP2P
 ```json
 "metadata": {
   "shouldReplayRequestInPage": false,
+  "shouldSkipCloseTab": false,
   "platform": "venmo",
   "urlRegex": "https://api\\.venmo\\.com/v1/payments/\\d+",
   "method": "GET",
@@ -143,6 +146,21 @@ This guide explains how to create and configure provider templates for the ZKP2P
 }
 ```
 
+##### Metadata Fields
+
+###### `shouldSkipCloseTab` (optional)
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: When set to `true`, prevents the extension from automatically closing the authentication tab after successful authentication
+- **Use case**: Useful when you need the user to stay on the page to perform additional actions or when the authentication flow requires multiple steps
+- **Example**: `"shouldSkipCloseTab": true`
+
+###### `shouldReplayRequestInPage` (optional)
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: When set to `true`, replays the request in the page context instead of making it from the extension
+- **Use case**: Useful for requests that require page-specific context or when CORS policies prevent extension requests
+
 #### Parameter Extraction
 
 #### `paramNames` (required)
@@ -158,6 +176,66 @@ This guide explains how to create and configure provider templates for the ZKP2P
 interface ParamSelector {
   type: 'jsonPath' | 'regex';
   value: string;
+  source?: 'url' | 'responseBody' | 'responseHeaders' | 'requestHeaders' | 'requestBody';
+}
+```
+
+##### Parameter Source Options
+
+The `source` field in `paramSelectors` specifies where to extract the parameter from:
+
+###### `responseBody` (default)
+- **Description**: Extract from the response body
+- **Example**: 
+```json
+{
+  "type": "jsonPath",
+  "value": "$.data.transactionId",
+  "source": "responseBody"
+}
+```
+
+###### `url`
+- **Description**: Extract from the request URL
+- **Example**: 
+```json
+{
+  "type": "regex",
+  "value": "userId=([^&]+)",
+  "source": "url"
+}
+```
+
+###### `responseHeaders`
+- **Description**: Extract from response headers
+- **Example**: 
+```json
+{
+  "type": "regex",
+  "value": "X-Transaction-Id: (.+)",
+  "source": "responseHeaders"
+}
+```
+
+###### `requestHeaders`
+- **Description**: Extract from request headers
+- **Example**: 
+```json
+{
+  "type": "regex",
+  "value": "Authorization: Bearer (.+)",
+  "source": "requestHeaders"
+}
+```
+
+###### `requestBody`
+- **Description**: Extract from the request body (for POST/PUT requests)
+- **Example**: 
+```json
+{
+  "type": "jsonPath",
+  "value": "$.payment.amount",
+  "source": "requestBody"
 }
 ```
 
@@ -243,11 +321,59 @@ interface ParamSelector {
 - **Type**: `AdditionalProof[]`
 - **Description**: Configuration for generating multiple proofs from different endpoints (not commonly used)
 
-#### Parameter Extraction
+### Parameter Extraction Examples
 
-##### Extraction Types
+##### Example 1: Extract from URL
+```json
+{
+  "paramNames": ["userId"],
+  "paramSelectors": [{
+    "type": "regex",
+    "value": "/user/([^/]+)/transactions",
+    "source": "url"
+  }]
+}
+```
 
-###### JSONPath
+##### Example 2: Extract from Response Headers
+```json
+{
+  "paramNames": ["sessionId"],
+  "paramSelectors": [{
+    "type": "regex",
+    "value": "X-Session-Id: ([a-zA-Z0-9]+)",
+    "source": "responseHeaders"
+  }]
+}
+```
+
+##### Example 3: Mixed Sources
+```json
+{
+  "paramNames": ["userId", "transactionId", "amount"],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "userId=([^&]+)",
+      "source": "url"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.data.transactions[{{INDEX}}].id",
+      "source": "responseBody"
+    },
+    {
+      "type": "regex",
+      "value": "X-Transaction-Amount: ([0-9.]+)",
+      "source": "responseHeaders"
+    }
+  ]
+}
+```
+
+### Extraction Types
+
+##### JSONPath
 Use JSONPath expressions for structured data:
 ```json
 {
@@ -261,7 +387,7 @@ Use JSONPath expressions for structured data:
 - Supports nested paths: `$.user.profile.email`
 - Array filters: `$.items[?(@.status=='active')]`
 
-###### Regex
+##### Regex
 Use regular expressions for pattern matching:
 ```json
 {
@@ -286,26 +412,29 @@ Use regular expressions for pattern matching:
 - Use JSONPath for structured JSON data
 - Use regex for HTML, text responses, or complex patterns
 - Always specify capture groups `()` for regex extraction
-- Parameters are extracted from the response body by default
+- Specify `source` when extracting from non-default locations (not responseBody)
+- Test extraction with various response formats
 
 #### 3. Security
 - List all sensitive headers in `secretHeaders`
 - Use `responseRedactions` to remove PII
 - Never expose authentication tokens in `responseMatches`
 
+#### 4. Transaction Extraction
+
 ##### `transactionRegexSelectors` (optional)
-- **Type**: `string`
-- **Description**: Regular expression pattern to extract transaction identifiers from HTML/text responses
+- **Type**: `object`
+- **Description**: Regular expression patterns to extract transaction data from HTML/text responses
 - **Use case**: Use this when transactions are embedded in HTML or when the response is not structured JSON
 - **Example**: 
 ```json
 {
-  transactionsExtraction: {
-    transactionRegexSelectors: {
-      amount: '<td class="amount">\\$([\\d,\\.]+)</td>',
-      recipient: '<td class="recipient">([^<]+)</td>',
-      date: '<td class="date">(\\d{2}/\\d{2}/\\d{4})</td>',
-      paymentId: 'data-payment-id="(\\d+)"'
+  "transactionsExtraction": {
+    "transactionRegexSelectors": {
+      "amount": "<td class=\"amount\">\\$([\\d,\\.]+)</td>",
+      "recipient": "<td class=\"recipient\">([^<]+)</td>",
+      "date": "<td class=\"date\">(\\d{2}/\\d{2}/\\d{4})</td>",
+      "paymentId": "data-payment-id=\"(\\d+)\""
     }
   }
 }
@@ -313,20 +442,26 @@ Use regular expressions for pattern matching:
 
 **Note**: Use either `transactionJsonPathListSelector` (for JSON responses) or `transactionRegexSelectors` (for HTML/text responses), not both.
 
-#### 4. Error Handling
+#### 5. Error Handling
 - Provide fallback URLs when primary endpoints might fail
 - Use preprocessing regex for embedded JSON data
 - Test extraction selectors with various response formats
 
-#### 5. Performance
+#### 6. Performance
 - Minimize the number of `responseMatches` for faster verification
 - Use specific JSONPath expressions instead of wildcards
 - Consider response size when designing redactions
+
+#### 7. Tab Management
+- Set `shouldSkipCloseTab: true` for flows where when closing the tab results in ending the session token, thus preventing us from replaying the request successfully.
+- Use default behavior (auto-close) for simple authentication flows
+- Consider user experience when deciding tab behavior
 
 ### Common Issues
 - **Authenticate does not open desired auth link**: Check the Base URL you have set in the extension. Ensure you are running the server which is hosted in port 8080
 - **Authenticated into your payment platform but not redirected back to developer.zkp2p.xyz**: There is an issue with the urlRegex for metadata extraction. Double check your regex is correct
 - **Metadata returned to app, but Prove fails**: There is an issue with the response redactions or headers for the server call. If error is JSON path not found or regex not found then check your response redactions parameters. If it returns a error that is not 200, the server has rejected your request, so there is an issue with your headers, request body.
+- **Parameters not extracted correctly**: Check the `source` field in your `paramSelectors`. By default, parameters are extracted from responseBody. If your parameter is in the URL, headers, or request body, you must specify the correct source.
 
 ## Contributing
 We want to make this the largest open source repository of provider templates for global payment platforms. Please open a PR when you have created and tested your template
