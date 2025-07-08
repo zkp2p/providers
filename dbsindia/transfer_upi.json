@@ -68,6 +68,18 @@
     {
       "type": "regex",
       "value": "\"balance\":\"(?<amount>[0-9\\.]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"currency\":\"(?<currency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"side\":\"D\""
+    },
+    {
+      "type": "regex",
+      "value": "\"code\":\"UPIPH\""
     }
   ],
   "responseRedactions": [
@@ -81,6 +93,18 @@
     },
     {
       "jsonPath": "$.transactions[{{INDEX}}].amount.balance",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].amount.currency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].side",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].particular.code",
       "xPath": ""
     }
   ],
