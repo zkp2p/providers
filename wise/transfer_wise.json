@@ -59,7 +59,7 @@
     "Cookie",
     "X-Access-Token"
   ],
-  "reclaimResponseMatches": [
+  "responseMatches": [
     {
       "type": "regex",
       "value": "\"id\":(?<paymentId>[0-9]+)"
@@ -86,7 +86,7 @@
       "hash": true
     }
   ],
-  "reclaimResponseRedactions": [
+  "responseRedactions": [
     {
       "jsonPath": "$.id",
       "xPath": ""
