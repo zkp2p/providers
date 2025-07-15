@@ -59,7 +59,7 @@
     "Cookie",
     "X-Access-Token"
   ],
-  "responseMatches": [
+  "reclaimResponseMatches": [
     {
       "type": "regex",
       "value": "\"id\":(?<paymentId>[0-9]+)"
@@ -86,7 +86,7 @@
       "hash": true
     }
   ],
-  "responseRedactions": [
+  "reclaimResponseRedactions": [
     {
       "jsonPath": "$.id",
       "xPath": ""
@@ -110,6 +110,32 @@
     {
       "jsonPath": "$.targetRecipientId",
       "xPath": ""
+    }
+  ],
+  "primusResponseResolves": [
+    {
+      "keyName": "id",
+      "parsePath": "$.id"
+    },
+    {
+      "keyName": "status",
+      "parsePath": "$.state"
+    },
+    {
+      "keyName": "date",
+      "parsePath": "$.stateHistory[4].date"
+    },
+    {
+      "keyName": "amt",
+      "parsePath": "$.targetAmount"
+    },
+    {
+      "keyName": "curr",
+      "parsePath": "$.targetCurrency"
+    },
+    {
+      "keyName": "recvId",
+      "parsePath": "$.targetRecipientId"
     }
   ],
   "mobile": {
