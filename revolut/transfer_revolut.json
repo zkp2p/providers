@@ -111,6 +111,32 @@
       "xPath": ""
     }
   ],
+  "primusResponseResolves": [
+    {
+      "keyName": "amt",
+      "parsePath": "$.[{{INDEX}}].amount"
+    },
+    {
+      "keyName": "date",
+      "parsePath": "$.[{{INDEX}}].completedDate"
+    },
+    {
+      "keyName": "curr",
+      "parsePath": "$.[{{INDEX}}].currency"
+    },
+    {
+      "keyName": "id",
+      "parsePath": "$.[{{INDEX}}].id"
+    },
+    {
+      "keyName": "recvId",
+      "parsePath": "$.[{{INDEX}}].recipient.username"
+    },
+    {
+      "keyName": "type",
+      "parsePath": "$.[{{INDEX}}].state"
+    }
+  ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "actionLink": "https://revolut.me/{{RECEIVER_ID}}",

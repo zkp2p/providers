@@ -94,6 +94,28 @@
       "xPath": ""
     }
   ],
+  "primusResponseResolves": [
+    {
+      "keyName": "amt",
+      "parsePath": "$.stories[{{INDEX}}].amount"
+    },
+    {
+      "keyName": "date",
+      "parsePath": "$.stories[{{INDEX}}].date"
+    },
+    {
+      "keyName": "id",
+      "parsePath": "$.stories[{{INDEX}}].paymentId"
+    },
+    {
+      "keyName": "recvId",
+      "parsePath": "$.stories[{{INDEX}}].title.receiver.id"
+    },
+    {
+      "keyName": "type",
+      "parsePath": "$.stories[{{INDEX}}].subType"
+    }
+  ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=cash&amount={{AMOUNT}}",
