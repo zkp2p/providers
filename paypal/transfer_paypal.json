@@ -1,25 +1,29 @@
 {
   "actionType": "transfer_paypal",
-  "authLink": "https://www.paypal.com/myaccount/activities/",
-  "url": "https://www.paypal.com/myaccount/activities/details/inline/{{PAYMENT_ID}}?fetchWorldReadyMetadata=true",
+  "authLink": "https://www.paypal.com/myaccount/activities/filter?q=ZnJlZV90ZXh0X3NlYXJjaD0mc3RhcnRfZGF0ZT0yMDI1LTAxLTAxJmVuZF9kYXRlPTIwMjUtMDctMTgmdHlwZT0mc3RhdHVzPSZjdXJyZW5jeT0mZmlsdGVyX2lkPSZpc3N1YW5jZV9wcm9kdWN0X25hbWU9JmFzc2V0X25hbWVzPSZhc3NldF9zeW1ib2xzPQ==",
+  "url": "https://www.paypal.com/myaccount/activities/details/inline/{{PAYMENT_ID}}",
   "method": "GET",
   "body": "",
   "metadata": {
     "platform": "paypal",
-    "urlRegex": "https://www.paypal.com/myaccount/activities/$",
+    "urlRegex": "https://www.paypal.com/myaccount/activities/filter\\?q=ZnJlZV90ZXh0X3NlYXJjaD0mc3RhcnRfZGF0ZT0yMDI1LTAxLTAxJmVuZF9kYXRlPTIwMjUtMDctMTgmdHlwZT0mc3RhdHVzPSZjdXJyZW5jeT0mZmlsdGVyX2lkPSZpc3N1YW5jZV9wcm9kdWN0X25hbWU9JmFzc2V0X25hbWVzPSZhc3NldF9zeW1ib2xzPQ==",
     "method": "GET",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
     "preprocessRegex": "",
     "transactionsExtraction": {
-      "transactionRegexSelectors": {
-        "paymentId": "js_transactionItem-([A-Z0-9]+)"
+      "transactionJsonPathListSelector": "$.data.data.activity.transactions",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.ftsSearchInfo.counterparty",
+        "amount": "$.ftsSearchInfo.displayAmount",
+        "date": "$.ftsSearchInfo.date.medium",
+        "paymentId": "$.ftsSearchInfo.id"
       }
     },
     "proofMetadataSelectors": [
       {
-        "type": "regex",
-        "value": "js_transactionItem-([A-Z0-9]+)"
+        "type": "jsonPath",
+        "value": "$.data.data.activity.transactions[{{INDEX}}].ftsSearchInfo.id"
       }
     ]
   },
@@ -28,8 +32,8 @@
   ],
   "paramSelectors": [
     {
-      "type": "regex",
-      "value": "js_transactionItem-([A-Z0-9]+)"
+      "type": "jsonPath",
+      "value": "$.data.data.activity.transactions[{{INDEX}}].ftsSearchInfo.id"
     }
   ],
   "skipRequestHeaders": [
