@@ -1,0 +1,97 @@
+{
+  "actionType": "transfer_monzo",
+  "authLink": "https://web.monzo.com/",
+  "url": "https://api.monzo.com/transactions/{{TX_ID}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "monzo",
+    "urlRegex": "https://internal-api.monzo.com/minimal-banking/transactions\\?account_id=\\S+&limit=50",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.transactions",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.counterparty.user_id",
+        "amount": "$.amount",
+        "date": "$.settled",
+        "paymentId": "$.id",
+        "currency": "$.currency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].counterparty.user_id"
+      }
+    ]
+  },
+  "paramNames": [
+    "TX_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.transactions[{{INDEX}}].id"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "authorization"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\-]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"settled\":\"(?<completedDate>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"user_id\":\"(?<userId>[^\"]+)\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\"scheme\":\"(?<scheme>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"currency\":\"(?<currency>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.transaction.amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transaction.settled",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transaction.counterparty.user_id",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transaction.scheme",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transaction.currency",
+      "xPath": ""
+    }
+  ]
+}
