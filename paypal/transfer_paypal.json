@@ -51,7 +51,7 @@
     },
     {
       "type": "regex",
-      "value": "\"isPersonal\":\"(?<isPersonal>[^\"]+)\""
+      "value": "\"isPersonal\":true"
     },
     {
       "type": "regex",
@@ -76,7 +76,7 @@
       "xPath": ""
     },
     {
-      "type": "$.data.p2pRedirect.repeatTxn.isPersonal",
+      "jsonPath": "$.data.p2pRedirect.repeatTxn.isPersonal",
       "value": ""
     },
     {
