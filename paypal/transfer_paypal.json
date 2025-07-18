@@ -51,6 +51,10 @@
     },
     {
       "type": "regex",
+      "value": "\"isPersonal\":\"(?<isPersonal>[^\"]+)\""
+    },
+    {
+      "type": "regex",
       "value": "\"value\":\"(?<value>[^\"]+)\""
     },
     {
@@ -70,6 +74,10 @@
     {
       "jsonPath": "$.data.p2pRedirect.repeatTxn.email",
       "xPath": ""
+    },
+    {
+      "type": "$.data.p2pRedirect.repeatTxn.isPersonal",
+      "value": ""
     },
     {
       "jsonPath": "$.data.amount.rawAmounts.gross.value",
