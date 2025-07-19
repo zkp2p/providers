@@ -33,6 +33,10 @@
       {
         "type": "jsonPath",
         "value": "$.transactions[{{INDEX}}].counterparty.user_id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].settled"
       }
     ]
   },
@@ -65,7 +69,7 @@
     },
     {
       "type": "regex",
-      "value": "\"scheme\":\"(?<scheme>[^\"]+)\""
+      "value": "\"scheme\":\"p2p_payment\""
     },
     {
       "type": "regex",
