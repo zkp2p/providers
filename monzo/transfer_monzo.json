@@ -33,6 +33,10 @@
       {
         "type": "jsonPath",
         "value": "$.transactions[{{INDEX}}].counterparty.user_id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].settled"
       }
     ]
   },
