@@ -74,6 +74,10 @@
     {
       "type": "regex",
       "value": "\"currency\":\"(?<currency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"hold_decision_status\":\"decision_status\\.released\""
     }
   ],
   "responseRedactions": [
@@ -95,6 +99,10 @@
     },
     {
       "jsonPath": "$.transaction.currency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transaction.metadata.hold_decision_status",
       "xPath": ""
     }
   ]
