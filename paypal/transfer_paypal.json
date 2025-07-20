@@ -77,7 +77,7 @@
     },
     {
       "jsonPath": "$.data.p2pRedirect.repeatTxn.isPersonal",
-      "value": ""
+      "xPath": ""
     },
     {
       "jsonPath": "$.data.amount.rawAmounts.gross.value",
