@@ -59,7 +59,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"textValue\":\"UPI(~|\\s)(?<ref>[^~\\s]+)(~|\\s)(?<id>[^~\\s]+)(~|\\s)(?<name>[^\"]+)\""
+      "value": "\"textValue\":\"UPI(?:~|\\s)(?<ref>[^~\\s]+)(?:~|\\s)(?<id>[^~\\s]+)(?:~|\\s)(?<name>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -79,7 +79,7 @@
     },
     {
       "type": "regex",
-      "value": "\"code\":\"UPIPH\""
+      "value": "\"transactionDetails\":\"(?<txnRef>[^\"]+)\""
     }
   ],
   "responseRedactions": [
@@ -104,8 +104,48 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.transactions[{{INDEX}}].particular.code",
+      "jsonPath": "$.transactions[{{INDEX}}].transactionReferenceDetails[0].transactionDetails",
       "xPath": ""
+    }
+  ],
+  "additionalProofs": [
+    {
+      "url": "https://internet-banking.retail.dbsbank.in/services/kgp/payments/transactions/inquiry",
+      "method": "POST",
+      "body": "{\"payeeVPA\":\"{{id}}\",\"payeeId\":\"\",\"paymentMode\":\"UPI\",\"paginationInfo\":{\"limit\":\"\",\"offset\":\"\"}}",
+      "paramNames": [],
+      "paramSelectors": [],
+      "skipRequestHeaders": [
+        "Cookie",
+        "Accept-Encoding",
+        "referer",
+        "origin"
+      ],
+      "secretHeaders": [
+        "Cookie",
+        "referer",
+        "origin"
+      ],
+      "responseMatches": [
+        {
+          "type": "regex",
+          "value": "\"transactionId\":\"(?<txnId>[^\"]+)\"",
+          "hash": true
+        },
+        {
+          "type": "regex",
+          "value": "\"transactionStatus\":\"(?<status>[^\"]+)\"",
+          "hash": true
+        }
+      ],
+      "responseRedactions": [
+        {
+          "jsonPath": "$.transactions[0].transactionId"
+        },
+        {
+          "jsonPath": "$.transactions[0].transactionStatus"
+        }
+      ]
     }
   ],
   "additionalClientOptions": {
