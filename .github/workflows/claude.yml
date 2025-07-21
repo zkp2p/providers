@@ -28,7 +28,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          # For PRs, checkout the PR branch from the fork
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          # Increase fetch depth to ensure we have enough history
+          fetch-depth: 10
 
       - name: Run Claude Code
         id: claude

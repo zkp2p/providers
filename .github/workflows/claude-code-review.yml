@@ -29,7 +29,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          # For PRs from forks, checkout the PR branch
+          ref: ${{ github.event.pull_request.head.sha }}
+          # Increase fetch depth to ensure we have enough history
+          fetch-depth: 10
 
       - name: Run Claude Code Review
         id: claude-review
