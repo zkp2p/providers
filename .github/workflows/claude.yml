@@ -28,10 +28,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # For PRs, checkout the PR branch from the fork
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           # Increase fetch depth to ensure we have enough history
           fetch-depth: 10
+          
+      # For PR comments, we need to checkout the PR branch
+      - name: Checkout PR
+        if: github.event.issue.pull_request
+        run: |
+          gh pr checkout ${{ github.event.issue.number }}
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Run Claude Code
         id: claude
