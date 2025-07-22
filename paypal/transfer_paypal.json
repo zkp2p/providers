@@ -14,16 +14,18 @@
     "transactionsExtraction": {
       "transactionJsonPathListSelector": "$.data.data.activity.transactions",
       "transactionJsonPathSelectors": {
-        "recipient": "$.ftsSearchInfo.counterparty",
+        "recipient": "$.ftsSearchInfo.email",
         "amount": "$.ftsSearchInfo.displayAmount",
-        "date": "$.ftsSearchInfo.date.medium",
-        "paymentId": "$.ftsSearchInfo.id"
+        "date": "$.date",
+        "paymentId": "$.id",
+        "currency": "$.amounts.currencyCode",
+        "type": "$.type"
       }
     },
     "proofMetadataSelectors": [
       {
         "type": "jsonPath",
-        "value": "$.data.data.activity.transactions[{{INDEX}}].ftsSearchInfo.id"
+        "value": "$.data.data.activity.transactions[{{INDEX}}].id"
       }
     ]
   },
@@ -33,7 +35,7 @@
   "paramSelectors": [
     {
       "type": "jsonPath",
-      "value": "$.data.data.activity.transactions[{{INDEX}}].ftsSearchInfo.id"
+      "value": "$.data.data.activity.transactions[{{INDEX}}].id"
     }
   ],
   "skipRequestHeaders": [
@@ -46,7 +48,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"email\":\"(?<email>[^\"]+)\"",
+      "value": "\"email\":\"(?<recvId>[^\"]+)\"",
       "hash": true
     },
     {
@@ -55,11 +57,11 @@
     },
     {
       "type": "regex",
-      "value": "\"value\":\"(?<value>[^\"]+)\""
+      "value": "\"value\":\"(?<amt>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"currencyCode\":\"(?<currencyCode>[^\"]+)\""
+      "value": "\"currencyCode\":\"(?<curr>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -67,7 +69,7 @@
     },
     {
       "type": "regex",
-      "value": "\"primitiveTimeCreated\":\"(?<primitiveTimeCreated>[^\"]+)\""
+      "value": "\"primitiveTimeCreated\":\"(?<date>[^\"]+)\""
     }
   ],
   "responseRedactions": [
