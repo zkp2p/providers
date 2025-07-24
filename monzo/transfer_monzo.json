@@ -15,6 +15,7 @@
       "transactionJsonPathListSelector": "$.transactions",
       "transactionJsonPathSelectors": {
         "recipient": "$.counterparty.user_id",
+        "recipientName": "$.counterparty.name",
         "amount": "$.amount",
         "date": "$.settled",
         "paymentId": "$.id",
