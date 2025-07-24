@@ -69,7 +69,7 @@
     },
     {
       "type": "regex",
-      "value": "\"subType\":\"none\""
+      "value": "\"subType\":\"(none|business_profile)\""
     }
   ],
   "responseRedactions": [
