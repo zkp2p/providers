@@ -86,8 +86,7 @@
     },
     {
       "type": "regex",
-      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\"",
-      "hash": true
+      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -124,6 +123,37 @@
       "xPath": ""
     }
   ],
+  "processor": {
+    "extract": {
+      "intentHash": "$.context.contextMessage",
+      "amount": "$.context.extractedParameters.amount",
+      "timestamp": "$.context.extractedParameters.date",
+      "paymentId": "$.context.extractedParameters.paymentId",
+      "receiverId": "$.context.extractedParameters.receiverId",
+      "currency": "$.context.extractedParameters.currency_code",
+      "state": "$.context.extractedParameters.state"
+    },
+    "transform": {
+      "receiverIdHashed": {
+        "input": "receiverId",
+        "ops": ["keccak256"]
+      },
+      "state": {
+        "input": "state",
+        "ops": [
+          { "type": "assertEquals", "expected": "COMPLETE" }
+        ]
+      }
+    },
+    "outputs": [
+      { "name": "intentHash", "type": "uint256" },
+      { "name": "receiverIdHashed", "type": "bytes32" },
+      { "name": "amount", "type": "uint256" },
+      { "name": "timestamp", "type": "uint256" },
+      { "name": "paymentId", "type": "string" },
+      { "name": "currency", "type": "string" }
+    ]
+  },
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "actionLink": "squarecash://cash?recipient=${{RECEIVER_ID}}&amount={{AMOUNT}}",

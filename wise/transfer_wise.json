@@ -82,8 +82,7 @@
     },
     {
       "type": "regex",
-      "value": "\"targetRecipientId\":(?<targetRecipientId>[0-9]+)",
-      "hash": true
+      "value": "\"targetRecipientId\":(?<targetRecipientId>[0-9]+)"
     }
   ],
   "responseRedactions": [
@@ -112,6 +111,43 @@
       "xPath": ""
     }
   ],
+  "processor": {
+    "extract": {
+      "intentHash": "$.context.contextMessage",
+      "amount": "$.context.extractedParameters.targetAmount",
+      "timestamp": "$.context.extractedParameters.timestamp",
+      "paymentId": "$.context.extractedParameters.paymentId",
+      "state": "$.context.extractedParameters.state",
+      "receiverId": "$.context.extractedParameters.targetRecipientId",
+      "currency": "$.context.extractedParameters.targetCurrency"
+    },
+    "transform": {
+      "amountInCents": {
+        "input": "amount",
+        "ops": [
+          { "type": "math", "expression": "* 10000" }
+        ]
+      },
+      "receiverIdHashed": {
+        "input": "receiverId",
+        "ops": ["keccak256"]
+      },
+      "state": {
+        "input": "state",
+        "ops": [
+          { "type": "assertEquals", "expected": "OUTGOING_PAYMENT_SENT" }
+        ]
+      }
+    },
+    "outputs": [
+      { "name": "intentHash", "type": "uint256" },
+      { "name": "receiverIdHashed", "type": "bytes32" },
+      { "name": "amountInCents", "type": "uint256" },
+      { "name": "timestamp", "type": "uint256" },
+      { "name": "paymentId", "type": "string" },
+      { "name": "currency", "type": "string" }
+    ]
+  },
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "actionLink": "https://wise.com/send/",
