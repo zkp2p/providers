@@ -81,8 +81,7 @@
     },
     {
       "type": "regex",
-      "value": "\"username\":\"(?<username>[^\"]+)\"",
-      "hash": true
+      "value": "\"username\":\"(?<username>[^\"]+)\""
     }
   ],
   "responseRedactions": [
@@ -111,6 +110,56 @@
       "xPath": ""
     }
   ],
+  "processor": {
+    "extract": {
+      "intentHash": "$.context.contextMessage",
+      "amount": "$.context.extractedParameters.amount",
+      "date": "$.context.extractedParameters.completedDate",
+      "paymentId": "$.context.extractedParameters.id",
+      "state": "$.context.extractedParameters.state",
+      "receiverId": "$.context.extractedParameters.username",
+      "currency": "$.context.extractedParameters.currency"
+    },
+    "transform": {
+      "amountInCents": {
+        "input": "amount",
+        "ops": [
+          { "type": "substring", "start": 1 },
+          {
+            "type": "conditionalOn",
+            "checkField": "currency",
+            "if": { "eq": "JPY" },
+            "then": [{ "type": "math", "expression": "* 100" }],
+            "else": [{ "type": "math", "expression": "* 1" }]
+          }
+        ]
+      },
+      "timestamp": {
+        "input": "date",
+        "ops": [
+          { "type": "parseTimestamp" }
+        ]
+      },
+      "receiverIdHashed": {
+        "input": "receiverId",
+        "ops": ["keccak256"]
+      },
+      "state": {
+        "input": "state",
+        "ops": [
+          { "type": "assertEquals", "expected": "COMPLETED" }
+        ]
+      }
+    },
+    "outputs": [
+      { "name": "intentHash", "type": "uint256" },
+      { "name": "receiverIdHashed", "type": "bytes32" },
+      { "name": "amountInCents", "type": "uint256" },
+      { "name": "timestamp", "type": "uint256" },
+      { "name": "paymentId", "type": "string" },
+      { "name": "currency", "type": "string" }
+    ]
+  },
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "actionLink": "https://revolut.me/{{RECEIVER_ID}}",

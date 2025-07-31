@@ -48,8 +48,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"email\":\"(?<recvId>[^\"]+)\"",
-      "hash": true
+      "value": "\"email\":\"(?<recvId>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -97,5 +96,42 @@
       "jsonPath": "$.data.primitiveTimeCreated",
       "xPath": ""
     }
-  ]
+  ],
+  "processor": {
+    "extract": {
+      "intentHash": "$.context.contextMessage",
+      "amount": "$.context.extractedParameters.amt",
+      "date": "$.context.extractedParameters.date",
+      "paymentId": "$.context.extractedParameters.PAYMENT_ID",
+      "receiverId": "$.context.extractedParameters.recvId",
+      "currency": "$.context.extractedParameters.curr",
+      "state": "$.context.extractedParameters.status"
+    },
+    "transform": {
+      "timestamp": {
+        "input": "date",
+        "ops": [
+          { "type": "parseTimestamp" }
+        ]
+      },
+      "state": {
+        "input": "state",
+        "ops": [
+          { "type": "assertEquals", "expected": "COMPLETED" }
+        ]
+      },
+      "receiverIdHashed": {
+        "input": "receiverId",
+        "ops": ["keccak256"]
+      }
+    },
+    "outputs": [
+      { "name": "intentHash", "type": "uint256" },
+      { "name": "receiverIdHashed", "type": "bytes32" },
+      { "name": "amount", "type": "uint256" },
+      { "name": "timestamp", "type": "uint256" },
+      { "name": "paymentId", "type": "string" },
+      { "name": "currency", "type": "string" }
+    ]
+  }
 }
