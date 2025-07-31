@@ -60,8 +60,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "v2__detail\">(.*?)CVU: (?<recipientId>[0-9]+)</li>",
-      "hash": true
+      "value": "v2__detail\">(.*?)CVU: (?<recipientId>[0-9]+)</li>"
     },
     {
       "type": "regex",
@@ -107,6 +106,56 @@
       "regex": "\"operationId\":(.*?),\"activityName\":\"(.*?)\",\"activityStatus\":\"(.*?),"
     }
   ],
+  "processor": {
+    "extract": {
+      "intentHash": "$.context.contextMessage",
+      "amt": "$.context.extractedParameters.amt",
+      "cents": "$.context.extractedParameters.cents",
+      "curr": "$.context.extractedParameters.curr",
+      "date": "$.context.extractedParameters.date",
+      "paymentId": "$.context.extractedParameters.paymentId",
+      "paymentStatus": "$.context.extractedParameters.paymentStatus",
+      "receiverId": "$.context.extractedParameters.recipientId"
+    },
+    "transform": {
+      "amountFormatted": {
+        "input": "amt",
+        "ops": [
+          { "type": "replace", "pattern": "\\.", "replacement": "" }
+        ]
+      },
+      "amountInCents": {
+        "inputs": ["amountFormatted", "cents"],
+        "ops": [
+          { "type": "concat" }
+        ]
+      },
+      "timestamp": {
+        "input": "date",
+        "ops": [
+          { "type": "parseTimestamp" }
+        ]
+      },
+      "state": {
+        "input": "paymentStatus",
+        "ops": [
+          { "type": "assertEquals", "expected": "approved" }
+        ]
+      },
+      "receiverIdHashed": {
+        "input": "receiverId",
+        "ops": ["keccak256"]
+      }
+    },
+    "outputs": [
+      { "name": "intentHash", "type": "uint256" },
+      { "name": "receiverIdHashed", "type": "bytes32" },
+      { "name": "amountInCents", "type": "uint256" },
+      { "name": "timestamp", "type": "uint256" },
+      { "name": "paymentId", "type": "string" },
+      { "name": "curr", "type": "string" }
+    ]
+  },
   "mobile": {
     "includeAdditionalCookieDomains": [
       "mercadolibre.com",

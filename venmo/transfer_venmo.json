@@ -64,8 +64,7 @@
     },
     {
       "type": "regex",
-      "value": "\"id\":\"(?<receiverId>[^\"]+)\"",
-      "hash": true
+      "value": "\"id\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -94,6 +93,46 @@
       "xPath": ""
     }
   ],
+  "processor": {
+    "extract": {
+      "intentHash": "$.context.contextMessage",
+      "amount": "$.context.extractedParameters.amount",
+      "date": "$.context.extractedParameters.date",
+      "paymentId": "$.context.extractedParameters.paymentId",
+      "receiverId": "$.context.extractedParameters.receiverId"
+    },
+    "transform": {
+      "amountInCents": {
+        "input": "amount",
+        "ops": [
+          { "type": "math", "expression": "* 100" }
+        ]
+      },
+      "timestamp": {
+        "input": "date",
+        "ops": [
+          { "type": "parseTimestamp" }
+        ]
+      },
+      "receiverIdHashed": {
+        "input": "receiverId",
+        "ops": ["keccak256"]
+      },
+      "currency": {
+        "ops": [
+          { "type": "constant", "value": "USD" }
+        ]
+      }
+    },
+    "outputs": [
+      { "name": "intentHash", "type": "uint256" },
+      { "name": "receiverIdHashed", "type": "bytes32" },
+      { "name": "amountInCents", "type": "uint256" },
+      { "name": "timestamp", "type": "uint256" },
+      { "name": "paymentId", "type": "string" },
+      { "name": "currency", "type": "string" }
+    ]
+  },
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=cash&amount={{AMOUNT}}",
