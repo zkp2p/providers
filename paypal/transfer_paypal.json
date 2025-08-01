@@ -16,7 +16,7 @@
       "transactionJsonPathSelectors": {
         "recipient": "$.ftsSearchInfo.email",
         "amount": "$.ftsSearchInfo.displayAmount",
-        "date": "$.date",
+        "date": "$.date.rawDate.date",
         "paymentId": "$.id",
         "currency": "$.amounts.currencyCode",
         "type": "$.type"
