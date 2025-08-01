@@ -1,0 +1,108 @@
+{
+  "actionType": "transfer_mercury",
+  "authLink": "https://app.mercury.com/dashboard",
+  "url": "https://backend.mercury.com/organizations/{{ORG_ID}}/transactions-lite",
+  "method": "POST",
+  "body": "{\"limit\":20,\"offset\":0}",
+  "metadata": {
+    "shouldReplayRequestInPage": true,
+    "shouldSkipCloseTab": true,
+    "platform": "mercury",
+    "urlRegex": "https://backend.mercury.com/organizations/[^/]+/transactions-lite",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.data.transactions",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.bankDescription",
+        "amount": "$.amount",
+        "date": "$.createdAt",
+        "paymentId": "$.id",
+        "currency": "$.merchantAmount.currency",
+        "status": "$.status"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.data.transactions[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transactions[{{INDEX}}].id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transactions[{{INDEX}}].details.bankDescription"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transactions[{{INDEX}}].createdAt"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transactions[{{INDEX}}].status"
+      }
+    ]
+  },
+  "paramNames": [
+    "ORG_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "https://backend.mercury.com/organizations/([^/]+)/transactions-lite",
+      "source": "url"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "x-device-fingerprint",
+    "x-csrf-protect",
+    "x-frontend-path"
+  ],
+  "secretHeaders": [
+    "Cookie",
+    "x-device-fingerprint",
+    "x-csrf-protect"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"id\":\"(?<transactionId>[^\"]+)\""
+    },
+    {
+      "type": "regex", 
+      "value": "\"amount\":(?<amount>-?[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"createdAt\":\"(?<createdAt>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"status\":\"(?<status>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data.transactions[{{INDEX}}].id",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transactions[{{INDEX}}].amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transactions[{{INDEX}}].createdAt",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transactions[{{INDEX}}].status",
+      "xPath": ""
+    }
+  ]
+}
