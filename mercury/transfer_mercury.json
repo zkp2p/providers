@@ -6,7 +6,6 @@
   "body": "{\"limit\":20,\"offset\":0}",
   "metadata": {
     "shouldReplayRequestInPage": true,
-    "shouldSkipCloseTab": true,
     "platform": "mercury",
     "urlRegex": "https://backend.mercury.com/organizations/[^/]+/transactions-lite",
     "method": "POST",

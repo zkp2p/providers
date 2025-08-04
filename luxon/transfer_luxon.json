@@ -1,0 +1,108 @@
+{
+  "actionType": "transfer_luxon",
+  "authLink": "https://web.luxon.com/login",
+  "url": "https://client-service.luxon.com/api/v4/transfers?currencies={{CURRENCY}}&page=0&size=10&startDate=2025-08-03T00:00:00.000Z&endDate=2026-12-31T23:59:59.999Z",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "luxon",
+    "urlRegex": "https://client-service\\.luxon\\.com/api/v4/transfers\\?currencies=[A-Z]+&page=\\d+&size=\\d+&startDate=[^&]+&endDate=[^&]+",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.content",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.receiver.firstName",
+        "amount": "$.sender.value.amount",
+        "date": "$.createdAt",
+        "paymentId": "$.transferId",
+        "currency": "$.sender.value.currency",
+        "status": "$.status"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].sender.value.amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].transferId"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].receiver.firstName"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].createdAt"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].status"
+      }
+    ]
+  },
+  "paramNames": [
+    "CURRENCY"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.content[{{INDEX}}].sender.value.currency"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Authorization",
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"transferId\":\"(?<transferId>[^\"]+)\""
+    },
+    {
+      "type": "regex", 
+      "value": "\"status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"createdAt\":\"(?<createdAt>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"currency\":\"(?<currency>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.content[{{INDEX}}].transferId",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content[{{INDEX}}].status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content[{{INDEX}}].createdAt",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content[{{INDEX}}].sender.value.amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content[{{INDEX}}].sender.value.currency",
+      "xPath": ""
+    }
+  ]
+}
