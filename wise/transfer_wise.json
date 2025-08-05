@@ -137,9 +137,15 @@
         "ops": [
           { "type": "assertEquals", "expected": "OUTGOING_PAYMENT_SENT" }
         ]
+      },
+      "platform": {
+        "ops": [
+          { "type": "constant", "value": "wise" }
+        ]
       }
     },
     "outputs": [
+      { "name": "platform", "type": "string" },
       { "name": "intentHash", "type": "uint256" },
       { "name": "receiverIdHashed", "type": "bytes32" },
       { "name": "amountInCents", "type": "uint256" },

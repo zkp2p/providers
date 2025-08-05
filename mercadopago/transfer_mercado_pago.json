@@ -145,9 +145,15 @@
       "receiverIdHashed": {
         "input": "receiverId",
         "ops": ["keccak256"]
+      },
+      "platform": {
+        "ops": [
+          { "type": "constant", "value": "mercadopago" }
+        ]
       }
     },
     "outputs": [
+      { "name": "platform", "type": "string" },
       { "name": "intentHash", "type": "uint256" },
       { "name": "receiverIdHashed", "type": "bytes32" },
       { "name": "amountInCents", "type": "uint256" },

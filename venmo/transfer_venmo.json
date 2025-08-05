@@ -122,9 +122,15 @@
         "ops": [
           { "type": "constant", "value": "USD" }
         ]
+      },
+      "platform": {
+        "ops": [
+          { "type": "constant", "value": "venmo" }
+        ]
       }
     },
     "outputs": [
+      { "name": "platform", "type": "string" },
       { "name": "intentHash", "type": "uint256" },
       { "name": "receiverIdHashed", "type": "bytes32" },
       { "name": "amountInCents", "type": "uint256" },
