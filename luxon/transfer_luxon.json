@@ -14,7 +14,7 @@
     "transactionsExtraction": {
       "transactionJsonPathListSelector": "$.content",
       "transactionJsonPathSelectors": {
-        "recipient": "$.receiver.firstName",
+        "recipient": "$.receiver.id",
         "amount": "$.sender.value.amount",
         "date": "$.createdAt",
         "paymentId": "$.transferId",
@@ -33,7 +33,7 @@
       },
       {
         "type": "jsonPath",
-        "value": "$.content[{{INDEX}}].receiver.firstName"
+        "value": "$.content[{{INDEX}}].receiver.id"
       },
       {
         "type": "jsonPath",
@@ -64,23 +64,28 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"transferId\":\"(?<transferId>[^\"]+)\""
+      "value": "\"transferId\":\\s*\"([^\"]+)\""
     },
     {
       "type": "regex", 
-      "value": "\"status\":\"(?<status>[^\"]+)\""
+      "value": "\"status\":\\s*\"([^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"createdAt\":\"(?<createdAt>[^\"]+)\""
+      "value": "\"createdAt\":\\s*\"([^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+      "value": "\"amount\":\\s*([0-9\\.]+)"
     },
     {
       "type": "regex",
-      "value": "\"currency\":\"(?<currency>[^\"]+)\""
+      "value": "\"currency\":\\s*\"([^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"id\":\\s*\"([a-f0-9\\-]{36})\"",
+      "hash": true
     }
   ],
   "responseRedactions": [
@@ -102,6 +107,10 @@
     },
     {
       "jsonPath": "$.content[{{INDEX}}].sender.value.currency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.content[{{INDEX}}].receiver.id",
       "xPath": ""
     }
   ]
