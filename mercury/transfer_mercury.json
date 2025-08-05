@@ -15,7 +15,7 @@
     "transactionsExtraction": {
       "transactionJsonPathListSelector": "$.data.transactions",
       "transactionJsonPathSelectors": {
-        "recipient": "$.bankDescription",
+        "recipient": "$.counterPartyId",
         "amount": "$.amount",
         "date": "$.createdAt",
         "paymentId": "$.id",
@@ -34,7 +34,7 @@
       },
       {
         "type": "jsonPath",
-        "value": "$.data.transactions[{{INDEX}}].details.bankDescription"
+        "value": "$.data.transactions[{{INDEX}}].counterPartyId"
       },
       {
         "type": "jsonPath",
@@ -84,6 +84,11 @@
     {
       "type": "regex",
       "value": "\"status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"counterPartyId\":\"(?<counterPartyId>[^\"]+)\"",
+      "hash": true
     }
   ],
   "responseRedactions": [
@@ -101,6 +106,10 @@
     },
     {
       "jsonPath": "$.data.transactions[{{INDEX}}].status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transactions[{{INDEX}}].counterPartyId",
       "xPath": ""
     }
   ]
