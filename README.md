@@ -67,7 +67,13 @@ This guide explains how to create and configure provider templates for the ZKP2P
     "xPath": ""
   }],
   "mobile": {
-    "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=cash&amount={{AMOUNT}}"
+    "includeAdditionalCookieDomains": [],
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=cash&amount={{AMOUNT}}",
+      "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.venmo"
+    }
   }
 }
 ```
@@ -288,24 +294,51 @@ The `source` field in `paramSelectors` specifies where to extract the parameter 
 
 #### `mobile` (optional)
 - **Type**: `object`
-- **Description**: Special configurations for the ZKP2P mobile SDK.
+- **Description**: Special configurations for the ZKP2P mobile SDK. The mobile configuration supports both internal (WebView) and external (native app) actions.
 
 ```json
 "mobile": {
-  "includeAdditionalCookieDomains": [],
-  "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=cash&amount={{AMOUNT}}",
-  "isExternalLink": true,
-  "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",
-  "playStoreLink": "https://play.google.com/store/apps/details?id=com.venmo"
+  "includeAdditionalCookieDomains": ["additional-domain.com"],
+  "useExternalAction": true,
+  "userAgent": {
+    "android": "Mozilla/5.0 (Linux; Android 13; Pixel 6) ...",
+    "ios": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) ..."
+  },
+  "external": {
+    "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=cash&amount={{AMOUNT}}",
+    "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",
+    "playStoreLink": "https://play.google.com/store/apps/details?id=com.venmo"
+  },
+  "internal": {
+    "actionLink": "https://app.provider.com/send",
+    "actionCompletedUrlRegex": "https://app.provider.com/confirmation/\\S+",
+    "injectedJavaScript": "/* JavaScript to interact with the webpage */",
+    "injectedJavaScriptParamNames": ["RECIPIENT_ID", "AMOUNT"]
+  }
 }
 ```
 
-**Fields:**
+**Top-level Fields:**
 - `includeAdditionalCookieDomains`: Array of additional cookie domains to include
-- `actionLink`: Deep link URL for the mobile app with placeholders for dynamic values
-- `isExternalLink`: Boolean indicating if the action link is external
+- `useExternalAction`: Boolean to prefer external action when `true`, otherwise prefer internal action
+- `userAgent` (optional): Custom user agent strings for Android and iOS WebViews
+
+**External Action Fields (`external`):**
+- `actionLink`: Deep link URL for the native mobile app with placeholders for dynamic values
 - `appStoreLink`: iOS App Store URL for the app
 - `playStoreLink`: Google Play Store URL for the app
+
+**Internal Action Fields (`internal`):**
+- `actionLink`: Web URL to open in WebView for the action
+- `actionCompletedUrlRegex` (optional): Regex pattern to detect when the action is completed
+- `injectedJavaScript` (optional): JavaScript code to inject into the WebView to assist with form filling or interaction
+- `injectedJavaScriptParamNames` (optional): Array of parameter names used in the injected JavaScript
+
+**Action Flow:**
+The mobile SDK will attempt actions based on the configuration:
+- If `useExternalAction` is `true`, it will try the external action first (native app), then fall back to internal (WebView)
+- If `useExternalAction` is `false` or omitted, it will try the internal action first (WebView), then fall back to external (native app)
+- Both `internal` and `external` sections can be provided for maximum flexibility
 
 #### `additionalClientOptions` (optional)
 - **Type**: `object`

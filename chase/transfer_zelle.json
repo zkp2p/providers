@@ -138,9 +138,11 @@
   ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
-    "actionLink": "chase://",
-    "isExternalLink": true,
-    "appStoreLink": "https://apps.apple.com/bb/app/chase-mobile-u-s/id298867247",
-    "playStoreLink": "https://play.google.com/store/apps/details?id=com.chase.sig.android"
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "chase://",
+      "appStoreLink": "https://apps.apple.com/bb/app/chase-mobile-u-s/id298867247",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.chase.sig.android"
+    }
   }
 }
