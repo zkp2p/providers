@@ -107,9 +107,11 @@
   },
   "mobile": {
     "includeAdditionalCookieDomains": [],
-    "actionLink": "citi://",
-    "isExternalLink": true,
-    "appStoreLink": "https://apps.apple.com/us/app/citi-mobile/id301724680",
-    "playStoreLink": "https://play.google.com/store/apps/details?id=com.citi.citimobile"
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "citi://",
+      "appStoreLink": "https://apps.apple.com/us/app/citi-mobile/id301724680",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.citi.citimobile"
+    }
   }
 }

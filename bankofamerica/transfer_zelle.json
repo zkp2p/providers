@@ -103,9 +103,11 @@
   },
   "mobile": {
     "includeAdditionalCookieDomains": [],
-    "actionLink": "bofa://movemoney",
-    "isExternalLink": true,
-    "appStoreLink": "https://apps.apple.com/us/app/bank-of-america-mobile-banking/id284847138",
-    "playStoreLink": "https://play.google.com/store/apps/details?id=com.infonow.bofa"
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "bofa://movemoney",
+      "appStoreLink": "https://apps.apple.com/us/app/bank-of-america-mobile-banking/id284847138",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.infonow.bofa"
+    }
   }
 }

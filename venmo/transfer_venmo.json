@@ -96,9 +96,11 @@
   ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
-    "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=cash&amount={{AMOUNT}}",
-    "isExternalLink": true,
-    "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",
-    "playStoreLink": "https://play.google.com/store/apps/details?id=com.venmo"
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "venmo://paycharge?txn=pay&recipients={{RECEIVER_ID}}&note=🎁&amount={{AMOUNT}}",
+      "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.venmo"
+    }
   }
 }
