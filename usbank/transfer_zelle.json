@@ -1,0 +1,126 @@
+{
+  "actionType": "transfer_zelle",
+  "authLink": "https://onlinebanking.usbank.com/digital/servicing/shellapp/#/zelle-activity/payments",
+  "url": "https://onlinebanking.usbank.com/digital/api/graphql/v1",
+  "method": "POST",
+  "body": "{\"operationName\":\"paymentListInquiry\",\"variables\":{\"inquiry\":{\"transactionType\":\"PAYMENT\",\"pageNumber\":1,\"pageSize\":7,\"pageInfo\":{\"transactionTypeSubCategories\":[{\"paymentStatusCode\":\"COMPLETE\",\"nextDateFetchKey\":\"\"}]}}},\"query\":\"fragment ActivityFields on ZellePayment {\n  messageReference\n  isCancellable\n  paymentAmountSplit {\n    linkedPaymentAmount\n    splitRequestedAmount\n    splitTotalAmount\n    __typename\n  }\n  payeeAccountToken\n  payeeId\n  payeeName\n  payeePartyName {\n    firstName\n    lastName\n    __typename\n  }\n  payerAccountName\n  payeeAccountName\n  payeeAccountAliasId\n  payerAccountAliasId\n  payerId\n  payerName\n  paymentAuxStatus\n  paymentDirection\n  paymentMemo\n  paymentPurpose\n  paymentReference\n  paymentSchedule {\n    scheduleId\n    nextPaymentDate\n    frequency\n    scheduleDay\n    otherDay\n    hasRecurringAutoPayment\n    stopBy\n    maximumAmount: maximumTransactionAmount\n    maximumTransactionCount\n    __typename\n  }\n  paymentStatus\n  paymentType\n  transferAmount\n  transferAmountCurrency\n  transferDate\n  valueDate\n  lastUpdatedDate\n  __typename\n  transactionSource\n  transactionTypeCode\n  rejectionReason\n  payerAccountToken\n  deliverySpeed\n  transactionReference\n}\n\nquery paymentListInquiry($inquiry: ZellePaymentInquiryRequest) {\n  inquiry: zellePaymentListInquiry(\n    appName: ZELLE\n    zellePaymentInquiryRequest: $inquiry\n  ) {\n    activities: payments {\n      ...ActivityFields\n      __typename\n    }\n    pageInfo {\n      transactionTypeSubCategories {\n        paymentStatusCode\n        nextDateFetchKey\n        __typename\n      }\n      __typename\n    }\n    additionalTransactions\n    totalPages\n    pageSize\n    pageNumber\n    totalRecords\n    __typename\n  }\n}\n\"}",
+  "metadata": {
+    "platform": "zelle",
+    "urlRegex": "https://onlinebanking.usbank.com/digital/api/graphql/v1",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.data.inquiry.activities",
+      "transactionJsonPathSelectors": {
+        "amount": "$.transferAmount",
+        "paymentId": "$.paymentReference",
+        "recipient": "$.payeeAccountAliasId",
+        "date": "$.transferDate",
+        "currency": "$.transferAmountCurrency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.data.inquiry.activities[{{INDEX}}].transferAmount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.inquiry.activities[{{INDEX}}].paymentReference"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.inquiry.activities[{{INDEX}}].payeeAccountAliasId"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.inquiry.activities[{{INDEX}}].transferDate"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "Authorization",
+    "referer"
+  ],
+  "secretHeaders": [
+    "Cookie",
+    "Authorization",
+    "referer"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"paymentReference\":\"(?<paymentReference>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"paymentStatus\":\"COMPLETE\""
+    },
+    {
+      "type": "regex",
+      "value": "\"transferDate\":\"(?<transferDate>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"transferAmount\":\"(?<transferAmount>[0-9\\.]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"payeeAccountAliasId\":\"(?<payeeAccountAliasId>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"transferAmountCurrency\":\"(?<transferAmountCurrency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"paymentDirection\":\"OUTBOUND\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data.inquiry.activities[{{INDEX}}].paymentReference",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.inquiry.activities[{{INDEX}}].paymentStatus",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.inquiry.activities[{{INDEX}}].transferDate",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.inquiry.activities[{{INDEX}}].transferAmount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.inquiry.activities[{{INDEX}}].payeeAccountAliasId",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.inquiry.activities[{{INDEX}}].transferAmountCurrency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.inquiry.activities[{{INDEX}}].paymentDirection",
+      "xPath": ""
+    }
+  ],
+  "additionalProofs": [],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "usbank://",
+      "appStoreLink": "https://apps.apple.com/us/app/u-s-bank-mobile-banking/id458734623",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.usbank.mobilebanking"
+    }
+  }
+}
