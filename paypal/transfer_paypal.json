@@ -48,8 +48,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"email\":\"(?<recvId>[^\"]+)\"",
-      "hash": true
+      "value": "\"email\":\"(?<recvId>[^\"]+)\""
     },
     {
       "type": "regex",
