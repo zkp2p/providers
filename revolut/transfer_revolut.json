@@ -85,8 +85,7 @@
     },
     {
       "type": "regex",
-      "value": "\"username\":\"(?<username>[^\"]+)\"",
-      "hash": true
+      "value": "\"username\":\"(?<username>[^\"]+)\""
     }
   ],
   "responseRedactions": [

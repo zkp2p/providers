@@ -64,8 +64,7 @@
     },
     {
       "type": "regex",
-      "value": "\"id\":\"(?<receiverId>[^\"]+)\"",
-      "hash": true
+      "value": "\"id\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",

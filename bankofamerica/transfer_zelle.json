@@ -68,8 +68,7 @@
     },
     {
       "type": "regex",
-      "value": "\"aliasToken\":\"(?<aliasToken>[^\"]+)\"",
-      "hash": true
+      "value": "\"aliasToken\":\"(?<aliasToken>[^\"]+)\""
     }
   ],
   "responseRedactions": [

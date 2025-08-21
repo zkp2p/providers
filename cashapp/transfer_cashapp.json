@@ -86,8 +86,7 @@
     },
     {
       "type": "regex",
-      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\"",
-      "hash": true
+      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",

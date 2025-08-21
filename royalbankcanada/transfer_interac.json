@@ -68,8 +68,7 @@
     },
     {
       "type": "regex",
-      "value": "\"email\":\"(?<email>[^\"]+)\"",
-      "hash": true
+      "value": "\"email\":\"(?<email>[^\"]+)\""
     }
   ],
   "responseRedactions": [
