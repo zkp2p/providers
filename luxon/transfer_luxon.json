@@ -5,6 +5,9 @@
   "method": "GET",
   "body": "",
   "metadata": {
+    "metadataUrl": "https://client-service.luxon.com/api/v4/transfers?page=0&size=10",
+    "metadataUrlMethod": "GET",
+    "metadataUrlBody": "",
     "platform": "luxon",
     "urlRegex": "https://client-service.luxon.com/api/v4/transfers\\S+",
     "method": "GET",
