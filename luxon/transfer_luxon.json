@@ -1,0 +1,118 @@
+{
+  "actionType": "transfer_luxon",
+  "authLink": "https://web.luxon.com/dashboard",
+  "url": "https://client-service.luxon.com/api/v4/transfers/{{TRANSFER_ID}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "metadataUrl": "https://client-service.luxon.com/api/v4/transfers?page=0&size=10",
+    "metadataUrlMethod": "GET",
+    "metadataUrlBody": "",
+    "platform": "luxon",
+    "urlRegex": "https://client-service.luxon.com/api/v4/transfers\\S+",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.content",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.receiver.label",
+        "amount": "$.receiver.value.amount",
+        "date": "$.createdAt",
+        "paymentId": "$.transferId",
+        "currency": "$.receiver.value.currency",
+        "status": "$.status"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].receiver.value.amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].transferId"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].receiver.id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].createdAt"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.content[{{INDEX}}].status"
+      }
+    ]
+  },
+  "paramNames": [
+    "TRANSFER_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.content[{{INDEX}}].transferId"
+    }
+  ],
+  "skipRequestHeaders": [
+    "X-Auth-Token"
+  ],
+  "secretHeaders": [
+    "X-Auth-Token"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"transferId\":\"(?<transferId>[^\"]+)\""
+    },
+    {
+      "type": "regex", 
+      "value": "\"status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"createdAt\":\"(?<createdAt>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"currency\":\"(?<currency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"email\":\"(?<email>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.transferId",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.status",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.createdAt",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.receiver.value.amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.receiver.value.currency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.receiver.email",
+      "xPath": ""
+    }
+  ]
+}
