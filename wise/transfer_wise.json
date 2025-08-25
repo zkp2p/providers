@@ -118,7 +118,7 @@
       "android": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.207 Mobile Safari/537.36",
       "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15"
     },
-    "useExternalAction": true,
+    "useExternalAction": false,
     "external": {
       "actionLink": "transferwise://pay/me/{{RECIPIENT_ID}}",
       "appStoreLink": "https://apps.apple.com/us/app/wise-international-transfers/id612261027",
