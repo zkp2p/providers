@@ -115,7 +115,7 @@
     "includeAdditionalCookieDomains": [],
     "useExternalAction": true,
     "external": {
-      "actionLink": "https://revolut.me/{{RECEIVER_ID}}",
+      "actionLink": "https://revolut.me/{{RECIPIENT_ID}}",
       "appStoreLink": "https://apps.apple.com/us/app/revolut/id370619147",
       "playStoreLink": "https://play.google.com/store/apps/details?id=com.revolut.revolut"
     }
