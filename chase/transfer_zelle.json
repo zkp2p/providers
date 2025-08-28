@@ -125,8 +125,7 @@
       "responseMatches": [
         {
           "type": "regex",
-          "value": "\"recipientEmail\":\"(?<recipientEmail>[^\"]+)\"",
-          "hash": true
+          "value": "\"recipientEmail\":\"(?<recipientEmail>[^\"]+)\""
         }
       ],
       "responseRedactions": [

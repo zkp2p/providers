@@ -82,8 +82,7 @@
     },
     {
       "type": "regex",
-      "value": "\"targetRecipientId\":(?<targetRecipientId>[0-9]+)",
-      "hash": true
+      "value": "\"targetRecipientId\":(?<targetRecipientId>[0-9]+)"
     }
   ],
   "responseRedactions": [
