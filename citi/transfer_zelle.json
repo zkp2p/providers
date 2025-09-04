@@ -69,8 +69,7 @@
     },
     {
       "type": "regex",
-      "value": "\"partyToken\":\"(?<partyToken>[^\"]+)\"",
-      "hash": true
+      "value": "\"partyToken\":\"(?<partyToken>[^\"]+)\""
     }
   ],
   "responseRedactions": [
