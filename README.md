@@ -2,7 +2,51 @@
 
 This repo houses the JSON providers used in ZKP2P PeerAuth Extension and ZKP2P React Native SDK. ZKP2P is live in production at [zkp2p.xyz](https://zkp2p.xyz/). PeerAuth is a browser extension that allows you to authenticate internet data in a privacy preserving way using web proofs / zkTLS
 
+## Package Usage (npm)
+
+This package is data-only. Consumers import the JSON templates directly via deep import paths, or read the included manifest.
+
+Install:
+
+```bash
+npm install @zkp2p/providers
+# or
+yarn add @zkp2p/providers
+```
+
+CommonJS (Node):
+
+```js
+const zelle = require('@zkp2p/providers/citi/transfer_zelle.json');
+console.log(zelle.actionType);
+```
+
+ESM (Node with import assertions):
+
+```js
+import zelle from '@zkp2p/providers/citi/transfer_zelle.json' assert { type: 'json' };
+console.log(zelle.actionType);
+```
+
+Manifest (providers.json):
+
+```js
+// CJS
+const manifest = require('@zkp2p/providers/providers.json');
+for (const p of manifest.providers) console.log(p.id, p.files);
+
+// ESM
+import manifest from '@zkp2p/providers/providers.json' assert { type: 'json' };
+```
+
+Notes:
+- No runtime code is shipped; only JSON and docs.
+- Deep imports like `@zkp2p/providers/<provider>/<file>.json` are stable entry points.
+- Bundlers (Webpack/Vite) support JSON imports by default.
+
+
 ## Developer Quickstart
+Note: The npm package is data-only. The local dev server described here is for development/testing in this repo and is not included in the published package.
 To get started building a new provider, you will need to setup a local version of 
 1. Clone the repo
 2. Run `yarn install` and `yarn start`. App is hosted on [http://localhost:8080](http://localhost:8080)
