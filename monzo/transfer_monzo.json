@@ -65,8 +65,7 @@
     },
     {
       "type": "regex",
-      "value": "\"user_id\":\"(?<userId>[^\"]+)\"",
-      "hash": true
+      "value": "\"user_id\":\"(?<userId>[^\"]+)\""
     },
     {
       "type": "regex",
