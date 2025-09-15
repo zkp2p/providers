@@ -1,0 +1,131 @@
+{
+    "actionType": "transfer_revolut_business",
+    "authLink": "https://business.revolut.com/home",
+    "url": "https://business.revolut.com/api/transactions/search",
+    "method": "POST",
+    "body": "{\"limit\": 20, \"from\": \"{{FROM_DATE}}\", \"to\": \"{{TO_DATE}}\"}",
+    "metadata": {
+      "platform": "revolutbusiness",
+      "urlRegex": "https://business.revolut.com/api/transactions/search$",
+      "method": "POST",
+      "fallbackUrlRegex": "https://business.revolut.com/api/transactions/search\\?\\S+",
+      "fallbackMethod": "POST",
+      "preprocessRegex": "",
+      "transactionsExtraction": {
+        "transactionJsonPathListSelector": "$.items",
+        "transactionJsonPathSelectors": {
+          "recipient": "$.name",
+          "amount": "$.amount.billed.amount",
+          "date": "$.time",
+          "paymentId": "$.id",
+          "currency": "$.amount.billed.currency"
+        }
+      },
+      "proofMetadataSelectors": [
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].amount.billed.amount"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].amount.billed.currency"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].name"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].time"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].state"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].id"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].reference"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.items[{{INDEX}}].side"
+        }
+      ]
+    },
+    "paramNames": ["FROM_DATE", "TO_DATE"],
+    "paramSelectors": [
+      {
+        "type": "timestamp",
+        "value": "{{FROM_DATE}}"
+      },
+      {
+        "type": "timestamp", 
+        "value": "{{TO_DATE}}"
+      }
+    ],
+    "skipRequestHeaders": [
+      "x-device-id",
+      "Cookie",
+      "authorization"
+    ],
+    "secretHeaders": [
+      "x-device-id",
+      "Cookie",
+      "authorization"
+    ],
+    "responseMatches": [
+      {
+        "type": "regex",
+        "value": "\"amount\":(?<amount>[0-9\\-]+)"
+      },
+      {
+        "type": "regex",
+        "value": "\"time\":(?<time>[0-9]+)"
+      },
+      {
+        "type": "regex",
+        "value": "\"currency\":\"(?<currency>[^\"]+)\""
+      },
+      {
+        "type": "regex",
+        "value": "\"id\":\"(?<id>[^\"]+)\""
+      },
+      {
+        "type": "regex",
+        "value": "\"state\":\"(?<state>[^\"]+)\""
+      }
+    ],
+    "responseRedactions": [
+      {
+        "jsonPath": "$.items[{{INDEX}}].amount.billed.amount",
+        "xPath": ""
+      },
+      {
+        "jsonPath": "$.items[{{INDEX}}].time",
+        "xPath": ""
+      },
+      {
+        "jsonPath": "$.items[{{INDEX}}].amount.billed.currency",
+        "xPath": ""
+      },
+      {
+        "jsonPath": "$.items[{{INDEX}}].id",
+        "xPath": ""
+      },
+      {
+        "jsonPath": "$.items[{{INDEX}}].state",
+        "xPath": ""
+      }
+    ],
+    "mobile": {
+      "includeAdditionalCookieDomains": [],
+      "actionLink": "https://business.revolut.com/transfer",
+      "isExternalLink": true,
+      "appStoreLink": "https://apps.apple.com/us/app/revolut-business/id1205531943",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.revolut.revolut.business"
+    }
+  }
