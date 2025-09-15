@@ -76,8 +76,7 @@
     },
     {
       "type": "regex",
-      "value": "\"toPayeeName\":\"(?<receiverId>[^\"]+)\"",
-      "hash": true
+      "value": "\"toPayeeName\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",
