@@ -6,10 +6,7 @@
     { "id": "citi", "files": ["citi/transfer_zelle.json"] },
     { "id": "idfc", "files": ["idfc/transfer_idfc.json"] },
     { "id": "luxon", "files": ["luxon/transfer_luxon.json"] },
-    { "id": "mercadopago", "files": [
-      "mercadopago/transfer_mercado_pago.json",
-      "mercadopago/transfer_mercadopago.json"
-    ] },
+    { "id": "mercadopago", "files": ["mercadopago/transfer_mercadopago.json"] },
     { "id": "monzo", "files": ["monzo/transfer_monzo.json"] },
     { "id": "paypal", "files": ["paypal/transfer_paypal.json"] },
     { "id": "revolut", "files": ["revolut/transfer_revolut.json"] },
