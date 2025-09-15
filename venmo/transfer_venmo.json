@@ -105,6 +105,13 @@
       "actionLink": "venmo://paycharge?txn=pay&recipients={{RECIPIENT_ID}}&note=🎁&amount={{AMOUNT}}",
       "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",
       "playStoreLink": "https://play.google.com/store/apps/details?id=com.venmo"
+    },
+    "login": {
+      "usernameSelector": "#email, input[name=\"login_email\"], input[name=\"username\"], input[type=\"email\"], input[data-testid=\"text-input-username\"]",
+      "passwordSelector": "#password, input[name=\"login_password\"][type=\"password\"][data-testid=\"text-input-password\"]",
+      "nextSelector": "#btnNext, button[data-testid=\"button-next\"], button.next_button[type=\"submit\"]",
+      "submitSelector": "#btnLogin, button[data-testid=\"button-submit\"][type=\"submit\"], button.login_button[type=\"submit\"]",
+      "revealTimeoutMs": 5000
     }
   }
 }
