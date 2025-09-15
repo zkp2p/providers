@@ -123,6 +123,12 @@
       "actionLink": "transferwise://pay/me/{{RECIPIENT_ID}}",
       "appStoreLink": "https://apps.apple.com/us/app/wise-international-transfers/id612261027",
       "playStoreLink": "https://play.google.com/store/apps/details?id=com.transferwise.android"
+    },
+    "login": {
+      "usernameSelector": "#email, input[name=\"email\"][type=\"email\"], input.cs-email[type=\"email\"]",
+      "passwordSelector": "#password, input[name=\"password\"][type=\"password\"], input.cs-password[type=\"password\"]",
+      "submitSelector": "button[type=\"submit\"]",
+      "revealTimeoutMs": 5000
     }
   }
 }
