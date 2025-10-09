@@ -5,6 +5,7 @@
   "method": "GET",
   "body": "",
   "metadata": {
+    "shouldReplayRequestInPage": true,
     "metadataUrl": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
     "metadataUrlMethod": "GET",
     "metadataUrlBody": "",
