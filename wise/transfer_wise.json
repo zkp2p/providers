@@ -107,6 +107,14 @@
       "xPath": ""
     },
     {
+      "jsonPath": "$.sourceAmount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.sourceCurrency",
+      "xPath": ""
+    },
+    {
       "jsonPath": "$.targetAmount",
       "xPath": ""
     },
