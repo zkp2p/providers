@@ -74,7 +74,7 @@
     },
     {
       "type": "regex",
-      "value": "sourceAmount\":(?<sourceAmount>[0-9\\.]+)"
+      "value": "\"sourceAmount\":(?<sourceAmount>[0-9\\.]+)"
     },
     {
       "type": "regex",
