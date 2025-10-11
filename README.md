@@ -224,7 +224,7 @@ This guide explains how to create and configure provider templates for the ZKP2P
 
 ```typescript
 interface ParamSelector {
-  type: 'jsonPath' | 'regex';
+  type: 'jsonPath' | 'xPath' | 'regex';
   value: string;
   source?: 'url' | 'responseBody' | 'responseHeaders' | 'requestHeaders' | 'requestBody';
 }
@@ -448,6 +448,20 @@ The mobile SDK will attempt actions based on the configuration:
 }
 ```
 
+##### Example 4: HTML Table with XPath
+```json
+{
+  "paramNames": ["tradeNo"],
+  "paramSelectors": [
+    {
+      "type": "xPath",
+      "value": "normalize-space((//table[@id='tradeRecordsIndex']//a[contains(@class,'J-tradeNo')]/@data-clipboard-text)[{{INDEX}} + 1])",
+      "source": "responseBody"
+    }
+  ]
+}
+```
+
 ### Extraction Types
 
 ##### JSONPath
@@ -464,6 +478,15 @@ Use JSONPath expressions for structured data:
 - Supports nested paths: `$.user.profile.email`
 - Array filters: `$.items[?(@.status=='active')]`
 
+##### XPath
+Use XPath expressions for HTML or XML responses:
+```json
+{
+  "type": "xPath",
+  "value": "normalize-space((//table[@id='tradeRecordsIndex']//a[contains(@class,'J-tradeNo')]/@data-clipboard-text)[{{INDEX}} + 1])"
+}
+```
+
 ##### Regex
 Use regular expressions for pattern matching:
 ```json
@@ -477,6 +500,7 @@ Use regular expressions for pattern matching:
 - First capture group `()` is used as the extracted value
 - Escape special characters: `\\.` for dots
 - Use `\\s*` for flexible whitespace matching
+- Supports `{{INDEX}}` substitution during proving (the selected row index is inserted before matching)
 
 ### Best Practices
 
@@ -487,8 +511,8 @@ Use regular expressions for pattern matching:
 
 #### 2. Parameter Extraction
 - Use JSONPath for structured JSON data
-- Use regex for HTML, text responses, or complex patterns
-- Always specify capture groups `()` for regex extraction
+- Use XPath for HTML or XML DOM responses
+- Use regex only when neither JSONPath nor XPath can address the structure
 - Specify `source` when extracting from non-default locations (not responseBody)
 - Test extraction with various response formats
 
@@ -499,25 +523,26 @@ Use regular expressions for pattern matching:
 
 #### 4. Transaction Extraction
 
-##### `transactionRegexSelectors` (optional)
+##### `transactionXPathSelectors` (optional)
 - **Type**: `object`
-- **Description**: Regular expression patterns to extract transaction data from HTML/text responses
-- **Use case**: Use this when transactions are embedded in HTML or when the response is not structured JSON
+- **Description**: XPath expressions to extract transaction data from HTML responses
+- **Use case**: Use this when transactions are displayed in tables or other DOM structures
 - **Example**: 
 ```json
 {
   "transactionsExtraction": {
-    "transactionRegexSelectors": {
-      "amount": "<td class=\"amount\">\\$([\\d,\\.]+)</td>",
-      "recipient": "<td class=\"recipient\">([^<]+)</td>",
-      "date": "<td class=\"date\">(\\d{2}/\\d{2}/\\d{4})</td>",
-      "paymentId": "data-payment-id=\"(\\d+)\""
+    "transactionXPathListSelector": "//table[@id='tradeRecordsIndex']//tbody/tr[contains(@class,'J-item')]",
+    "transactionXPathSelectors": {
+      "amount": "normalize-space(.//td[contains(@class,'amount')])",
+      "recipient": "normalize-space(substring-before(.//p[contains(@class,'p-inline') and contains(@class,'name')], '|'))",
+      "date": "normalize-space(.//td[contains(@class,'time')][last()])",
+      "paymentId": "normalize-space(.//a[contains(@class,'J-tradeNo')]/@data-clipboard-text)"
     }
   }
 }
 ```
 
-**Note**: Use either `transactionJsonPathListSelector` (for JSON responses) or `transactionRegexSelectors` (for HTML/text responses), not both.
+**Note**: Use either `transactionJsonPathListSelector` (for JSON responses) or `transactionXPathSelectors` (for HTML responses), not both.
 
 #### 5. Error Handling
 - Provide fallback URLs when primary endpoints might fail

@@ -1,5 +1,6 @@
 {
   "providers": [
+    { "id": "alipay", "files": ["alipay/transfer_alipay.json"] },
     { "id": "bankofamerica", "files": ["bankofamerica/transfer_zelle.json"] },
     { "id": "cashapp", "files": ["cashapp/transfer_cashapp.json"] },
     { "id": "chase", "files": ["chase/transfer_zelle.json"] },
@@ -16,4 +17,3 @@
     { "id": "wise", "files": ["wise/transfer_wise.json"] }
   ]
 }
-
