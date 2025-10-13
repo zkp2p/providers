@@ -74,6 +74,14 @@
     },
     {
       "type": "regex",
+      "value": "\"sourceAmount\":(?<sourceAmount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"sourceCurrency\":\"(?<sourceCurrency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
       "value": "\"targetAmount\":(?<targetAmount>[0-9\\.]+)"
     },
     {
@@ -96,6 +104,14 @@
     },
     {
       "jsonPath": "$.stateHistory",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.sourceAmount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.sourceCurrency",
       "xPath": ""
     },
     {
