@@ -52,7 +52,7 @@
     },
     {
       "type": "regex",
-      "value": "\"isPersonal\":true"
+      "value": "\"isPersonal\":(?<isPersonal>[true|false]+)"
     },
     {
       "type": "regex",
