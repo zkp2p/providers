@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_wise",
+  "proofEngine": "reclaim",
   "authLink": "https://wise.com/all-transactions?direction=OUTGOING",
   "url": "https://wise.com/gateway/v3/profiles/{{PROFILE_ID}}/transfers/{{TRANSACTION_ID}}",
   "method": "GET",

@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_zelle",
+  "proofEngine": "reclaim",
   "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/singleDoor/payments/activity;params=qp,sentactivity",
   "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list",
   "method": "POST",

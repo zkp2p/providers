@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_luxon",
+  "proofEngine": "reclaim",
   "authLink": "https://web.luxon.com/dashboard",
   "url": "https://client-service.luxon.com/api/v4/transfers/{{TRANSFER_ID}}",
   "method": "GET",
