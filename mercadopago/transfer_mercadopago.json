@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_mercado_pago",
+  "proofEngine": "reclaim",
   "authLink": "https://www.mercadopago.com.ar/home",
   "url": "https://www.mercadopago.com.ar/activities/detail/{{PAYMENT_ID}}?from={{URL_PARAMS_FROM}}",
   "method": "GET",

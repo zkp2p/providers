@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_zelle",
+  "proofEngine": "reclaim",
   "authLink": "https://onlinebanking.usbank.com/auth/login/",
   "url": "https://onlinebanking.usbank.com/digital/api/graphql/v1",
   "method": "POST",

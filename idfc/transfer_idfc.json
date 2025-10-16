@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_idfc",
+  "proofEngine": "reclaim",
   "authLink": "https://my.idfcfirstbank.com/pay/history",
   "url": "https://app.my.idfcfirstbank.com/api/pfm/v2/transactions",
   "method": "POST",

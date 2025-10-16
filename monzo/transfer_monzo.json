@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_monzo",
+  "proofEngine": "reclaim",
   "authLink": "https://web.monzo.com/",
   "url": "https://api.monzo.com/transactions/{{TX_ID}}",
   "method": "GET",
