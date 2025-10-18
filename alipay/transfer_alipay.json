@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_alipay",
+  "proofEngine": "reclaim",
   "authLink": "https://consumeprod.alipay.com/record/standard.htm",
   "url": "https://shenghuo.alipay.com/send/queryTransferDetail.htm?tradeNo={{TRADE_NO}}",
   "method": "GET",
