@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_zelle",
+  "proofEngine": "reclaim",
   "authLink": "https://online.citi.com/US/nga/zelle/transfer",
   "url": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/pastActivityTransactions?transactionCount=20&pageId=0&tab=All",
   "method": "GET",
@@ -69,8 +70,7 @@
     },
     {
       "type": "regex",
-      "value": "\"partyToken\":\"(?<partyToken>[^\"]+)\"",
-      "hash": true
+      "value": "\"partyToken\":\"(?<partyToken>[^\"]+)\""
     }
   ],
   "responseRedactions": [

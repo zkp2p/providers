@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_paypal",
+  "proofEngine": "reclaim",
   "authLink": "https://www.paypal.com/myaccount/activities/filter/?q=ZnJlZV90ZXh0X3NlYXJjaD0mc3RhcnRfZGF0ZT0yMDI1LTAxLTAxJmVuZF9kYXRlPTIwMzAtMTItMzEmdHlwZT0mc3RhdHVzPSZjdXJyZW5jeT0mZmlsdGVyX2lkPSZpc3N1YW5jZV9wcm9kdWN0X25hbWU9JmFzc2V0X25hbWVzPSZhc3NldF9zeW1ib2xzPQ",
   "url": "https://www.paypal.com/myaccount/activities/details/inline/{{PAYMENT_ID}}",
   "method": "GET",
@@ -48,12 +49,11 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"email\":\"(?<recvId>[^\"]+)\"",
-      "hash": true
+      "value": "\"email\":\"(?<recvId>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"isPersonal\":true"
+      "value": "\"isPersonal\":(?<isPersonal>[true|false]+)"
     },
     {
       "type": "regex",

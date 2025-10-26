@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_cashapp",
+  "proofEngine": "reclaim",
   "authLink": "https://cash.app/account/activity",
   "url": "https://cash.app/cash-app/activity/v1.0/page",
   "method": "POST",
@@ -86,8 +87,7 @@
     },
     {
       "type": "regex",
-      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\"",
-      "hash": true
+      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",

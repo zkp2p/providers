@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_interac",
+  "proofEngine": "reclaim",
   "authLink": "https://www1.royalbank.com/sgw1/olb/index-en/#/payment-history",
   "url": "https://www1.royalbank.com/sgw5/digital/emt-presentation-service/v1/{{PAYMENT_ID}}",
   "method": "GET",
@@ -68,8 +69,7 @@
     },
     {
       "type": "regex",
-      "value": "\"email\":\"(?<email>[^\"]+)\"",
-      "hash": true
+      "value": "\"email\":\"(?<email>[^\"]+)\""
     }
   ],
   "responseRedactions": [

@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_idfc",
+  "proofEngine": "reclaim",
   "authLink": "https://my.idfcfirstbank.com/pay/history",
   "url": "https://app.my.idfcfirstbank.com/api/pfm/v2/transactions",
   "method": "POST",
@@ -76,8 +77,7 @@
     },
     {
       "type": "regex",
-      "value": "\"toPayeeName\":\"(?<receiverId>[^\"]+)\"",
-      "hash": true
+      "value": "\"toPayeeName\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",

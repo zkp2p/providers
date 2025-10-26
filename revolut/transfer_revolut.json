@@ -1,5 +1,6 @@
 {
   "actionType": "transfer_revolut",
+  "proofEngine": "reclaim",
   "authLink": "https://app.revolut.com/home",
   "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
   "method": "GET",
@@ -85,8 +86,7 @@
     },
     {
       "type": "regex",
-      "value": "\"username\":\"(?<username>[^\"]+)\"",
-      "hash": true
+      "value": "\"username\":\"(?<username>[^\"]+)\""
     }
   ],
   "responseRedactions": [
