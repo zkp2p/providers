@@ -46,8 +46,8 @@
       }
     ],
     "userInput": {
-      "promptText": "Click a transaction in the list to authenticate",
-      "transactionXpath": "//section[@id='feed-pending-module']//li[.//a[@data-testid='feed-timeline-item']]"
+      "promptText": "Select a transfer below to proceed with authentication",
+      "transactionXpath": "//section[@id='feed-pending-module']//div[contains(@class,'q1hbnk3w') and contains(@class,'q1hbnk5w')]"
     }
   },
   "paramNames": [
