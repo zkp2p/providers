@@ -24,18 +24,41 @@
       }
     },
     "proofMetadataSelectors": [
-      { "type": "jsonPath", "value": "$.data.transaction.containers[0].body[1].amount.money.unscaledAmount" },
-      { "type": "jsonPath", "value": "$.data.transaction.containers[0].body[1].amount.money.currency.code" },
-      { "type": "jsonPath", "value": "$.data.transaction.containers[0].body[1].title" },
-      { "type": "jsonPath", "value": "$.data.transaction.containers[0].body[1].subtitle" },
-      { "type": "jsonPath", "value": "$.data.transaction.containers[3].body[0].action.params.transactionId" }
-    ]
+      {
+        "type": "jsonPath",
+        "value": "$.data.transaction.containers[0].body[1].amount.money.unscaledAmount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transaction.containers[0].body[1].amount.money.currency.code"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transaction.containers[0].body[1].title"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transaction.containers[0].body[1].subtitle"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.transaction.containers[3].body[0].action.params.transactionId"
+      }
+    ],
+    "userInput": {
+      "promptText": "Click a transaction in the list to authenticate",
+      "transactionXpath": "//section[@id='feed-pending-module']//li[.//a[@data-testid='feed-timeline-item']]"
+    }
   },
   "paramNames": [
     "BODY"
   ],
   "paramSelectors": [
-    { "type": "regex", "value": "^(.*)$", "source": "requestBody" }
+    {
+      "type": "regex",
+      "value": "^(.*)$",
+      "source": "requestBody"
+    }
   ],
   "skipRequestHeaders": [
     "Cookie",
@@ -54,31 +77,42 @@
     },
     {
       "type": "regex",
-      "value": "\"uri\":\"\\/transactions\\/feed\\/(?<recipientId>[0-9a-fA-F-]{36})\/[0-9a-fA-F-]{36}(?:\\?[^\\\"]*)?\""
-    },
-    {
-      "type": "regex",
-      "value": "\"uri\":\"\\/transactions\\/feed\\/[0-9a-fA-F-]{36}\/(?<transactionId>[0-9a-fA-F-]{36})(?:\\?[^\\\"]*)?\""
-    },
-    {
-      "type": "regex",
       "value": "\"code\":\"(?<currency>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"title\":\"(?<title>[^\"]+)\""
+      "value": "\"subtitle\":\"(?<date>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"subtitle\":\"(?<subtitle>[^\"]+)\""
+      "value": "\"transactionId\":\"(?<paymentId>[0-9a-fA-F-]{36})\""
+    },
+    {
+      "type": "regex",
+      "value": "\"accountId\":\"(?<recipientId>[0-9a-fA-F-]{36})\""
     }
   ],
   "responseRedactions": [
-    { "jsonPath": "$.data.transaction.containers[0].body[1].amount.money.unscaledAmount", "xPath": "" },
-    { "jsonPath": "$.data.transaction.containers[0].body[1].amount.money.currency.code", "xPath": "" },
-    { "jsonPath": "$.data.transaction.containers[0].body[1].title", "xPath": "" },
-    { "jsonPath": "$.data.transaction.containers[0].body[1].subtitle", "xPath": "" },
-    { "jsonPath": "$.data.transaction.containers[3].body[0].action.params.transactionId", "xPath": "" }
+    {
+      "jsonPath": "$.data.transaction.containers[0].body[1].amount.money.unscaledAmount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transaction.containers[0].body[1].amount.money.currency.code",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transaction.containers[0].body[1].subtitle",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transaction.containers[3].body[0].action.params.transactionId",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.transaction.containers[3].body[0].action.params.accountId",
+      "xPath": ""
+    }
   ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
