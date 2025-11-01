@@ -78,8 +78,7 @@
     },
     {
       "type": "regex",
-      "value": "\\\\\"token\\\\\":\\\\\"(?<token>[^\\\\\"]+)\\\\\"",
-      "hash": true
+      "value": "\\\\\"token\\\\\":\\\\\"(?<token>[^\\\\\"]+)\\\\\""
     },
     {
       "type": "regex",
