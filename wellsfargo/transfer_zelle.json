@@ -1,0 +1,138 @@
+{
+  "actionType": "transfer_zelle",
+  "authLink": "https://www.wellsfargo.com/online-banking/zelle/",
+  "url": "https://connect.secure.wellsfargo.com/zelletransfers/p2p/send/activities?_x={{X_TOKEN}}&firstTimeLoadFlag=true&direction=OUTBOUND&_={{TIMESTAMP}}&F=J",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "userInput": {
+      "promptText": "Click on \"Activity\" to authenticate",
+      "transactionXpath": "//li[.//button[@data-en='activity']]"
+    },
+    "platform": "zelle",
+    "urlRegex": "https://connect.secure.wellsfargo.com/zelletransfers/p2p/send/activities\\?_x=\\S+&firstTimeLoadFlag=true&direction=OUTBOUND&_=\\S+&F=J",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "\\/\\*WellFargoProprietary%([\\s\\S]*)%WellFargoProprietary\\*\\/",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount",
+        "paymentId": "$.confirmationCode",
+        "date": "$.dateTimeStamp",
+        "recipient": "$.token"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].confirmationCode"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].dateTimeStamp"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.sendReceiveActivitiesViewBean.p2pSendMoney.views[0].activities[{{INDEX}}].token"
+      }
+    ]
+  },
+  "paramNames": [
+    "X_TOKEN",
+    "TIMESTAMP"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "https://connect.secure.wellsfargo.com/zelletransfers/p2p/send/activities\\?_x=([^&]+)",
+      "source": "url"
+    },
+    {
+      "type": "regex",
+      "value": "firstTimeLoadFlag=true&direction=OUTBOUND&_=([^&]+)&F=J",
+      "source": "url"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "accept-encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\\\\\"confirmationCode\\\\\":\\\\\"(?<confirmationCode>[^\\\\\"]+)\\\\\""
+    },
+    {
+      "type": "regex",
+      "value": "\\\\\"amount\\\\\":\\\\\"(?<amount>[^\\\\\"]+)\\\\\""
+    },
+    {
+      "type": "regex",
+      "value": "\\\\\"token\\\\\":\\\\\"(?<token>[^\\\\\"]+)\\\\\"",
+      "hash": true
+    },
+    {
+      "type": "regex",
+      "value": "\\\\\"dateTimeStamp\\\\\":\\\\\"(?<dateTimeStamp>[^\\\\\"]+)\\\\\""
+    },
+    {
+      "type": "regex",
+      "value": "\\\\\"status\\\\\":\\\\\"(?<status>[^\\\\\"]+)\\\\\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"confirmationCode\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"amount\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"token\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"dateTimeStamp\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "\\\\\"status\\\\\":\\\\\"([^\\\\\"]*)\\\\\""
+    }
+  ],
+  "additionalClientOptions": {
+    "cipherSuites": [
+      "TLS_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_AES_128_GCM_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+    ]
+  },
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "actionLink": "wellsfargo://",
+    "isExternalLink": true,
+    "appStoreLink": "https://apps.apple.com/us/app/wells-fargo-mobile/id398091704",
+    "playStoreLink": "https://play.google.com/store/apps/details?id=com.wellsfargo.mobile"
+  }
+}
+  
