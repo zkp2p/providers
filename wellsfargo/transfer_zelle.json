@@ -5,6 +5,10 @@
   "method": "GET",
   "body": "",
   "metadata": {
+    "userInput": {
+      "promptText": "Click on \"Activity\" to authenticate",
+      "transactionXpath": "//li[.//button[@data-en='activity']]"
+    },
     "platform": "zelle",
     "urlRegex": "https://connect.secure.wellsfargo.com/zelletransfers/p2p/send/activities\\?_x=\\S+&firstTimeLoadFlag=true&direction=OUTBOUND&_=\\S+&F=J",
     "method": "GET",
