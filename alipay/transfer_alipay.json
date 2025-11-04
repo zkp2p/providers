@@ -16,7 +16,9 @@
       "transactionXPathListSelector": "//table[@id='tradeRecordsIndex']//tbody/tr[contains(@class,'J-item') and .//li[contains(@data-link,'send/queryTransferDetail.htm')]]",
       "transactionXPathSelectors": {
         "amount": "normalize-space(.//td[contains(@class,'amount')]/span[contains(@class,'amount')])",
-        "paymentId": "normalize-space(.//a[contains(@class,'J-tradeNo')]/@data-clipboard-text)"
+        "paymentId": "normalize-space(.//a[contains(@class,'J-tradeNo')]/@data-clipboard-text)",
+        "recipient": "normalize-space(substring-before(.//td[@class='name']/p[contains(@class,'name')][1], '|'))",
+        "date": "normalize-space(concat(.//td[@class='time']/p[1], ' ', .//td[@class='time']/p[2]))"
       }
     },
     "proofMetadataSelectors": [
@@ -45,48 +47,39 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "</th>[\\s\\S]*?<td[^>]*>[\\s\\S]*?(?:</span>)?\\s*(?<recipientId>[^\\s<][^<]*)"
+      "value": "<span class=\"J-emoji\"[^>]*data-emoji=\"(?<recipientIdName>[^\"]+)\"><\\/span>\\r\\n\\s*\\t\\t(?<recipientId>[^\\r\\n]+)"
     },
     {
       "type": "regex",
-      "value": "<span\\s+class=\\\"J-emoji\\\"[^>]*data-emoji=\\\"(?<recipientIdName>[\\\\u0-9A-Fa-f]+)\\\""
+      "value": "<td\\s+class=\"postalfee\">\\s*(?<postalFee>[^<]+)<\\/td>"
     },
     {
       "type": "regex",
-      "value": "<td\\s+class=\\\"postalfee\\\">\\s*(?<postalFee>[+\\-]?[0-9]+(?:\\.[0-9]{2})?)<\\/td>"
+      "value": "<td\\s+class=\"amount\">\\s*=?(?<totalAmount>[^<]+)<\\/td>"
     },
     {
       "type": "regex",
-      "value": "<td\\s+class=\\\"amount\\\">\\s*=?(?<totalAmount>[0-9]+(?:\\.[0-9]{2})?)<\\/td>"
-    },
-    {
-      "type": "regex",
-      "value": "<th\\s+class=\\\"time\\\">(.*?)<\\/th>[\\s\\S]*?<td\\s+class=\\\"time\\\">\\s*(?<dateCompleted>\\d{4}\\.\\d{2}\\.\\d{2}\\s+\\d{2}:\\d{2}:\\d{2})"
+      "value": "<td\\s+class=\"time\"[^>]*>\\s*(?<dateCompleted>[^\\r\\n]+)"
     }
   ],
   "responseRedactions": [
     {
-      "regex": "<th>¶Ô·½ÐÅÏ¢£º</th>[\\s\\S]*?<td[^>]*>[\\s\\S]*?<\\/td>",
+      "regex": "<th>¶Ô·½ÐÅÏ¢£º<\\/th>(.*?)<\\/tr>",
       "jsonPath": "",
       "xPath": ""
     },
     {
-      "regex": "<span\\s+class=\\\"J-emoji\\\"[^>]*data-emoji=\\\"[^\\\"]+\\\"[\\s\\S]*?<\\/span>",
+      "regex": "<td\\s+class=\"postalfee\">[\\s\\S]*?<\\/td>",
       "jsonPath": "",
       "xPath": ""
     },
     {
-      "regex": "<td\\s+class=\\\"postalfee\\\">[\\s\\S]*?<\\/td>",
+      "regex": "<td\\s+class=\"amount\">[\\s\\S]*?<\\/td>",
       "jsonPath": "",
       "xPath": ""
     },
     {
-      "regex": "<td\\s+class=\\\"amount\\\">[\\s\\S]*?<\\/td>",
-      "jsonPath": "",
-      "xPath": ""
-    },
-    {
-      "regex": "<th\\s+class=\\\"time\\\">(.*?)<\\/th>[\\s\\S]*?<td\\s+class=\\\"time\\\">[\\s\\S]*?<\\/td>",
+      "regex": "<th class=\"time\">(.*?)<\\/th>[\\s\\S]*?<td\\s+class=\"time\">[\\s\\S]*?<\\/td>",
       "jsonPath": "",
       "xPath": ""
     }
