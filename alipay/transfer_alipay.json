@@ -1,0 +1,87 @@
+{
+  "actionType": "transfer_alipay",
+  "proofEngine": "reclaim",
+  "authLink": "https://consumeprod.alipay.com/record/standard.htm",
+  "url": "https://shenghuo.alipay.com/send/queryTransferDetail.htm?tradeNo={{TRADE_NO}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "alipay",
+    "urlRegex": "https://consumeprod.alipay.com/record/standard.htm",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionXPathListSelector": "//table[@id='tradeRecordsIndex']//tbody/tr[contains(@class,'J-item') and .//li[contains(@data-link,'send/queryTransferDetail.htm')]]",
+      "transactionXPathSelectors": {
+        "amount": "normalize-space(.//td[contains(@class,'amount')]/span[contains(@class,'amount')])",
+        "paymentId": "normalize-space(.//a[contains(@class,'J-tradeNo')]/@data-clipboard-text)",
+        "recipient": "normalize-space(substring-before(.//td[@class='name']/p[contains(@class,'name')][1], '|'))",
+        "date": "normalize-space(concat(.//td[@class='time']/p[1], ' ', .//td[@class='time']/p[2]))"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "regex",
+        "value": "交易号\\s+(\\d{16,})"
+      }
+    ]
+  },
+  "paramNames": [
+    "TRADE_NO"
+  ],
+  "paramSelectors": [
+    {
+      "type": "xPath",
+      "value": "normalize-space((//table[@id='tradeRecordsIndex']//tbody/tr[contains(@class,'J-item') and .//li[contains(@data-link,'send/queryTransferDetail.htm')]]//a[contains(@class,'J-tradeNo')]/@data-clipboard-text)[{{INDEX}} + 1])"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "<span class=\"J-emoji\"[^>]*data-emoji=\"(?<recipientIdName>[^\"]+)\"><\\/span>\\r\\n\\s*\\t\\t(?<recipientId>[^\\r\\n]+)"
+    },
+    {
+      "type": "regex",
+      "value": "<td\\s+class=\"postalfee\">\\s*(?<postalFee>[^<]+)<\\/td>"
+    },
+    {
+      "type": "regex",
+      "value": "<td\\s+class=\"amount\">\\s*=?(?<totalAmount>[^<]+)<\\/td>"
+    },
+    {
+      "type": "regex",
+      "value": "<td\\s+class=\"time\"[^>]*>\\s*(?<dateCompleted>[^\\r\\n]+)"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "regex": "<th>¶Ô·½ÐÅÏ¢£º<\\/th>(.*?)<\\/tr>",
+      "jsonPath": "",
+      "xPath": ""
+    },
+    {
+      "regex": "<td\\s+class=\"postalfee\">[\\s\\S]*?<\\/td>",
+      "jsonPath": "",
+      "xPath": ""
+    },
+    {
+      "regex": "<td\\s+class=\"amount\">[\\s\\S]*?<\\/td>",
+      "jsonPath": "",
+      "xPath": ""
+    },
+    {
+      "regex": "<th class=\"time\">(.*?)<\\/th>[\\s\\S]*?<td\\s+class=\"time\">[\\s\\S]*?<\\/td>",
+      "jsonPath": "",
+      "xPath": ""
+    }
+  ]
+}
