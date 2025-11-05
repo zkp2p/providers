@@ -127,6 +127,9 @@
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "useExternalAction": true,
+    "userAgent": {
+      "android": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.207 Mobile Safari/537.36"
+    },
     "external": {
       "actionLink": "https://cash.app/{{RECIPIENT_ID}}/{{AMOUNT}}",
       "appStoreLink": "https://apps.apple.com/us/app/cash-app-mobile-banking/id711923939",
