@@ -7,13 +7,13 @@
   "body": "",
   "metadata": {
     "platform": "mercadopago",
-    "urlRegex": "https://www.mercadopago.com.ar/home",
+    "urlRegex": "^https://www\\.mercadopago\\.com\\.ar/home(?:/)?(?:\\?.*)?$",
     "method": "GET",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
     "preprocessRegex": "<script\\s+[^>]*id=[\"']__PRELOADED_STATE__[\"'][^>]*>([\\s\\S]*?)</script>",
     "transactionsExtraction": {
-      "transactionJsonPathListSelector": "$.pageState.mpHome.result.sections.activities.content.activities_container.results",
+      "transactionJsonPathListSelector": "$.pageState.mpHome.result.sections.hs_activities.content.content",
       "transactionJsonPathSelectors": {
         "recipient": "$.title",
         "amount": "$.amount.fraction",
@@ -25,15 +25,15 @@
     "proofMetadataSelectors": [
       {
         "type": "jsonPath",
-        "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].title"
+        "value": "$.pageState.mpHome.result.sections.hs_activities.content.content[{{INDEX}}].title"
       },
       {
         "type": "jsonPath",
-        "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].amount.fraction"
+        "value": "$.pageState.mpHome.result.sections.hs_activities.content.content[{{INDEX}}].amount.fraction"
       },
       {
         "type": "jsonPath",
-        "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].id"
+        "value": "$.pageState.mpHome.result.sections.hs_activities.content.content[{{INDEX}}].id"
       }
     ]
   },
@@ -44,11 +44,11 @@
   "paramSelectors": [
     {
       "type": "jsonPath",
-      "value": "$.pageState.mpHome.result.sections.activities.content.activities_container.results[{{INDEX}}].id"
+      "value": "$.pageState.mpHome.result.sections.hs_activities.content.content[{{INDEX}}].id"
     },
     {
       "type": "regex",
-      "value": "(mp-home)"
+      "value": "from=([^&\\\"]+)"
     }
   ],
   "skipRequestHeaders": [
@@ -89,7 +89,7 @@
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(.*?)<\/span><span aria-hidden=\"true\">,<\/span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(.*?)<\/span>"
+      "regex": "<span class=\"andes-money-amount__fraction\" aria-hidden=\"true\">(.*?)</span><span aria-hidden=\"true\">,</span><span class=\"andes-money-amount__cents\" aria-hidden=\"true\">(.*?)</span>"
     },
     {
       "jsonPath": "",
@@ -108,6 +108,13 @@
     }
   ],
   "mobile": {
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_AES_128_GCM_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+      ]
+    },
     "includeAdditionalCookieDomains": [
       "mercadolibre.com",
       "www.mercadolibre.com"
