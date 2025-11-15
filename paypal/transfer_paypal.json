@@ -7,11 +7,11 @@
   "body": "",
   "metadata": {
     "platform": "paypal",
-    "urlRegex": "https://www.paypal.com/myaccount/activities/filter/\\?q=ZnJlZV90ZXh0X3NlYXJjaD0mc3RhcnRfZGF0ZT0yMDI1LTAxLTAxJmVuZF9kYXRlPTIwMzAtMTItMzEmdHlwZT0mc3RhdHVzPSZjdXJyZW5jeT0mZmlsdGVyX2lkPSZpc3N1YW5jZV9wcm9kdWN0X25hbWU9JmFzc2V0X25hbWVzPSZhc3NldF9zeW1ib2xzPQ",
+    "urlRegex": "^https://www.paypal.com/myaccount/activities/filter/\\?q=.*$",
     "method": "GET",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
-    "preprocessRegex": "",
+    "preprocessRegex": "<pre[^>]*>([\\s\\S]*?)<\\/pre>",
     "transactionsExtraction": {
       "transactionJsonPathListSelector": "$.data.data.activity.transactions",
       "transactionJsonPathSelectors": {
@@ -97,5 +97,21 @@
       "jsonPath": "$.data.primitiveTimeCreated",
       "xPath": ""
     }
-  ]
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+      ]
+    },
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "paypal://",
+      "appStoreLink": "https://apps.apple.com/us/app/paypal-pay-send-save/id283646709",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile&hl=en_US"
+    }
+  }
 }
