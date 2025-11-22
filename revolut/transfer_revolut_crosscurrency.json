@@ -1,5 +1,5 @@
 {
-  "actionType": "transfer_revolut",
+  "actionType": "transfer_revolut_crosscurrency",
   "proofEngine": "reclaim",
   "authLink": "https://app.revolut.com/home",
   "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
@@ -21,19 +21,20 @@
       "transactionJsonPathSelectors": {
         "recipient": "$.recipient.username",
         "amount": "$.amount",
+        "counterpartAmount": "$.counterpart.amount",
         "date": "$.completedDate",
         "paymentId": "$.id",
-        "currency": "$.currency"
+        "counterpartCurrency": "$.counterpart.currency"
       }
     },
     "proofMetadataSelectors": [
       {
         "type": "jsonPath",
-        "value": "$.[{{INDEX}}].amount"
+        "value": "$.[{{INDEX}}].counterpart.amount"
       },
       {
         "type": "jsonPath",
-        "value": "$.[{{INDEX}}].currency"
+        "value": "$.[{{INDEX}}].counterpart.currency"
       },
       {
         "type": "jsonPath",
@@ -91,7 +92,7 @@
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.[{{INDEX}}].amount",
+      "jsonPath": "$.[{{INDEX}}].counterpart.amount",
       "xPath": ""
     },
     {
@@ -99,7 +100,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.[{{INDEX}}].currency",
+      "jsonPath": "$.[{{INDEX}}].counterpart.currency",
       "xPath": ""
     },
     {
@@ -117,13 +118,6 @@
   ],
   "mobile": {
     "includeAdditionalCookieDomains": [],
-    "additionalClientOptions": {
-      "cipherSuites": [
-        "TLS_CHACHA20_POLY1305_SHA256",
-        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
-        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
-      ]
-    },
     "useExternalAction": true,
     "external": {
       "actionLink": "https://revolut.me/{{RECIPIENT_ID}}",
