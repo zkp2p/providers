@@ -1,5 +1,5 @@
 {
-  "actionType": "transfer_revolut",
+  "actionType": "transfer_revolut_crosscurrency",
   "proofEngine": "reclaim",
   "authLink": "https://app.revolut.com/home",
   "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
