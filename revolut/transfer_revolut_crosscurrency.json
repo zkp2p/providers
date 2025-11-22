@@ -24,7 +24,6 @@
         "counterpartAmount": "$.counterpart.amount",
         "date": "$.completedDate",
         "paymentId": "$.id",
-        "currency": "$.currency",
         "counterpartCurrency": "$.counterpart.currency"
       }
     },
