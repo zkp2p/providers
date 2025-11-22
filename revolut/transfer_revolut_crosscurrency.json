@@ -31,11 +31,11 @@
     "proofMetadataSelectors": [
       {
         "type": "jsonPath",
-        "value": "$.[{{INDEX}}].amount"
+        "value": "$.[{{INDEX}}].counterpart.amount"
       },
       {
         "type": "jsonPath",
-        "value": "$.[{{INDEX}}].currency"
+        "value": "$.[{{INDEX}}].counterpart.currency"
       },
       {
         "type": "jsonPath",
