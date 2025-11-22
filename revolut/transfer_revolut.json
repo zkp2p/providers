@@ -21,7 +21,6 @@
       "transactionJsonPathSelectors": {
         "recipient": "$.recipient.username",
         "amount": "$.amount",
-        "counterpartAmount": "$.counterpart.amount",
         "date": "$.completedDate",
         "paymentId": "$.id",
         "currency": "$.currency"
