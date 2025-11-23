@@ -130,5 +130,74 @@
       "appStoreLink": "https://apps.apple.com/us/app/revolut/id370619147",
       "playStoreLink": "https://play.google.com/store/apps/details?id=com.revolut.revolut"
     }
-  }
+  },
+  "additionalProofs": [
+    {
+      "url": "https://app.revolut.com/api/retail/user/current/transactions/last?count=20",
+      "method": "GET",
+      "body": "",
+      "paramNames": [],
+      "paramSelectors": [],
+      "skipRequestHeaders": [
+        "x-device-id",
+        "Cookie"
+      ],
+      "secretHeaders": [
+        "x-device-id",
+        "Cookie"
+      ],
+      "responseMatches": [
+        {
+          "type": "regex",
+          "value": "\"amount\":(?<amount>[0-9\\-]+)"
+        },
+        {
+          "type": "regex",
+          "value": "\"completedDate\":(?<completedDate>[0-9]+)"
+        },
+        {
+          "type": "regex",
+          "value": "\"currency\":\"(?<currency>[^\"]+)\""
+        },
+        {
+          "type": "regex",
+          "value": "\"id\":\"(?<id>[^\"]+)\""
+        },
+        {
+          "type": "regex",
+          "value": "\"state\":\"(?<state>[^\"]+)\""
+        },
+        {
+          "type": "regex",
+          "value": "\"username\":\"(?<username>[^\"]+)\""
+        }
+      ],
+      "responseRedactions": [
+        {
+          "jsonPath": "$.[{{INDEX}}].counterpart.amount",
+          "xPath": ""
+        },
+        {
+          "jsonPath": "$.[{{INDEX}}].completedDate",
+          "xPath": ""
+        },
+        {
+          "jsonPath": "$.[{{INDEX}}].counterpart.currency",
+          "xPath": ""
+        },
+        {
+          "jsonPath": "$.[{{INDEX}}].id",
+          "xPath": ""
+        },
+        {
+          "jsonPath": "$.[{{INDEX}}].recipient.username",
+          "xPath": ""
+        },
+        {
+          "jsonPath": "$.[{{INDEX}}].state",
+          "xPath": ""
+        }
+      ]
+    }
+  ]
 }
