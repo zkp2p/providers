@@ -44,6 +44,16 @@ Notes:
 - Deep imports like `@zkp2p/providers/<provider>/<file>.json` are stable entry points.
 - Bundlers (Webpack/Vite) support JSON imports by default.
 
+## Backend sync (config.zkp2p)
+
+A GitHub Action (`.github/workflows/sync-config-backend.yml`) calls the config backend whenever a commit lands on any branch. Set these repo secrets so the workflow can reach the backend:
+
+- `CONFIG_BACKEND_SYNC_URL`: full URL to the backend sync endpoint (e.g. `https://config.zkp2p.xyz/api/providers/sync`)
+- `CONFIG_BACKEND_SYNC_SECRET`: matches `PROVIDERS_WEBHOOK_SECRET` in the backend
+- `CONFIG_BACKEND_DEPLOY_HOOK_URL` (optional): Vercel deploy hook if you also want to trigger a new deployment on every push
+
+The action posts the current branch name so the backend caches that branch's provider JSON in Redis and exposes it under `/providers/*`.
+
 
 ## Developer Quickstart
 Note: The npm package is data-only. The local dev server described here is for development/testing in this repo and is not included in the published package.

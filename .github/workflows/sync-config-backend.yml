@@ -1,0 +1,37 @@
+name: Sync providers to config backend
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger backend providers sync
+        env:
+          SYNC_URL: ${{ secrets.CONFIG_BACKEND_SYNC_URL }}
+          SYNC_SECRET: ${{ secrets.CONFIG_BACKEND_SYNC_SECRET }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          if [ -z "$SYNC_URL" ]; then
+            echo "CONFIG_BACKEND_SYNC_URL secret not set; skipping sync call."
+            exit 0
+          fi
+
+          echo "Syncing branch ${BRANCH} -> ${SYNC_URL}"
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "x-provider-sync-secret: ${SYNC_SECRET}" \
+            "${SYNC_URL}?branch=${BRANCH}&refreshBranches=true" \
+            -d '{}' \
+            --fail
+
+      - name: Trigger Vercel deploy hook (optional)
+        if: ${{ secrets.CONFIG_BACKEND_DEPLOY_HOOK_URL != '' }}
+        env:
+          DEPLOY_HOOK: ${{ secrets.CONFIG_BACKEND_DEPLOY_HOOK_URL }}
+        run: |
+          echo "Triggering deploy hook"
+          curl -X POST "${DEPLOY_HOOK}" --fail
