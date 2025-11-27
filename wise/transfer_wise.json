@@ -143,7 +143,7 @@
     },
     "useExternalAction": true,
     "external": {
-      "actionLink": "transferwise://pay/me/{{RECIPIENT_ID}}",
+      "actionLink": "https://wise.com/pay/me/{{RECIPIENT_ID}}",
       "appStoreLink": "https://apps.apple.com/us/app/wise-international-transfers/id612261027",
       "playStoreLink": "https://play.google.com/store/apps/details?id=com.transferwise.android"
     },
