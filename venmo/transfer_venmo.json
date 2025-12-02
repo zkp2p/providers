@@ -104,9 +104,6 @@
       ]
     },
     "useExternalAction": true,
-    "userAgent": {
-      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15"
-    },
     "external": {
       "actionLink": "venmo://paycharge?txn=pay&recipients={{RECIPIENT_ID}}&note=Thx&amount={{AMOUNT}}",
       "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",

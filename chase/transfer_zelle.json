@@ -139,6 +139,10 @@
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "useExternalAction": true,
+    "userAgent": {
+      "android": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+    },
     "external": {
       "actionLink": "chase://",
       "appStoreLink": "https://apps.apple.com/bb/app/chase-mobile-u-s/id298867247",
