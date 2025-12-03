@@ -106,5 +106,25 @@
       "jsonPath": "$.transaction.metadata.hold_decision_status",
       "xPath": ""
     }
-  ]
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+      ]
+    },
+    "userAgent": {
+      "android": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+    },
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "https://monzo.me/{{RECIPIENT_ID}}",
+      "appStoreLink": "https://apps.apple.com/us/app/monzo-mobile-banking/id1052238659",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=co.uk.getmondo&hl=en_US"
+    }
+  }
 }
