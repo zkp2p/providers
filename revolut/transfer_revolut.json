@@ -11,7 +11,7 @@
     "metadataUrlMethod": "GET",
     "metadataUrlBody": "",
     "platform": "revolut",
-    "urlRegex": "https://app.revolut.com/api/retail/user/current/transactions/last\\S+",
+    "urlRegex": "https://app.revolut.com/api/retail/user/current/transactions/last\\?count=20$",
     "method": "GET",
     "fallbackUrlRegex": "https://app.revolut.com/api/retail/user/current/transactions/last\\S+",
     "fallbackMethod": "GET",
