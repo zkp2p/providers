@@ -124,6 +124,10 @@
         "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
       ]
     },
+    "userAgent": {
+      "android": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+    },
     "useExternalAction": true,
     "external": {
       "actionLink": "https://revolut.me/{{RECIPIENT_ID}}",
