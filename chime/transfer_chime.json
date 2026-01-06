@@ -1,0 +1,110 @@
+{
+  "actionType": "transfer_chime",
+  "proofEngine": "reclaim",
+  "authLink": "https://app.chime.com/",
+  "url": "https://app.chime.com/api/graphql",
+  "method": "POST",
+  "body": "{{BODY}}",
+  "metadata": {
+    "platform": "chime",
+    "urlRegex": "https://app\\.chime\\.com/api/graphql",
+    "bodyRegex": "\"operationName\":\"GetPayAnyoneActivityDetailsQuery\"",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "shouldReplayRequestInPage": true,
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.data.p2p.p2p_activity.pay_friend.receiver_identifier",
+        "amount": "$.data.p2p.p2p_activity.pay_friend.amount",
+        "date": "$.data.p2p.p2p_activity.timestamp",
+        "paymentId": "$.data.p2p.p2p_activity.pay_friend.id"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.data.p2p.p2p_activity.pay_friend.amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.p2p.p2p_activity.timestamp"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.p2p.p2p_activity.pay_friend.receiver_identifier"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.p2p.p2p_activity.pay_friend.id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.p2p.p2p_activity.ux_status"
+      }
+    ],
+    "userInput": {
+      "promptText": "Select a Pay Anyone transaction",
+      "transactionXpath": "//ul[.//a[starts-with(@href, '/accounts/checking/')]]"
+    }
+  },
+  "paramNames": [
+    "BODY"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "^(.*)$",
+      "source": "requestBody"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "referer"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"receiver_identifier\":\"(?<recipientId>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":(?<amount>[0-9\\.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"timestamp\":\"(?<timestamp>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"ux_status\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"id\":\"(?<paymentId>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data.p2p.p2p_activity.pay_friend.receiver_identifier"
+    },
+    {
+      "jsonPath": "$.data.p2p.p2p_activity.pay_friend.amount"
+    },
+    {
+      "jsonPath": "$.data.p2p.p2p_activity.timestamp"
+    },
+    {
+      "jsonPath": "$.data.p2p.p2p_activity.ux_status"
+    },
+    {
+      "jsonPath": "$.data.p2p.p2p_activity.pay_friend.id"
+    }
+  ]
+}
