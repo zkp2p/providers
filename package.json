@@ -1,6 +1,6 @@
 {
   "name": "@zkp2p/providers",
-  "version": "7.5.0",
+  "version": "7.7.0",
   "description": "Provider JSON templates for ZKP2P",
   "scripts": {
     "start": "node index.js"
