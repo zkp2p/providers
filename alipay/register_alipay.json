@@ -1,0 +1,64 @@
+{
+  "actionType": "register_alipay",
+  "proofEngine": "reclaim",
+  "authLink": "https://custweb.alipay.com/account/index.htm",
+  "url": "https://custweb.alipay.com/account/index.htm",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "alipay",
+    "urlRegex": "https://custweb\\.alipay\\.com/account/index\\.htm",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+    "transactionXPathListSelector": "//div[@id='account-main']//table[contains(@class,'table-list')]",
+    "transactionXPathSelectors": {
+      "fullName": "normalize-space(.//tr[th[normalize-space()='真实姓名']]//span[@id='username'])",
+      "mobile": "normalize-space(.//tr[th[normalize-space()='手机']]//td//span[1])",
+      "email": "normalize-space(.//tr[th[normalize-space()='邮箱']]//td//span[1])"
+    }
+  }
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'(?<fullName>[^']+)'"
+    },
+    {
+      "type": "regex",
+      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?mobile\\s*:\\s*'(?<mobile>[^']+)'"
+    },
+    {
+      "type": "regex",
+      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'(?<email>[^']+)'"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'[^']+'",
+      "jsonPath": "",
+      "xPath": ""
+    },
+    {
+      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?mobile\\s*:\\s*'[^']+'",
+      "jsonPath": "",
+      "xPath": ""
+    },
+    {
+      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'[^']+'",
+      "jsonPath": "",
+      "xPath": ""
+    }
+  ]
+}
