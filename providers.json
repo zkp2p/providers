@@ -17,6 +17,6 @@
     { "id": "venmo", "files": ["venmo/transfer_venmo.json"] },
     { "id": "wise", "files": ["wise/transfer_wise.json"] },
     { "id": "n26", "files": ["n26/transfer_n26.json"] },
-    { "id": "alipay", "files": ["alipay/transfer_alipay.json"] }
+    { "id": "alipay", "files": ["alipay/transfer_alipay.json", "alipay/register_alipay.json"] }
   ]
 }
