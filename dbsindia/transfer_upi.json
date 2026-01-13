@@ -1,0 +1,158 @@
+{
+  "actionType": "transfer_upi",
+  "authLink": "https://internet-banking.retail.dbsbank.in/login",
+  "url": "https://internet-banking.retail.dbsbank.in/services/kgp/DBINEAPIService/banking/deposit-accounts/transactions/inquiry",
+  "method": "POST",
+  "body": "{\"globalAccountId\":\"{{ACCOUNT_ID}}\",\"countPerPage\":\"\",\"cursorID\":\"0\",\"productCode\":\"\",\"transactionCurrencyCode\":\"\",\"pageNumber\":0,\"transactionStatus\":\"\"}",
+  "metadata": {
+    "platform": "dbsindia",
+    "urlRegex": "https://internet-banking.retail.dbsbank.in/services/kgp/DBINEAPIService/banking/deposit-accounts/transactions/inquiry$",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.transactions",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount.balance",
+        "recipient": "$.description.textValue",
+        "date": "$.postedDate.value",
+        "currency": "$.amount.currency"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].amount.balance"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].description.textValue"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].postedDate.value"
+      }
+    ]
+  },
+  "paramNames": ["ACCOUNT_ID"],
+  "paramSelectors": [{
+    "type": "jsonPath",
+    "value": "$.globalAccountId",
+    "source": "requestBody"
+  }],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Authorization",
+    "dbsasecret",
+    "Accept-Encoding",
+    "referer",
+    "origin"
+  ],
+  "secretHeaders": [
+    "Cookie",
+    "Authorization",
+    "dbsasecret",
+    "referer",
+    "origin"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"textValue\":\"UPI(?:~|\\s)(?<ref>[^~\\s]+)(?:~|\\s)(?<id>[^~\\s]+)(?:~|\\s)(?<name>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"value\":\"(?<date>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"balance\":\"(?<amount>[0-9\\.]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"currency\":\"(?<currency>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"side\":\"D\""
+    },
+    {
+      "type": "regex",
+      "value": "\"transactionDetails\":\"(?<txnRef>[^\"]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].description.textValue",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].postedDate.value",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].amount.balance",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].amount.currency",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].side",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.transactions[{{INDEX}}].transactionReferenceDetails[0].transactionDetails",
+      "xPath": ""
+    }
+  ],
+  "additionalProofs": [
+    {
+      "url": "https://internet-banking.retail.dbsbank.in/services/kgp/payments/transactions/inquiry",
+      "method": "POST",
+      "body": "{\"payeeVPA\":\"{{id}}\",\"payeeId\":\"\",\"paymentMode\":\"UPI\",\"paginationInfo\":{\"limit\":\"\",\"offset\":\"\"}}",
+      "paramNames": [],
+      "paramSelectors": [],
+      "skipRequestHeaders": [
+        "Cookie",
+        "Accept-Encoding",
+        "referer",
+        "origin"
+      ],
+      "secretHeaders": [
+        "Cookie",
+        "referer",
+        "origin"
+      ],
+      "responseMatches": [
+        {
+          "type": "regex",
+          "value": "\"transactionId\":\"(?<txnId>[^\"]+)\"",
+          "hash": true
+        },
+        {
+          "type": "regex",
+          "value": "\"transactionStatus\":\"(?<status>[^\"]+)\"",
+          "hash": true
+        }
+      ],
+      "responseRedactions": [
+        {
+          "jsonPath": "$.transactions[0].transactionId"
+        },
+        {
+          "jsonPath": "$.transactions[0].transactionStatus"
+        }
+      ]
+    }
+  ],
+  "additionalClientOptions": {
+    "cipherSuites": [
+      "TLS_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+      "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+    ]
+  }
+}
