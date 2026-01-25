@@ -33,30 +33,30 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'(?<fullName>[^']+)'"
+      "value": "\\buserName\\b\\s*:\\s*[\"'](?<fullName>[^\"']+)[\"']"
     },
     {
       "type": "regex",
-      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?mobile\\s*:\\s*'(?<mobile>[^']+)'"
+      "value": "\\bmobile\\b\\s*:\\s*[\"'](?<mobile>[^\"']+)[\"']"
     },
     {
       "type": "regex",
-      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'(?<email>[^']+)'"
+      "value": "\\bemail\\b\\s*:\\s*[\"'](?<email>[^\"']+)[\"']"
     }
   ],
   "responseRedactions": [
     {
-      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'[^']+'",
+      "regex": "\\buserName\\b\\s*:\\s*[\"'][^\"']+[\"']",
       "jsonPath": "",
       "xPath": ""
     },
     {
-      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?mobile\\s*:\\s*'[^']+'",
+      "regex": "\\bmobile\\b\\s*:\\s*[\"'][^\"']+[\"']",
       "jsonPath": "",
       "xPath": ""
     },
     {
-      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'[^']+'",
+      "regex": "\\bemail\\b\\s*:\\s*[\"'][^\"']+[\"']",
       "jsonPath": "",
       "xPath": ""
     }
