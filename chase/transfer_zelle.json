@@ -1,7 +1,7 @@
 {
   "actionType": "transfer_zelle",
   "proofEngine": "reclaim",
-  "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/singleDoor/payments/activity;params=qp,sentactivity",
+  "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/quickPay/paymentsActivity/index",
   "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list",
   "method": "POST",
   "body": "pageId=&sortBy=PROCESS_DATE&orderBy=DESC",
@@ -39,7 +39,11 @@
         "type": "jsonPath",
         "value": "$.listItems[{{INDEX}}].date"
       }
-    ]
+    ],
+    "userInput": {
+      "promptText": "Click Money Sent to proceed with authentication",
+      "transactionXpath": "//a[@id='bottom-quickpay_money_sent_menu_item']"
+    }
   },
   "paramNames": [],
   "paramSelectors": [],
