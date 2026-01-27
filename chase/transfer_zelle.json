@@ -1,13 +1,16 @@
 {
   "actionType": "transfer_zelle",
   "proofEngine": "reclaim",
-  "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/singleDoor/payments/activity;params=qp,sentactivity",
+  "authLink": "https://secure.chase.com/web/auth/dashboard#/dashboard/singleDoor/payments/activity",
   "url": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list",
   "method": "POST",
   "body": "pageId=&sortBy=PROCESS_DATE&orderBy=DESC",
   "metadata": {
+    "metadataUrl": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list",
+    "metadataMethod": "POST",
+    "metadataBody": "pageId=&sortBy=PROCESS_DATE&orderBy=DESC",
     "platform": "zelle",
-    "urlRegex": "https://secure.chase.com/svc/rr/payments/secure/v1/quickpay/payment/activity/list$",
+    "urlRegex": "https://secure.chase.com/svc/rr/payments/secure/v1/\\S+",
     "method": "POST",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
