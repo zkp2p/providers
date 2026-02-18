@@ -1,0 +1,103 @@
+{
+  "actionType": "transfer_zelle",
+  "proofEngine": "reclaim",
+  "authLink": "https://onlinebanking.tdbank.com/",
+  "url": "https://mobilews.cashedge.com/mobilewebservice/v2/activity?returnTotalSplitAmount=true&returnZellePaymentID=true&returnReasonCode=true&returnPayeeTransferFee=true",
+  "method": "GET",
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "FSV-HomeId",
+    "CEUserAgent"
+  ],
+  "body": "",
+  "metadata": {
+    "platform": "zelle",
+    "urlRegex": "https://mobilews\\.cashedge\\.com/mobilewebservice/v2/activity.*",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "shouldReplayRequestInPage": false,
+    "shouldSkipCloseTab": false,
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.activities",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.sendEmailTo",
+        "amount": "$.transferAmount.value",
+        "date": "$.creationDate.value",
+        "paymentId": "$.zellePaymentID"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.activities[{{INDEX}}].sendEmailTo"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.activities[{{INDEX}}].transferAmount.value"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.activities[{{INDEX}}].creationDate.value"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.activities[{{INDEX}}].zellePaymentID"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "secretHeaders": [
+    "Cookie",
+    "sessionID",
+    "FSV-HomeId"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"sendEmailTo\":\"(?<recipient>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"transferAmount\":\\{\"value\":(?<amount>[\\d.]+)\\}"
+    },
+    {
+      "type": "regex",
+      "value": "\"transferStatus\":\"(?<status>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"zellePaymentID\":\"(?<paymentId>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"paymentType\":\"(?<type>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"creationDate\":\\{\"value\":\"(?<date>[^\"]+)\"\\}"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.activities[{{INDEX}}].sendEmailTo"
+    },
+    {
+      "jsonPath": "$.activities[{{INDEX}}].transferAmount"
+    },
+    {
+      "jsonPath": "$.activities[{{INDEX}}].transferStatus"
+    },
+    {
+      "jsonPath": "$.activities[{{INDEX}}].zellePaymentID"
+    },
+    {
+      "jsonPath": "$.activities[{{INDEX}}].paymentType"
+    },
+    {
+      "jsonPath": "$.activities[{{INDEX}}].creationDate"
+    }
+  ]
+}
