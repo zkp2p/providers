@@ -99,5 +99,14 @@
     {
       "jsonPath": "$.activities[{{INDEX}}].creationDate"
     }
-  ]
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": ["cashedge.com"],
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "tdbank://",
+      "appStoreLink": "https://apps.apple.com/us/app/td-bank-us/id382107453",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.tdbank"
+    }
+  }
 }
