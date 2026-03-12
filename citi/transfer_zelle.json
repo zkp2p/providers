@@ -116,7 +116,7 @@
     },
     "useExternalAction": true,
     "external": {
-      "actionLink": "citi://",
+      "actionLink": "https://www.citi.com/citi-partner/zelle/login",
       "appStoreLink": "https://apps.apple.com/us/app/citi-mobile/id301724680",
       "playStoreLink": "https://play.google.com/store/apps/details?id=com.citi.citimobile"
     }
