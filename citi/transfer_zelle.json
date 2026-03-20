@@ -2,42 +2,44 @@
   "actionType": "transfer_zelle",
   "proofEngine": "reclaim",
   "authLink": "https://online.citi.com/US/nga/zelle/transfer",
-  "url": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/pastActivityTransactions?transactionCount=20&pageId=0&tab=All",
-  "method": "GET",
-  "body": "",
+  "url": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/activityTransactionDetails",
+  "method": "POST",
+  "body": "{\"transactionType\":[\"OUTGOING_PAYMENT\",\"SCHEDULED_PAYMENT\"],\"transactionView\":\"LIST_VIEW\",\"transactionStatus\":[\"ALL\"],\"pageOptions\":{\"pageMode\":\"SLICE\",\"page\":1,\"pageSize\":20},\"fetchBlockInfo\":false}",
   "metadata": {
     "platform": "zelle",
-    "urlRegex": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/pastActivityTransactions\\?transactionCount=20&pageId=0&tab=All",
-    "method": "GET",
+    "metadataUrl": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/activityTransactionDetails",
+    "metadataUrlMethod": "POST",
+    "metadataUrlBody": "{\"transactionType\":[\"OUTGOING_PAYMENT\",\"SCHEDULED_PAYMENT\"],\"transactionView\":\"LIST_VIEW\",\"transactionStatus\":[\"ALL\"],\"pageOptions\":{\"pageMode\":\"SLICE\",\"page\":1,\"pageSize\":20},\"fetchBlockInfo\":false}",
+    "urlRegex": "https://online.citi.com/gcgapi/prod/public/v1/p2ppayments/activityTransactionDetails",
+    "method": "POST",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
     "preprocessRegex": "",
     "transactionsExtraction": {
-      "transactionJsonPathListSelector": "$.content.paymentTransactionsData",
+      "transactionJsonPathListSelector": "$.transactionData[0].transactions",
       "transactionJsonPathSelectors": {
         "amount": "$.amount",
-        "paymentId": "$.paymentID",
+        "paymentId": "$.transactionId",
         "recipient": "$.partyToken",
-        "date": "$.updatedTimeStamp",
-        "currency": "$.currency"
+        "date": "$.initiationDate"
       }
     },
     "proofMetadataSelectors": [
       {
         "type": "jsonPath",
-        "value": "$.content.paymentTransactionsData[{{INDEX}}].amount"
+        "value": "$.transactionData[0].transactions[{{INDEX}}].amount"
       },
       {
         "type": "jsonPath",
-        "value": "$.content.paymentTransactionsData[{{INDEX}}].paymentID"
+        "value": "$.transactionData[0].transactions[{{INDEX}}].transactionId"
       },
       {
         "type": "jsonPath",
-        "value": "$.content.paymentTransactionsData[{{INDEX}}].partyToken"
+        "value": "$.transactionData[0].transactions[{{INDEX}}].partyToken"
       },
       {
         "type": "jsonPath",
-        "value": "$.content.paymentTransactionsData[{{INDEX}}].updatedTimeStamp"
+        "value": "$.transactionData[0].transactions[{{INDEX}}].initiationDate"
       }
     ]
   },
@@ -54,19 +56,19 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"paymentID\":\"(?<paymentID>[^\"]+)\""
+      "value": "\"transactionId\":\"(?<transactionId>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"paymentStatus\":\"(?<paymentStatus>[^\"]+)\""
+      "value": "\"transactionStatus\":\"(?<transactionStatus>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"updatedTimeStamp\":\"(?<updatedTimeStamp>[^\"]+)\""
+      "value": "\"initiationDate\":\"(?<initiationDate>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"amount\":\"(?<amount>[^\"]+)\""
+      "value": "\"amount\":(?<amount>[0-9\\.]+)"
     },
     {
       "type": "regex",
@@ -75,23 +77,23 @@
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].paymentID",
+      "jsonPath": "$.transactionData[0].transactions[{{INDEX}}].transactionId",
       "xPath": ""
     },
     {
-      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].paymentStatus",
+      "jsonPath": "$.transactionData[0].transactions[{{INDEX}}].transactionStatus",
       "xPath": ""
     },
     {
-      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].updatedTimeStamp",
+      "jsonPath": "$.transactionData[0].transactions[{{INDEX}}].initiationDate",
       "xPath": ""
     },
     {
-      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].amount",
+      "jsonPath": "$.transactionData[0].transactions[{{INDEX}}].amount",
       "xPath": ""
     },
     {
-      "jsonPath": "$.content.paymentTransactionsData[{{INDEX}}].partyToken",
+      "jsonPath": "$.transactionData[0].transactions[{{INDEX}}].partyToken",
       "xPath": ""
     }
   ],
