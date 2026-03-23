@@ -1,11 +1,10 @@
 {
-  "actionType": "transfer_amazonpay_upi",
+  "actionType": "transfer_upi",
   "proofEngine": "reclaim",
   "authLink": "https://www.amazon.in/pay/history?ref_=apay_deskhome_ViewStatement",
   "url": "https://www.amazon.in/pay/transaction-details?idempotencyId={{IDEMPOTENCY_ID}}&useCase=p2p_outgoing_pay&ingress=TRANSACTION_HISTORY",
   "method": "GET",
   "body": "",
-  "countryCode": "IN",
   "metadata": {
     "platform": "amazonpay",
     "urlRegex": "^https://www\\.amazon\\.in/pay/transaction-details\\?idempotencyId=UPI_\\S+&useCase=p2p_outgoing_pay&ingress=TRANSACTION_HISTORY$",
