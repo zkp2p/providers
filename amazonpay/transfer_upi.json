@@ -16,17 +16,12 @@
       "transactionXPathListSelector": "//payui-transaction-receipt",
       "transactionXPathSelectors": {
         "recipient": "substring-before(substring-after(substring-after(@data, '\"paymentEntityOfTypePaymentMethodEntity\":{'), '\"unmaskedVpaId\":\"'), '\"')",
-        "recipientName": "substring-before(substring-after(substring-after(@data, '\"paymentEntityOfTypePaymentMethodEntity\":{'), '\"paymentInstrumentTitle\":\"'), '\"')",
         "amount": "substring-before(substring-after(substring-after(@data, '\"paymentStatusDetails\":{'), '\"paymentAmount\":'), ',\"paymentNote\"')",
         "date": "substring-before(substring-after(substring-after(@data, '\"identifierKey\":\"Date and time\"'), '\"ctaTitle\":\"'), '\"')",
         "paymentId": "substring-before(substring-after(substring-after(@data, '\"identifierKey\":\"UPI transaction ID\"'), '\"ctaTitle\":\"'), '\"')"
       }
     },
     "proofMetadataSelectors": [
-      {
-        "type": "xPath",
-        "value": "substring-before(substring-after(substring-after(//payui-transaction-receipt/@data, '\"paymentEntityOfTypePaymentMethodEntity\":{'), '\"paymentInstrumentTitle\":\"'), '\"')"
-      },
       {
         "type": "xPath",
         "value": "substring-before(substring-after(substring-after(//payui-transaction-receipt/@data, '\"paymentEntityOfTypePaymentMethodEntity\":{'), '\"unmaskedVpaId\":\"'), '\"')"
