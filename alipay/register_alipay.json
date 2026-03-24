@@ -13,13 +13,11 @@
     "fallbackMethod": "",
     "preprocessRegex": "",
     "transactionsExtraction": {
-    "transactionXPathListSelector": "//div[@id='account-main']//table[contains(@class,'table-list')]",
-    "transactionXPathSelectors": {
-      "fullName": "normalize-space(.//tr[th[normalize-space()='真实姓名']]//span[@id='username'])",
-      "mobile": "normalize-space(.//tr[th[normalize-space()='手机']]//td//span[1])",
-      "email": "normalize-space(.//tr[th[normalize-space()='邮箱']]//td//span[1])"
+      "transactionXPathSelectors": {
+        "fullName": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='真实姓名']]//span[@id='username'])",
+        "email": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='邮箱']]//td//span[1])"
+      }
     }
-  }
   },
   "paramNames": [],
   "paramSelectors": [],
@@ -33,30 +31,21 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\\buserName\\b\\s*:\\s*[\"'](?<fullName>[^\"']+)[\"']"
+      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'(?<fullName>[^']+)'"
     },
     {
       "type": "regex",
-      "value": "\\bmobile\\b\\s*:\\s*[\"'](?<mobile>[^\"']+)[\"']"
-    },
-    {
-      "type": "regex",
-      "value": "\\bemail\\b\\s*:\\s*[\"'](?<email>[^\"']+)[\"']"
+      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'(?<email>[^']+)'"
     }
   ],
   "responseRedactions": [
     {
-      "regex": "\\buserName\\b\\s*:\\s*[\"'][^\"']+[\"']",
+      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'[^']+'",
       "jsonPath": "",
       "xPath": ""
     },
     {
-      "regex": "\\bmobile\\b\\s*:\\s*[\"'][^\"']+[\"']",
-      "jsonPath": "",
-      "xPath": ""
-    },
-    {
-      "regex": "\\bemail\\b\\s*:\\s*[\"'][^\"']+[\"']",
+      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'[^']+'",
       "jsonPath": "",
       "xPath": ""
     }
