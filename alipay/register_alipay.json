@@ -14,8 +14,8 @@
     "preprocessRegex": "",
     "transactionsExtraction": {
       "transactionXPathSelectors": {
-        "fullName": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='çå®å§å']]//span[@id='username'])",
-        "email": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='é®ç®±']]//td//span[1])"
+        "fullName": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='真实姓名']]//span[@id='username'])",
+        "email": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='邮箱']]//td//span[1])"
       }
     }
   },
