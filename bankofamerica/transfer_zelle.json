@@ -105,6 +105,7 @@
   "mobile": {
     "includeAdditionalCookieDomains": [],
     "additionalClientOptions": {
+      "supportedProtocolVersions": ["TLS1_2"],
       "cipherSuites": [
         "TLS_AES_128_GCM_SHA256",
         "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
