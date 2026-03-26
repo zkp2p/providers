@@ -15,7 +15,7 @@
     "transactionsExtraction": {
       "transactionXPathSelectors": {
         "fullName": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='真实姓名']]//span[@id='username'])",
-        "email": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='邮箱']]//td//span[1])"
+        "email": "normalize-space(//div[@id='account-main']//tr[th[normalize-space()='邮箱']]//td//span[1][contains(normalize-space(), '@')])"
       }
     }
   },
@@ -31,21 +31,26 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'(?<fullName>[^']+)'"
+      "value": "(?:['\"]userName['\"]|userName)\\s*:\\s*['\"](?<fullName>[^'\"]+)['\"]"
     },
     {
       "type": "regex",
-      "value": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'(?<email>[^']+)'"
+      "value": "(?:['\"]email['\"]|email)\\s*:\\s*['\"](?<email>[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,})['\"]"
     }
   ],
   "responseRedactions": [
     {
-      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?userName\\s*:\\s*'[^']+'",
+      "regex": "(?:['\"]userName['\"]|userName)\\s*:\\s*['\"][^'\"]+['\"]",
       "jsonPath": "",
       "xPath": ""
     },
     {
-      "regex": "window\\.GLOBAL_NAV_DATA\\s*=\\s*\\{[\\s\\S]*?email\\s*:\\s*'[^']+'",
+      "regex": "(?:['\"]email['\"]|email)\\s*:\\s*['\"][^'\"]+['\"]",
+      "jsonPath": "",
+      "xPath": ""
+    },
+    {
+      "regex": "(?:['\"]mobile['\"]|mobile)\\s*:\\s*['\"][^'\"]+['\"]",
       "jsonPath": "",
       "xPath": ""
     }
