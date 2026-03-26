@@ -59,6 +59,10 @@
     },
     {
       "type": "regex",
+      "value": "\"counterparty_alias\":\\{\"iban\":(?:\"(?<counterpartyIban>[^\"]*)\"|null)"
+    },
+    {
+      "type": "regex",
       "value": "\"counterparty_alias\":\\{.*?\"display_name\":\"(?<counterpartyName>[^\"]+)\""
     },
     {
@@ -77,6 +81,10 @@
     },
     {
       "jsonPath": "$..amount_responded",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$..counterparty_alias.iban",
       "xPath": ""
     },
     {
