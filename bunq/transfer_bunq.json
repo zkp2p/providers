@@ -1,0 +1,111 @@
+{
+  "actionType": "transfer_bunq",
+  "proofEngine": "reclaim",
+  "authLink": "https://web.bunq.com",
+  "url": "https://api.web.bunq.com/v1/user/{{USER_ID}}/event/{{EVENT_ID}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "bunq",
+    "urlRegex": "https://api\\.web\\.bunq\\.com/v1/user/\\d+/event\\?status=FINALIZED",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "shouldReplayRequestInPage": false,
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.Response",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.Event.object.*.counterparty_alias.display_name",
+        "paymentId": "$.Event.id",
+        "date": "$.Event.created"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.Response[{{INDEX}}].Event.id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.Response[{{INDEX}}].Event.created"
+      }
+    ]
+  },
+  "paramNames": [
+    "USER_ID",
+    "EVENT_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "/user/(\\d+)/event",
+      "source": "url"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.Response[{{INDEX}}].Event.id"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "Cookie",
+    "x-bunq-authentication-client-proof"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"(?:amount|amount_local|amount_responded)\":\\{\"currency\":\"(?<currency>[A-Z]+)\",\"value\":\"(?<amount>[0-9.-]+)\"\\}"
+    },
+    {
+      "type": "regex",
+      "value": "\"counterparty_alias\":\\{.*?\"display_name\":\"(?<counterpartyName>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"monetary_account_id\":(?<monetaryAccountId>[0-9]+)"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.Response[0].Event.object.*.amount",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.Response[0].Event.object.*.amount_local",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.Response[0].Event.object.*.amount_responded",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.Response[0].Event.object.*.counterparty_alias.display_name",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.Response[0].Event.object.*.monetary_account_id",
+      "xPath": ""
+    }
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+      ]
+    },
+    "userAgent": {
+      "android": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.207 Mobile Safari/537.36",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15"
+    },
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "bunq://",
+      "appStoreLink": "https://apps.apple.com/app/bunq-bank-of-the-free/id1021178150",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.bunq.android"
+    }
+  }
+}
