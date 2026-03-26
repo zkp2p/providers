@@ -16,7 +16,7 @@
     "transactionsExtraction": {
       "transactionJsonPathListSelector": "$.Response",
       "transactionJsonPathSelectors": {
-        "recipient": "$.Event.object.*.counterparty_alias.display_name",
+        "recipient": "$..counterparty_alias.display_name",
         "paymentId": "$.Event.id",
         "date": "$.Event.created"
       }
@@ -68,23 +68,23 @@
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.Response[0].Event.object.*.amount",
+      "jsonPath": "$..amount",
       "xPath": ""
     },
     {
-      "jsonPath": "$.Response[0].Event.object.*.amount_local",
+      "jsonPath": "$..amount_local",
       "xPath": ""
     },
     {
-      "jsonPath": "$.Response[0].Event.object.*.amount_responded",
+      "jsonPath": "$..amount_responded",
       "xPath": ""
     },
     {
-      "jsonPath": "$.Response[0].Event.object.*.counterparty_alias.display_name",
+      "jsonPath": "$..counterparty_alias.display_name",
       "xPath": ""
     },
     {
-      "jsonPath": "$.Response[0].Event.object.*.monetary_account_id",
+      "jsonPath": "$..monetary_account_id",
       "xPath": ""
     }
   ],
