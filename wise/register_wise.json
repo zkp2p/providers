@@ -1,0 +1,81 @@
+{
+  "actionType": "register_wise",
+  "proofEngine": "reclaim",
+  "authLink": "https://wise.com/flows/request",
+  "url": "https://wise.com/gateway/v4/profiles/{{PROFILE_ID}}/multi-currency-account",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "wise",
+    "urlRegex": "https://wise.com/gateway/v1/profiles/[0-9]+/identifiers/profile-link$",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "",
+      "transactionJsonPathSelectors": {
+        "wiseTag": "$.nickname"
+      }
+    }
+  },
+  "paramNames": [
+    "PROFILE_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "https://wise.com/gateway/v1/profiles/([0-9]+)/identifiers/profile-link$",
+      "source": "url"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "Cookie",
+    "X-Access-Token"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"recipientId\":(?<mcAccountId>[0-9]+)"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.recipientId"
+    }
+  ],
+  "additionalProofs": [
+    {
+      "url": "https://wise.com/gateway/v1/profiles/{{PROFILE_ID}}/identifiers/profile-link",
+      "method": "GET",
+      "body": "",
+      "paramNames": [
+        "PROFILE_ID"
+      ],
+      "paramSelectors": [
+        {
+          "type": "regex",
+          "value": "https://wise.com/gateway/v1/profiles/([0-9]+)/identifiers/profile-link$",
+          "source": "url"
+        }
+      ],
+      "skipRequestHeaders": [],
+      "secretHeaders": [
+        "Cookie",
+        "X-Access-Token"
+      ],
+      "responseMatches": [
+        {
+          "type": "regex",
+          "value": "\"nickname\":\"@(?<wiseTag>[^\"]+)\""
+        }
+      ],
+      "responseRedactions": [
+        {
+          "jsonPath": "$.nickname"
+        }
+      ]
+    }
+  ]
+}
