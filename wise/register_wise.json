@@ -1,0 +1,228 @@
+{
+  "actionType": "register_wise",
+  "proofEngine": "reclaim",
+  "authLink": "https://wise.com/all-transactions?direction=OUTGOING",
+  "url": "https://wise.com/gateway/v3/profiles/{{PROFILE_ID}}/transfers/{{TRANSACTION_ID}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "wise",
+    "urlRegex": "https://wise.com/gateway/v1/profiles/\\S+/activities/list/?$",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$",
+      "transactionJsonPathSelectors": {
+        "amount": "$.primaryAmount",
+        "paymentId": "$.resource.id",
+        "recipient": "$.title",
+        "date": "$.visibleOn"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].primaryAmount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].resource.id"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].title"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.[{{INDEX}}].visibleOn"
+      }
+    ]
+  },
+  "paramNames": [
+    "TRANSACTION_ID",
+    "PROFILE_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].resource.id"
+    },
+    {
+      "type": "jsonPath",
+      "value": "$.[{{INDEX}}].ownedByProfile"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "Cookie",
+    "X-Access-Token"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"profileId\":(?<profileId>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"userId\":(?<userId>[0-9]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"state\":\"(?<status>OUTGOING_PAYMENT_SENT)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.id"
+    },
+    {
+      "jsonPath": "$.profileId"
+    },
+    {
+      "jsonPath": "$.userId"
+    },
+    {
+      "jsonPath": "$.quoteId"
+    },
+    {
+      "jsonPath": "$.state"
+    },
+    {
+      "jsonPath": "$.stateHistory"
+    },
+    {
+      "jsonPath": "$.sourceAmount"
+    },
+    {
+      "jsonPath": "$.sourceCurrency"
+    },
+    {
+      "jsonPath": "$.targetAmount"
+    },
+    {
+      "jsonPath": "$.targetCurrency"
+    },
+    {
+      "jsonPath": "$.targetRecipientId"
+    },
+    {
+      "jsonPath": "$.refundRecipientId"
+    }
+  ],
+  "additionalProofs": [
+    {
+      "url": "https://wise.com/gateway/v3/profiles/{{PROFILE_ID}}/quotes/{{QUOTE_ID}}",
+      "method": "GET",
+      "body": "",
+      "paramNames": [
+        "PROFILE_ID",
+        "QUOTE_ID"
+      ],
+      "paramSelectors": [
+        {
+          "type": "jsonPath",
+          "value": "$.profileId"
+        },
+        {
+          "type": "jsonPath",
+          "value": "$.quoteId"
+        }
+      ],
+      "skipRequestHeaders": [],
+      "secretHeaders": [
+        "Cookie",
+        "X-Access-Token"
+      ],
+      "responseMatches": [
+        {
+          "type": "regex",
+          "value": "\"profile\":(?<profileId>[0-9]+)"
+        },
+        {
+          "type": "regex",
+          "value": "\"user\":(?<userId>[0-9]+)"
+        },
+        {
+          "type": "regex",
+          "value": "\"(?:preferredPayInId|payInId)\":\"(?<mcAccountId>[0-9]+)\""
+        },
+        {
+          "type": "regex",
+          "value": "\"payInMethod\":\"(?<payInMethod>BALANCE)\""
+        }
+      ],
+      "responseRedactions": [
+        {
+          "jsonPath": "$.id"
+        },
+        {
+          "jsonPath": "$.profile"
+        },
+        {
+          "jsonPath": "$.user"
+        },
+        {
+          "jsonPath": "$.payInId"
+        },
+        {
+          "jsonPath": "$.preferredPayInId"
+        },
+        {
+          "jsonPath": "$.payInMethod"
+        },
+        {
+          "jsonPath": "$.sourceCurrency"
+        },
+        {
+          "jsonPath": "$.targetCurrency"
+        },
+        {
+          "jsonPath": "$.targetAccount"
+        },
+        {
+          "jsonPath": "$.paymentOptions"
+        },
+        {
+          "jsonPath": "$.notices"
+        },
+        {
+          "jsonPath": "$.contactId"
+        },
+        {
+          "jsonPath": "$.referralCode"
+        }
+      ]
+    },
+    {
+      "url": "https://wise.com/your-account/",
+      "method": "GET",
+      "body": "",
+      "paramNames": [],
+      "paramSelectors": [],
+      "skipRequestHeaders": [],
+      "secretHeaders": [
+        "Cookie"
+      ],
+      "responseMatches": [
+        {
+          "type": "regex",
+          "value": "\"selectedProfile\":\\{\"id\":(?<profileId>[0-9]+),\"publicId\":\"[^\"]+\",\"userId\":(?<userId>[0-9]+)"
+        },
+        {
+          "type": "regex",
+          "value": "\"wiseTag\":\\{\"url\":\"https:[^\"]+\",\"nickname\":\"@(?<wiseTag>[^\"]+)\""
+        }
+      ],
+      "responseRedactions": [
+        {
+          "regex": "\"selectedProfile\":\\{.*?\\},\"profiles\":\\[.*?\\],\"wiseTag\":\\{.*?\\},\"userId\":[0-9]+,\"pReference\":\"[^\"]+\""
+        },
+        {
+          "regex": "\"session\":\\{\"userId\":[0-9]+,\"userEmail\":\"[^\"]+\",\"lang\":\"[^\"]+\",\"locale\":\"[^\"]+\",\"autoLogoutEnabled\":(?:true|false),\"sessionId\":\"[^\"]+\"\\}"
+        }
+      ]
+    }
+  ]
+}
