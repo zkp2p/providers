@@ -38,16 +38,9 @@
     {
       "type": "regex",
       "value": "\"recipientId\":(?<mcAccountId>[0-9]+)"
-    },
-    {
-      "type": "regex",
-      "value": "\"profileId\":(?<profileId>[0-9]+)"
     }
   ],
   "responseRedactions": [
-    {
-      "jsonPath": "$.profileId"
-    },
     {
       "jsonPath": "$.recipientId"
     }
