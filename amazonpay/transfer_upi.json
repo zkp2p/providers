@@ -60,50 +60,41 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"identifierKey\":\"UPI transaction ID\",\"identifierValues\":\\[\\{\"ctaTitle\":\"(?<paymentId>[^\"]+)\""
+      "value": "&quot;identifierKey&quot;:&quot;UPI transaction ID&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;(?<paymentId>[^&]+)"
     },
     {
       "type": "regex",
-      "value": "\"paymentEntityOfTypePaymentMethodEntity\":\\{[\\s\\S]*?\"unmaskedVpaId\":\"(?<recipientId>[^\"]+)\""
+      "value": "paymentEntityOfTypePaymentMethodEntity&quot;:\\{.*?&quot;unmaskedVpaId&quot;:&quot;(?<recipientId>[^&]+)"
     },
     {
       "type": "regex",
-      "value": "\"paymentAmount\":(?<amount>[0-9]+(?:\\.[0-9]+)?)"
+      "value": "&quot;paymentAmount&quot;:(?<amount>[0-9]+(?:\\.[0-9]+)?)"
     },
     {
       "type": "regex",
-      "value": "\"status\":\"(?<status>SUCCESS|PENDING|FAILED)\""
-    },
-    {
-      "type": "regex",
-      "value": "\"identifierKey\":\"Date and time\",\"identifierValues\":\\[\\{\"ctaTitle\":\"(?<date>[^\"]+)\""
+      "value": "&quot;identifierKey&quot;:&quot;Date and time&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;(?<date>[^&]+)"
     }
   ],
   "responseRedactions": [
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "\"idempotencyId\":\"[^\"]+\""
+      "regex": "paymentEntityOfTypePaymentMethodEntity&quot;:\\{.*?&quot;unmaskedVpaId&quot;:&quot;[^&]+"
     },
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "\"paymentEntityOfTypePaymentMethodEntity\":\\{[\\s\\S]*?\"unmaskedVpaId\":\"[^\"]+\""
+      "regex": "&quot;paymentAmount&quot;:[0-9]+(?:\\.[0-9]+)?"
     },
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "\"paymentAmount\":[0-9]+(?:\\.[0-9]+)?"
+      "regex": "&quot;identifierKey&quot;:&quot;UPI transaction ID&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;[^&]+"
     },
     {
       "jsonPath": "",
       "xPath": "",
-      "regex": "\"identifierKey\":\"UPI transaction ID\",\"identifierValues\":\\[\\{\"ctaTitle\":\"[^\"]+\""
-    },
-    {
-      "jsonPath": "",
-      "xPath": "",
-      "regex": "\"identifierKey\":\"Date and time\",\"identifierValues\":\\[\\{\"ctaTitle\":\"[^\"]+\""
+      "regex": "&quot;identifierKey&quot;:&quot;Date and time&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;[^&]+"
     }
   ]
 }
