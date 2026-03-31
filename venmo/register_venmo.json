@@ -1,0 +1,77 @@
+{
+  "actionType": "register_venmo",
+  "proofEngine": "reclaim",
+  "authLink": "https://account.venmo.com/?feed=mine",
+  "url": "https://account.venmo.com/api/stories?feedType=me&externalId={{SENDER_ID}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "venmo",
+    "urlRegex": "https://account.venmo.com/api/stories\\?feedType=me&externalId=\\S+",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.stories",
+      "transactionJsonPathSelectors": {
+        "senderId": "$.title.sender.id"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.stories[{{INDEX}}].paymentId"
+      }
+    ]
+  },
+  "paramNames": [
+    "SENDER_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "externalId=([0-9]+)",
+      "source": "url"
+    }
+  ],
+  "skipRequestHeaders": [],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"paymentId\":\"[^\"]+\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.stories[{{INDEX}}].paymentId",
+      "xPath": ""
+    }
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_AES_128_GCM_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+      ]
+    },
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "venmo://paycharge?txn=pay&recipients={{RECIPIENT_ID}}&note=Thx&amount={{AMOUNT}}",
+      "appStoreLink": "https://apps.apple.com/us/app/venmo/id351727428",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.venmo"
+    },
+    "login": {
+      "usernameSelector": "#email, input[name=\"login_email\"], input[name=\"username\"], input[type=\"email\"], input[data-testid=\"text-input-username\"]",
+      "passwordSelector": "#password, input[name=\"login_password\"][type=\"password\"][data-testid=\"text-input-password\"]",
+      "nextSelector": "#btnNext, button[data-testid=\"button-next\"], button.next_button[type=\"submit\"]",
+      "submitSelector": "#btnLogin, button[data-testid=\"button-submit\"][type=\"submit\"], button.login_button[type=\"submit\"]",
+      "revealTimeoutMs": 5000
+    }
+  }
+}
