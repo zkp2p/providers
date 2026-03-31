@@ -20,8 +20,8 @@
     },
     "proofMetadataSelectors": [
       {
-        "type": "regex",
-        "value": "\"id\":\"([0-9]+)\",\"displayName\":\"you\""
+        "type": "jsonPath",
+        "value": "$.stories[{{INDEX}}].paymentId"
       }
     ]
   },
