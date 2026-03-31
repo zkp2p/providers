@@ -14,7 +14,7 @@
     { "id": "revolut", "files": ["revolut/transfer_revolut.json"] },
     { "id": "royalbankcanada", "files": ["royalbankcanada/transfer_interac.json"] },
     { "id": "usbank", "files": ["usbank/transfer_zelle.json"] },
-    { "id": "venmo", "files": ["venmo/transfer_venmo.json"] },
+    { "id": "venmo", "files": ["venmo/transfer_venmo.json", "venmo/register_venmo.json"] },
     { "id": "wise", "files": ["wise/transfer_wise.json", "wise/register_wise.json"] },
     { "id": "n26", "files": ["n26/transfer_n26.json"] },
     { "id": "alipay", "files": ["alipay/transfer_alipay.json", "alipay/register_alipay.json"] },
