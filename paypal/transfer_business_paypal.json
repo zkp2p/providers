@@ -1,0 +1,116 @@
+{
+  "actionType": "transfer_business_paypal",
+  "proofEngine": "reclaim",
+  "authLink": "https://www.paypal.com/mep/unifiedtransactions/?filter=0&query=",
+  "url": "https://www.paypal.com/activity/api/payment/{{PAYMENT_ID}}",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "paypal",
+    "urlRegex": "^https://www.paypal.com/unifiedtransactions/v1/transactions$",
+    "method": "POST",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.transactions",
+      "transactionJsonPathSelectors": {
+        "recipient": "$.name",
+        "amount": "$.gross",
+        "date": "$.createTime",
+        "paymentId": "$.id",
+        "currency": "$.currency",
+        "type": "$.description"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.transactions[{{INDEX}}].id"
+      }
+    ]
+  },
+  "paramNames": [
+    "PAYMENT_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "jsonPath",
+      "value": "$.transactions[{{INDEX}}].id"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "(?<recvId>[^\"\\s]*@[^\"\\s]*)"
+    },
+    {
+      "type": "regex",
+      "value": "\\$(?<amt>[0-9.]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"grossAmt\":\"[^\\\"]*[0-9.]+[^A-Z]*(?<curr>[A-Z]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"paymentStatusActual\":\"(?<status>[^\"]+)"
+    },
+    {
+      "type": "regex",
+      "value": "(?<date>[A-Z][a-z]+ [0-9]{1,2}, [0-9]{4}[^\"]*)"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data.data.data.NameEmailPaidBy.CounterPartyContactModelData.email",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.data.data.TDHeader.grossAmt",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.data.data.TDHeader.paymentStatusActual",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.data.data.TDHeader.date",
+      "xPath": ""
+    }
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+      ]
+    },
+    "userAgent": {
+      "android": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.207 Mobile Safari/537.36",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15"
+    },
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "paypal://",
+      "appStoreLink": "https://apps.apple.com/us/app/paypal-pay-send-save/id283646709",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile&hl=en_US"
+    },
+    "login": {
+      "usernameSelector": "#email, input[name=\"login_email\"][type=\"email\"]",
+      "passwordSelector": "#password, input[name=\"login_password\"][type=\"password\"]",
+      "nextSelector": "#btnNext, button[name=\"btnNext\"][type=\"submit\"]",
+      "submitSelector": "#btnLogin, button[name=\"btnLogin\"], button.actionContinue[value=\"Login\"], button[value=\"Login\"][type=\"submit\"]",
+      "revealTimeoutMs": 5000
+    }
+  }
+}
