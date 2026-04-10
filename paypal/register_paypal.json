@@ -1,0 +1,89 @@
+{
+  "actionType": "register_paypal",
+  "proofEngine": "reclaim",
+  "authLink": "https://www.paypal.com/myaccount/profile/",
+  "url": "https://www.paypal.com/myaccount/profile/home/api/user",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "paypal",
+    "urlRegex": "^https://www.paypal.com/myaccount/profile/home/api/user\\?locale\\.x=[^&]+&country\\.x=[A-Z]{2}(?:&.*)?$",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "",
+      "transactionJsonPathSelectors": {
+        "email": "$.data.emails.emailPreference.email",
+        "paypalMeLink": "$.data.paypalMe.link"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.data.emails.emailPreference.email"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.data.paypalMe.link"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "(?<email>[^\"\\s]*@[^\"\\s]*)"
+    },
+    {
+      "type": "regex",
+      "value": "paypal\\.me\\/(?<paypalUsername>[^\"\\/\\s]+)"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.data.emails.emailPreference.email",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.paypalMe.link",
+      "xPath": ""
+    }
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+      ]
+    },
+    "userAgent": {
+      "android": "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.207 Mobile Safari/537.36",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15"
+    },
+    "useExternalAction": true,
+    "external": {
+      "actionLink": "paypal://",
+      "appStoreLink": "https://apps.apple.com/us/app/paypal-pay-send-save/id283646709",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile&hl=en_US"
+    },
+    "login": {
+      "usernameSelector": "#email, input[name=\"login_email\"][type=\"email\"]",
+      "passwordSelector": "#password, input[name=\"login_password\"][type=\"password\"]",
+      "nextSelector": "#btnNext, button[name=\"btnNext\"][type=\"submit\"]",
+      "submitSelector": "#btnLogin, button[name=\"btnLogin\"], button.actionContinue[value=\"Login\"], button[value=\"Login\"][type=\"submit\"]",
+      "revealTimeoutMs": 5000
+    }
+  }
+}
