@@ -1,5 +1,6 @@
 {
   "providers": [
+    { "id": "amazonpay", "files": ["amazonpay/transfer_upi.json"] },
     { "id": "bankofamerica", "files": ["bankofamerica/transfer_zelle.json"] },
     { "id": "cashapp", "files": ["cashapp/transfer_cashapp.json"] },
     { "id": "chase", "files": ["chase/transfer_zelle.json"] },
