@@ -106,5 +106,25 @@
     {
       "jsonPath": "$.data.p2p.p2p_activity.pay_friend.id"
     }
-  ]
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "additionalClientOptions": {
+      "cipherSuites": [
+        "TLS_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+      ]
+    },
+    "useExternalAction": true,
+    "userAgent": {
+      "android": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Safari/605.1.15"
+    },
+    "external": {
+      "actionLink": "https://app.chime.com/link/qr?u={{RECIPIENT_ID}}",
+      "appStoreLink": "https://apps.apple.com/us/app/chime-mobile-banking/id836215269",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.onedebit.chime&hl=en_US"
+    }
+  }
 }
