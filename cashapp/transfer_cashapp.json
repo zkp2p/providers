@@ -18,7 +18,7 @@
         "recipient": "$.payment_history_inputs_row.recipient.cashtag",
         "amount": "$.payment_history_inputs_row.payment.amount.amount",
         "date": "$.payment_history_inputs_row.payment.display_date",
-        "paymentId": "$.payment_history_inputs_row.payment.token",
+        "paymentId": "$.payment_history_inputs_row.payment.history_data.transaction_id",
         "currency": "$.payment_history_inputs_row.payment.amount.currency_code"
       }
     },
@@ -33,7 +33,7 @@
       },
       {
         "type": "jsonPath",
-        "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.token"
+        "value": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.history_data.transaction_id"
       },
       {
         "type": "jsonPath",
@@ -91,7 +91,7 @@
     },
     {
       "type": "regex",
-      "value": "\"token\":\"(?<paymentId>[^\"]+)\""
+      "value": "\"transaction_id\":\"(?<paymentId>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -116,7 +116,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.token",
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.payment.history_data.transaction_id",
       "xPath": ""
     },
     {
