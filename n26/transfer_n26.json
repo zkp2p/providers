@@ -94,10 +94,6 @@
     {
       "type": "regex",
       "value": "\"iban\":\"(?<recipientId>[A-Z]{2}[A-Z0-9]+)\""
-    },
-    {
-      "type": "regex",
-      "value": "\"value\":\"(?:Instant bank transfer|Echtzeit\u00fcberweisung|Virement instantan\u00e9|Transferencia inmediata|Bonifico istantaneo)\""
     }
   ],
   "responseRedactions": [
@@ -119,10 +115,6 @@
     },
     {
       "jsonPath": "$.data.transaction.containers[1].body[1].action.params.iban",
-      "xPath": ""
-    },
-    {
-      "jsonPath": "$.data.transaction.containers[*].body[?(@.id==\"transaction_type_component\")].value",
       "xPath": ""
     }
   ],
