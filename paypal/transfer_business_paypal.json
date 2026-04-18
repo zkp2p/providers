@@ -53,6 +53,10 @@
     },
     {
       "type": "regex",
+      "value": "\"paymentType\":\"(?<isPersonal>Friends and Family|Goods and Services)\""
+    },
+    {
+      "type": "regex",
       "value": "\\$(?<amt>[0-9.]+)"
     },
     {
@@ -79,6 +83,10 @@
     },
     {
       "jsonPath": "$.data.data.data.TDHeader.paymentStatusActual",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.data.data.TDHeader.paymentType",
       "xPath": ""
     },
     {
