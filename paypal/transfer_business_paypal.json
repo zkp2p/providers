@@ -53,7 +53,7 @@
     },
     {
       "type": "regex",
-      "value": "\"paymentType\":\"(?<isPersonal>Friends and Family|Goods and Services)\""
+      "value": "\"paymentType\":\"(?<isPersonal>[^\"]+)\""
     },
     {
       "type": "regex",
