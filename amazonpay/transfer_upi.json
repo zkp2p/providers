@@ -1,0 +1,100 @@
+{
+  "actionType": "transfer_upi",
+  "proofEngine": "reclaim",
+  "authLink": "https://www.amazon.in/pay/history?ref_=apay_deskhome_ViewStatement",
+  "url": "https://www.amazon.in/pay/transaction-details?idempotencyId={{IDEMPOTENCY_ID}}&useCase=p2p_outgoing_pay&ingress=TRANSACTION_HISTORY",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "amazonpay",
+    "urlRegex": "^https://www\\.amazon\\.in/pay/transaction-details\\?idempotencyId=UPI_\\S+&useCase=p2p_outgoing_pay&ingress=TRANSACTION_HISTORY$",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionXPathListSelector": "//payui-transaction-receipt",
+      "transactionXPathSelectors": {
+        "recipient": "substring-before(substring-after(substring-after(@data, '\"paymentEntityOfTypePaymentMethodEntity\":{'), '\"unmaskedVpaId\":\"'), '\"')",
+        "amount": "substring-before(substring-after(substring-after(@data, '\"paymentStatusDetails\":{'), '\"paymentAmount\":'), ',\"paymentNote\"')",
+        "date": "substring-before(substring-after(substring-after(@data, '\"identifierKey\":\"Date and time\"'), '\"ctaTitle\":\"'), '\"')",
+        "paymentId": "substring-before(substring-after(substring-after(@data, '\"identifierKey\":\"UPI transaction ID\"'), '\"ctaTitle\":\"'), '\"')"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "xPath",
+        "value": "substring-before(substring-after(substring-after(//payui-transaction-receipt/@data, '\"paymentEntityOfTypePaymentMethodEntity\":{'), '\"unmaskedVpaId\":\"'), '\"')"
+      },
+      {
+        "type": "xPath",
+        "value": "substring-before(substring-after(substring-after(//payui-transaction-receipt/@data, '\"paymentStatusDetails\":{'), '\"paymentAmount\":'), ',\"paymentNote\"')"
+      },
+      {
+        "type": "xPath",
+        "value": "substring-before(substring-after(substring-after(//payui-transaction-receipt/@data, '\"identifierKey\":\"UPI transaction ID\"'), '\"ctaTitle\":\"'), '\"')"
+      },
+      {
+        "type": "xPath",
+        "value": "substring-before(substring-after(substring-after(//payui-transaction-receipt/@data, '\"identifierKey\":\"Date and time\"'), '\"ctaTitle\":\"'), '\"')"
+      }
+    ]
+  },
+  "paramNames": [
+    "IDEMPOTENCY_ID"
+  ],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "idempotencyId=([^&]+)",
+      "source": "url"
+    }
+  ],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding"
+  ],
+  "secretHeaders": [
+    "Cookie"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "&quot;identifierKey&quot;:&quot;UPI transaction ID&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;(?<paymentId>[^&]+)"
+    },
+    {
+      "type": "regex",
+      "value": "paymentEntityOfTypePaymentMethodEntity&quot;:\\{.*?&quot;unmaskedVpaId&quot;:&quot;(?<recipientId>[^&]+)"
+    },
+    {
+      "type": "regex",
+      "value": "&quot;paymentAmount&quot;:(?<amount>[0-9]+(?:\\.[0-9]+)?)"
+    },
+    {
+      "type": "regex",
+      "value": "&quot;identifierKey&quot;:&quot;Date and time&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;(?<date>[^&]+)"
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "paymentEntityOfTypePaymentMethodEntity&quot;:\\{.*?&quot;unmaskedVpaId&quot;:&quot;[^&]+"
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "&quot;paymentAmount&quot;:[0-9]+(?:\\.[0-9]+)?"
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "&quot;identifierKey&quot;:&quot;UPI transaction ID&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;[^&]+"
+    },
+    {
+      "jsonPath": "",
+      "xPath": "",
+      "regex": "&quot;identifierKey&quot;:&quot;Date and time&quot;,&quot;identifierValues&quot;:\\[\\{&quot;ctaTitle&quot;:&quot;[^&]+"
+    }
+  ]
+}
