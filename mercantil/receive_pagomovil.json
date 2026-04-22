@@ -1,0 +1,98 @@
+{
+  "actionType": "receive_pagomovil_mercantil_tpago",
+  "authLink": "https://www30.mercantilbanco.com/account/tpago-detail",
+  "url": "https://www30.mercantilbanco.com/account/tpago-detail",
+  "method": "GET",
+  "skipRequestHeaders": ["User-Agent","Accept-Language","Accept-Encoding","Referer","Sec-Fetch-Site","Sec-Fetch-Mode","Sec-Fetch-Dest","sec-ch-ua","sec-ch-ua-mobile","sec-ch-ua-platform"],
+  "body": "",
+  "metadata": {
+    "platform": "mercantil",
+    "displayName": "Mercantil Tpago",
+    "urlRegex": "www30\\.mercantilbanco\\.com/account/tpago-detail",
+    "method": "GET",
+    "shouldReplayRequestInPage": true,
+    "shouldSkipCloseTab": true,
+    "transactionsExtraction": {
+      "transactionRegexSelectors": {
+        "date": "class=\"container-date-currency[^\"]*\">([\\d]{2}/[\\d]{2}/[\\d]{4})<",
+        "type": "alt=\"(deposit|withdrawal)\"[^>]*class=\"[^\"]*container-icon-currency\"",
+        "reference": "class=\"operation-value text-blue[^\"]*\">([\\d]+)<",
+        "senderPhone": "mat-column-phoneNumber[^>]+>(?:(?!mat-column).)*?class=\"operation-value(?! text-blue)[^\"]*\">([^<]+)<",
+        "senderPhonePrefix": "mat-column-phoneNumber[^>]+>(?:(?!mat-column).)*?class=\"operation-value[^\"]*\">(0\\d{3})\\s*-",
+        "senderBank": "mat-column-bankName[^>]+>(?:(?!mat-column).)*?class=\"operation-value[^\"]*\">([^<]+)<",
+        "amount": "class=\"operation-value petro-display[^\"]*\">\\s*(-?[\\d][\\d.,]*)\\s*<",
+        "amountDeposit": "class=\"operation-value petro-display[^\"]*\">\\s*([\\d][\\d.,]*)\\s*<",
+        "pagadorCedula": "class=\"extended-tpago-title[^\"]*\"[^>]*>Pagador:</div>(?:<!--.*?-->\\s*)*<div[^>]*extended-tpago-description[^>]*>([^<]+)<",
+        "beneficiarioCedula": "class=\"extended-tpago-title[^\"]*\"[^>]*>Beneficiario:</div>(?:<!--.*?-->\\s*)*<div[^>]*extended-tpago-description[^>]*>([^<]+)<",
+        "cuentaReceptora": ">Cuenta receptora:</div>(?:<!--.*?-->\\s*)*<[^>]*extended-tpago-description[^>]*>([^<]+)<",
+        "concepto": "<div[^>]*extended-tpago-title[^>]*>Concepto:</div><div[^>]*extended-tpago-description[^>]*>([^<]*)<"
+      }
+    },
+    "proofMetadataSelectors": [
+      { "type": "regex", "value": "id=\"product-detail-tpago\"" }
+    ]
+  },
+  "paramNames": ["REFERENCE_ID", "SENDER_PHONE_PREFIX"],
+  "paramSelectors": [
+    {
+      "type": "regex",
+      "value": "class=\"operation-value text-blue[^\"]*\">([\\d]+)<",
+      "source": "responseBody"
+    },
+    {
+      "type": "regex",
+      "value": "mat-column-phoneNumber[^>]+>(?:(?!mat-column).)*?class=\"operation-value[^\"]*\">(0\\d{3})\\s*-",
+      "source": "responseBody"
+    }
+  ],
+  "secretHeaders": ["Cookie", "__cf_bm", "_cfuvid"],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "id=\"product-detail-tpago\"",
+      "hash": false
+    },
+    {
+      "type": "regex",
+      "value": "alt=\"deposit\"[^>]*class=\"[^\"]*container-icon-currency\"",
+      "hash": false
+    },
+    {
+      "type": "regex",
+      "value": "class=\"operation-value petro-display[^\"]*\">\\s*(?P<amount>[\\d][\\d.]*,[\\d]{2})\\s*<",
+      "hash": false
+    },
+    {
+      "type": "regex",
+      "value": "class=\"operation-value text-blue[^\"]*\">(?P<reference>[\\d]+)<",
+      "hash": false
+    },
+    {
+      "type": "regex",
+      "value": "class=\"container-date-currency[^\"]*\">(?P<date>[\\d]{2}/[\\d]{2}/[\\d]{4})<",
+      "hash": false
+    }
+  ],
+  "responseRedactions": [
+  {
+    "jsonPath": "",
+    "xPath": "//td[contains(@class,'mat-column-phoneNumber')]//span[contains(@class,'operation-value')]"
+  },
+  {
+    "jsonPath": "",
+    "xPath": "//div[contains(@class,'extended-tpago-description') and (contains(text(),'V -') or contains(text(),'E -') or contains(text(),'J -'))]"
+  },
+  {
+    "jsonPath": "",
+    "xPath": "//span[contains(@class,'extended-tpago-description') and contains(text(),'Cuenta')]"
+  }
+],
+  "mobile": {
+    "includeAdditionalCookieDomains": ["www30.mercantilbanco.com", "mercantilbanco.com"],
+    "useExternalAction": false,
+    "internal": {
+      "actionLink": "https://www30.mercantilbanco.com/account/tpago-detail",
+      "actionCompletedUrlRegex": "www30\\.mercantilbanco\\.com/account/tpago-detail"
+    }
+  }
+}
