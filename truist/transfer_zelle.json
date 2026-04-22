@@ -1,0 +1,118 @@
+{
+  "actionType": "transfer_zelle",
+  "proofEngine": "reclaim",
+  "authLink": "https://dias.bank.truist.com/ui/login?redirecturi=%2Fweb%2Ftaplp%2Fzelle",
+  "url": "https://bank.truist.com/api/tfc/movemoney/zelle/activity/all-activities",
+  "method": "GET",
+  "body": "",
+  "metadata": {
+    "platform": "zelle",
+    "urlRegex": "https://bank.truist.com/api/tfc/movemoney/zelle/activity/all-activities$",
+    "method": "GET",
+    "fallbackUrlRegex": "",
+    "fallbackMethod": "",
+    "preprocessRegex": "",
+    "transactionsExtraction": {
+      "transactionJsonPathListSelector": "$.postedActivities",
+      "transactionJsonPathSelectors": {
+        "amount": "$.amount",
+        "paymentId": "$.referenceNo",
+        "recipient": "$.recipientToken",
+        "date": "$.date"
+      }
+    },
+    "proofMetadataSelectors": [
+      {
+        "type": "jsonPath",
+        "value": "$.postedActivities[{{INDEX}}].amount"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.postedActivities[{{INDEX}}].referenceNo"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.postedActivities[{{INDEX}}].recipientToken"
+      },
+      {
+        "type": "jsonPath",
+        "value": "$.postedActivities[{{INDEX}}].date"
+      }
+    ]
+  },
+  "paramNames": [],
+  "paramSelectors": [],
+  "skipRequestHeaders": [
+    "Cookie",
+    "Accept-Encoding",
+    "x-xsrf-token",
+    "x-csrf-token",
+    "referer",
+    "origin"
+  ],
+  "secretHeaders": [
+    "Cookie",
+    "x-xsrf-token",
+    "x-csrf-token",
+    "referer",
+    "origin"
+  ],
+  "responseMatches": [
+    {
+      "type": "regex",
+      "value": "\"referenceNo\":\"(?<referenceNo>[^\"]+)\""
+    },
+
+    {
+      "type": "regex",
+      "value": "\"pendingStatus\":(?<pendingStatus>[^\"]+)"
+    },
+    {
+      "type": "regex",
+      "value": "\"fundsTransferred\":\"Y\""
+    },
+    {
+      "type": "regex",
+      "value": "\"date\":\"(?<date>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "\"amount\":\"(?<amount>[0-9\\.]+)\""
+    }
+  ],
+  "responseRedactions": [
+    {
+      "jsonPath": "$.postedActivities[{{INDEX}}].referenceNo",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.postedActivities[{{INDEX}}].pendingStatus",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.postedActivities[{{INDEX}}].fundsTransferred",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.postedActivities[{{INDEX}}].date",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.postedActivities[{{INDEX}}].amount",
+      "xPath": ""
+    }
+  ],
+  "mobile": {
+    "includeAdditionalCookieDomains": [],
+    "useExternalAction": true,
+    "userAgent": {
+      "android": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+      "ios": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
+    },
+    "external": {
+      "actionLink": "truist://",
+      "appStoreLink": "https://apps.apple.com/ge/app/truist-mobile/id1555389200",
+      "playStoreLink": "https://play.google.com/store/apps/details?id=com.truist.mobile&hl=en-US"
+    }
+  }
+}
