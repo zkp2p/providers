@@ -74,10 +74,19 @@
     }
   ],
   "responseRedactions": [
-    { "jsonPath": "", "xPath": "" },
-    { "jsonPath": "", "xPath": "" },
-    { "jsonPath": "", "xPath": "" }
-  ],
+  {
+    "jsonPath": "",
+    "xPath": "//td[contains(@class,'mat-column-phoneNumber')]//span[contains(@class,'operation-value')]"
+  },
+  {
+    "jsonPath": "",
+    "xPath": "//div[contains(@class,'extended-tpago-description') and (contains(text(),'V -') or contains(text(),'E -') or contains(text(),'J -'))]"
+  },
+  {
+    "jsonPath": "",
+    "xPath": "//span[contains(@class,'extended-tpago-description') and contains(text(),'Cuenta')]"
+  }
+],
   "mobile": {
     "includeAdditionalCookieDomains": ["www30.mercantilbanco.com", "mercantilbanco.com"],
     "useExternalAction": false,
