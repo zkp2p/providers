@@ -10,7 +10,7 @@
     "metadataUrlMethod": "GET",
     "metadataUrlBody": "",
     "platform": "paypal",
-    "urlRegex": "https://www.paypal.com/myaccount",
+    "urlRegex": "https://www.paypal.com/myaccount/activities/extendSession",
     "method": "GET",
     "fallbackUrlRegex": "",
     "fallbackMethod": "",
