@@ -1,4 +1,4 @@
-# ZKP2P Provider Templates
+# Peer Provider Templates
 
 This repo houses the JSON providers used in ZKP2P PeerAuth Extension and ZKP2P React Native SDK. ZKP2P is live in production at [zkp2p.xyz](https://zkp2p.xyz/). PeerAuth is a browser extension that allows you to authenticate internet data in a privacy preserving way using web proofs / zkTLS
 
@@ -52,9 +52,9 @@ To get started building a new provider, you will need to setup a local version o
 2. Run `yarn install` and `yarn start`. App is hosted on [http://localhost:8080](http://localhost:8080)
 3. Install the [PeerAuth extension](https://chromewebstore.google.com/detail/peerauth-authenticate-and/ijpgccednehjpeclfcllnjjcmiohdjih) in your browser
 3. Create a new directory and JSON file and add the necessary provider data for your integration
-4. Test your integration by going to [developer.zkp2p.xyz](https://developer.zkp2p.xyz/)
-5. Click on Open Settings on the page and set Base URL to `http://localhost:8080/`. Any changes to your JSON will now be reflected in the extension and developer app.
-6. Update the inputs with the right path to your integration `localhost:8080/{platform_name}/{provider_name}.json`
+4. Test your integration by going to the [Peer Developer Portal](https://developer.peer.xyz/)
+5. Click on Open Settings on the page. This will open the PeerAuth extension, set Providers Base URL to `http://localhost:8080/` (Note the "/" at the end, it is required). Any changes to your JSON will now be reflected in the extension and developer app
+6. In the Peer Developer Portal, update the inputs with the right path to your integration: "ActionType" refers to platform_name (i.e.: Zelle, Venmo...) and Payment Platform refers to provider_name (i.e.: Chase, Truist ...)
 7. Click Authenticate to extract metadata
 8. If successful, proceed to Prove a specific transaction
 
@@ -535,8 +535,8 @@ Use regular expressions for pattern matching:
 - Consider user experience when deciding tab behavior
 
 ### Common Issues
-- **Authenticate does not open desired auth link**: Check the Base URL you have set in the extension. Ensure you are running the server which is hosted in port 8080
-- **Authenticated into your payment platform but not redirected back to developer.zkp2p.xyz**: There is an issue with the urlRegex for metadata extraction. Double check your regex is correct
+- **Authenticate does not open desired auth link**: Check the Base URL you have set in the extension. Ensure you are running the server which is hosted in port 8080. Check your template json file does not have any syntax errors.
+- **Authenticated into your payment platform but not redirected back to developer.peer.xyz**: There is an issue with the urlRegex for metadata extraction. Double check your regex is correct
 - **Metadata returned to app, but Prove fails**: There is an issue with the response redactions or headers for the server call. If error is JSON path not found or regex not found then check your response redactions parameters. If it returns a error that is not 200, the server has rejected your request, so there is an issue with your headers, request body.
 - **Parameters not extracted correctly**: Check the `source` field in your `paramSelectors`. By default, parameters are extracted from responseBody. If your parameter is in the URL, headers, or request body, you must specify the correct source.
 
