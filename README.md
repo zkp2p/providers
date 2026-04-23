@@ -1,6 +1,6 @@
 # Peer Provider Templates
 
-This repo houses the JSON providers used in ZKP2P PeerAuth Extension and ZKP2P React Native SDK. ZKP2P is live in production at [zkp2p.xyz](https://zkp2p.xyz/). PeerAuth is a browser extension that allows you to authenticate internet data in a privacy preserving way using web proofs / zkTLS
+This repo houses the JSON providers used in Peer Extension and Peer React Native SDK. Peer is live in production at [peer.xyz](https://peer.xyz/). Peer Extension is a browser extension that allows you to authenticate internet data in a privacy preserving way using web proofs / zkTLS
 
 ## Package Usage (npm)
 
@@ -50,17 +50,17 @@ Note: The npm package is data-only. The local dev server described here is for d
 To get started building a new provider, you will need to setup a local version of 
 1. Clone the repo
 2. Run `yarn install` and `yarn start`. App is hosted on [http://localhost:8080](http://localhost:8080)
-3. Install the [PeerAuth extension](https://chromewebstore.google.com/detail/peerauth-authenticate-and/ijpgccednehjpeclfcllnjjcmiohdjih) in your browser
+3. Install the [Peer extension](https://chromewebstore.google.com/detail/peer-funding-wallet/ijpgccednehjpeclfcllnjjcmiohdjih) in your browser
 3. Create a new directory and JSON file and add the necessary provider data for your integration
 4. Test your integration by going to the [Peer Developer Portal](https://developer.peer.xyz/)
-5. Click on Open Settings on the page. This will open the PeerAuth extension, set Providers Base URL to `http://localhost:8080/` (Note the "/" at the end, it is required). Any changes to your JSON will now be reflected in the extension and developer app
+5. Click on Open Settings on the page. This will open the Peer extension, set Providers Base URL to `http://localhost:8080/` (Note the "/" at the end, it is required). Any changes to your JSON will now be reflected in the extension and developer app
 6. In the Peer Developer Portal, update the inputs with the right path to your integration: "ActionType" refers to platform_name (i.e.: Zelle, Venmo...) and Payment Platform refers to provider_name (i.e.: Chase, Truist ...)
 7. Click Authenticate to extract metadata
 8. If successful, proceed to Prove a specific transaction
 
 ## Provider Configuration Guide
 
-This guide explains how to create and configure provider templates for the ZKP2P PeerAuth extension. Provider configurations define how to extract and verify data from various platforms.
+This guide explains how to create and configure provider templates for the Peer extension. Provider configurations define how to extract and verify data from various platforms.
 
 ### Table of Contents
 - [Getting Started](#getting-started)
@@ -71,7 +71,7 @@ This guide explains how to create and configure provider templates for the ZKP2P
 - [Common Issues](#common-issues)
 
 ### Getting Started
-1. Inspect network tab in Dev Tools after logging into your payment website. Or turn on Intercepted Requests in ZKP2P sidebar
+1. Inspect network tab in Dev Tools after logging into your payment website. Or turn on Intercepted Requests in Peer sidebar
 2. Find a request that contains amount, timestamp / date, recipient ID at a minimum. Look for additional params such as status (to see if payment finalized), currency (if platform supports more than 1 currency)
 3. A tip is to look for where the transactions page is. Sometimes the transactions are expandable so you can log those too
 4. Based on the request, populate the template.
@@ -338,7 +338,7 @@ The `source` field in `paramSelectors` specifies where to extract the parameter 
 
 #### `mobile` (optional)
 - **Type**: `object`
-- **Description**: Special configurations for the ZKP2P mobile SDK. The mobile configuration supports both internal (WebView) and external (native app) actions.
+- **Description**: Special configurations for the Peer mobile SDK. The mobile configuration supports both internal (WebView) and external (native app) actions.
 
 ```json
 "mobile": {
