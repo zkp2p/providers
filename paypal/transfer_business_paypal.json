@@ -57,11 +57,11 @@
     },
     {
       "type": "regex",
-      "value": "\\$(?<amt>[0-9.]+)"
+      "value": "\"grossAmt\":\"[^\"]*?(?<amt>[0-9][0-9,]*(?:\\.[0-9]+)?)"
     },
     {
       "type": "regex",
-      "value": "\"grossAmt\":\"[^\\\"]*[0-9.]+[^A-Z]*(?<curr>[A-Z]+)"
+      "value": "\"grossAmt\":\"[^\"]*[0-9.]+[^A-Z]*(?<curr>[A-Z]+)"
     },
     {
       "type": "regex",
