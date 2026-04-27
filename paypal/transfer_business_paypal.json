@@ -69,7 +69,7 @@
     },
     {
       "type": "regex",
-      "value": "(?<date>[A-Z][a-z]+ [0-9]{1,2}, [0-9]{4}[^\"]*)"
+      "value": "\"TDHeader\"\\s*:\\s*\\{[^}]*\"date\"\\s*:\\s*\"(?<date>[^\"]+)\""
     }
   ],
   "responseRedactions": [
