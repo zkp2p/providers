@@ -73,6 +73,10 @@
     {
       "type": "regex",
       "value": "\"primitiveTimeCreated\":\"(?<date>[^\"]+)\""
+    },
+    {
+      "type": "regex",
+      "value": "(?:(?=.*\"notesInfo\":\\{[^}]*\"note\":\"(?<note>[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\")|)"
     }
   ],
   "responseRedactions": [
@@ -98,6 +102,10 @@
     },
     {
       "jsonPath": "$.data.primitiveTimeCreated",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.data.notesInfo.note",
       "xPath": ""
     }
   ],
