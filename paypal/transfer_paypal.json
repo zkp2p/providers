@@ -76,7 +76,7 @@
     },
     {
       "type": "regex",
-      "value": "(?:(?=.*\"notesInfo\":\\{[^}]*\"note\":\"(?<note>[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\")|)"
+      "value": "[\\s\\S]*?\"notesInfo\"\\s*:\\s*\\{[^}]*\"note\"\\s*:\\s*\"(?<note>[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"|"
     }
   ],
   "responseRedactions": [
@@ -105,8 +105,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.data.notesInfo.note",
-      "xPath": ""
+      "regex": "\"notesInfo\"\\s*:\\s*\\{[^}]*\"note\"\\s*:\\s*\"(?<note>[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"|\\}\\s*$"
     }
   ],
   "mobile": {
