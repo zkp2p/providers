@@ -71,7 +71,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"receiver_identifier\":\"(?<recipientId>[^\"]+)\""
+      "value": "\"pay_friend\":\\{[^{}]{0,800}\"receiver_identifier\":\"(?<recipientId>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -83,7 +83,7 @@
     },
     {
       "type": "regex",
-      "value": "\"ux_status\":\"(?<status>[^\"]+)\""
+      "value": "\"ux_status\":\"(?<status>SUCCEEDED)\""
     },
     {
       "type": "regex",
@@ -92,7 +92,7 @@
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.data.p2p.p2p_activity.pay_friend.receiver_identifier"
+      "jsonPath": "$.data.p2p.p2p_activity.pay_friend"
     },
     {
       "jsonPath": "$.data.p2p.p2p_activity.pay_friend.amount"
