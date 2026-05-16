@@ -1,0 +1,223 @@
+name: Publish package
+
+on:
+  push:
+    branches:
+      - main
+      - releases/mobile-prod
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch to publish from. Defaults to the selected ref.
+        required: false
+        type: string
+      dist_tag:
+        description: Optional npm dist-tag override.
+        required: false
+        type: string
+      dry_run:
+        description: Run npm publish with --dry-run.
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    env:
+      PACKAGE_NAME: "@zkp2p/providers"
+
+    steps:
+      - name: Resolve branch
+        id: branch
+        shell: bash
+        env:
+          INPUT_BRANCH: ${{ github.event.inputs.branch || '' }}
+        run: |
+          set -euo pipefail
+
+          branch="${GITHUB_REF_NAME}"
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] && [ -n "${INPUT_BRANCH}" ]; then
+            branch="${INPUT_BRANCH}"
+          fi
+
+          case "${branch}" in
+            main|releases/mobile-prod) ;;
+            *)
+              echo "::error title=Unsupported branch::Publishing is only configured for main and releases/mobile-prod."
+              exit 1
+              ;;
+          esac
+
+          echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.branch.outputs.branch }}
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+          scope: "@zkp2p"
+          cache: yarn
+
+      - name: Verify npm token
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "::error title=NPM_TOKEN missing::Repository secret NPM_TOKEN is required to publish to npm."
+            exit 1
+          fi
+
+      - name: Resolve package metadata
+        id: metadata
+        shell: bash
+        env:
+          DIST_TAG_OVERRIDE: ${{ github.event.inputs.dist_tag || '' }}
+          DRY_RUN_INPUT: ${{ github.event.inputs.dry_run || 'false' }}
+          PUBLISH_BRANCH: ${{ steps.branch.outputs.branch }}
+        run: |
+          set -euo pipefail
+
+          name="$(node -p "require('./package.json').name")"
+          version="$(node -p "require('./package.json').version")"
+
+          if [ "${name}" != "${PACKAGE_NAME}" ]; then
+            echo "::error title=Unexpected package name::Expected ${PACKAGE_NAME}, found ${name}."
+            exit 1
+          fi
+
+          if [[ ! "${version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error title=Invalid package version::${version} is not a valid semver version."
+            exit 1
+          fi
+
+          if [[ "${version}" == *-* ]]; then
+            prerelease=true
+          else
+            prerelease=false
+          fi
+
+          if [ -n "${DIST_TAG_OVERRIDE}" ]; then
+            dist_tag="${DIST_TAG_OVERRIDE}"
+          else
+            case "${PUBLISH_BRANCH}:${prerelease}" in
+              main:false) dist_tag="latest" ;;
+              main:true) dist_tag="next" ;;
+              releases/mobile-prod:false) dist_tag="mobile" ;;
+              releases/mobile-prod:true) dist_tag="mobile-next" ;;
+              *)
+                echo "::error title=Unsupported branch/version combination::No dist-tag mapping for ${PUBLISH_BRANCH} and prerelease=${prerelease}."
+                exit 1
+                ;;
+            esac
+          fi
+
+          if [[ ! "${dist_tag}" =~ ^[A-Za-z][A-Za-z0-9._-]*$ ]]; then
+            echo "::error title=Invalid dist-tag::${dist_tag} is not a valid npm dist-tag for this workflow."
+            exit 1
+          fi
+
+          dry_run="${DRY_RUN_INPUT}"
+          if [ "${GITHUB_EVENT_NAME}" != "workflow_dispatch" ]; then
+            dry_run=false
+          fi
+
+          case "${dry_run}" in
+            true|false) ;;
+            *)
+              echo "::error title=Invalid dry-run input::dry_run must be true or false."
+              exit 1
+              ;;
+          esac
+
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
+          echo "dist_tag=${dist_tag}" >> "${GITHUB_OUTPUT}"
+          echo "dry_run=${dry_run}" >> "${GITHUB_OUTPUT}"
+
+          echo "Package: ${PACKAGE_NAME}@${version}"
+          echo "Branch: ${PUBLISH_BRANCH}"
+          echo "Prerelease: ${prerelease}"
+          echo "Dist-tag: ${dist_tag}"
+          echo "Dry run: ${dry_run}"
+
+      - name: Check published version
+        id: published
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          VERSION: ${{ steps.metadata.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          set +e
+          output="$(npm view "${PACKAGE_NAME}@${VERSION}" version 2>&1)"
+          status=$?
+          set -e
+
+          if [ "${status}" -eq 0 ]; then
+            if [ -n "${output}" ]; then
+              echo "version already published, skipping"
+              echo "exists=true" >> "${GITHUB_OUTPUT}"
+              exit 0
+            fi
+
+            echo "Version ${VERSION} is not published yet."
+            echo "exists=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          if [ -z "${output}" ] || printf '%s' "${output}" | grep -qiE '(^|[^A-Z0-9])(E404|404|not found)([^A-Z0-9]|$)'; then
+            echo "Version ${VERSION} is not published yet."
+            echo "exists=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          echo "::error title=npm view failed::Unable to check ${PACKAGE_NAME}@${VERSION}."
+          printf '%s\n' "${output}"
+          exit "${status}"
+
+      - name: Install dependencies
+        if: steps.published.outputs.exists != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          corepack enable
+          yarn --version
+          yarn install --immutable
+
+      - name: Publish
+        if: steps.published.outputs.exists != 'true'
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "false"
+          DIST_TAG: ${{ steps.metadata.outputs.dist_tag }}
+          DRY_RUN: ${{ steps.metadata.outputs.dry_run }}
+        run: |
+          set -euo pipefail
+
+          publish_args=(publish --tag "${DIST_TAG}" --access public --provenance=false)
+          if [ "${DRY_RUN}" = "true" ]; then
+            publish_args+=(--dry-run)
+          fi
+
+          npm "${publish_args[@]}"

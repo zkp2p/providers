@@ -44,6 +44,11 @@ Notes:
 - Deep imports like `@zkp2p/providers/<provider>/<file>.json` are stable entry points.
 - Bundlers (Webpack/Vite) support JSON imports by default.
 
+### Dist tags
+- `latest`: stable versions from `main`.
+- `next`: pre-release versions from `main`.
+- `mobile`: stable versions from `releases/mobile-prod`.
+- `mobile-next`: pre-release versions from `releases/mobile-prod`.
 
 ## Developer Quickstart
 Note: The npm package is data-only. The local dev server described here is for development/testing in this repo and is not included in the published package.
