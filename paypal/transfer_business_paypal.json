@@ -49,11 +49,11 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "(?<recvId>[^\"\\s]*@[^\"\\s]*)"
+      "value": "\"CounterPartyContactModelData\":\\{[^{}]{0,400}\"email\":\"(?<recvId>[^\"\\s]*@[^\"\\s]*)\""
     },
     {
       "type": "regex",
-      "value": "\"paymentType\":\"(?<isPersonal>[^\"]+)\""
+      "value": "\"paymentType\":\"(?<isPersonal>Friends and Family)\""
     },
     {
       "type": "regex",
@@ -65,7 +65,7 @@
     },
     {
       "type": "regex",
-      "value": "\"paymentStatusActual\":\"(?<status>[^\"]+)"
+      "value": "\"paymentStatusActual\":\"(?<status>COMPLETED)"
     },
     {
       "type": "regex",
@@ -74,7 +74,7 @@
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.data.data.data.NameEmailPaidBy.CounterPartyContactModelData.email",
+      "jsonPath": "$.data.data.data.NameEmailPaidBy.CounterPartyContactModelData",
       "xPath": ""
     },
     {
