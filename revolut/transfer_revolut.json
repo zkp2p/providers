@@ -66,7 +66,7 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"amount\":(?<amount>[0-9\\-]+)"
+      "value": "\"amount\":-?(?<amount>[0-9]+)"
     },
     {
       "type": "regex",
@@ -85,8 +85,12 @@
       "value": "\"state\":\"(?<state>[^\"]+)\""
     },
     {
+      "type": "contains",
+      "value": "\"type\":\"TRANSFER\""
+    },
+    {
       "type": "regex",
-      "value": "\"username\":\"(?<username>[^\"]+)\""
+      "value": "\"recipient\":\\{[^{}]{0,400}\"username\":\"(?<username>[^\"]+)\""
     }
   ],
   "responseRedactions": [
@@ -107,7 +111,11 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.[{{INDEX}}].recipient.username",
+      "jsonPath": "$.[{{INDEX}}].type",
+      "xPath": ""
+    },
+    {
+      "jsonPath": "$.[{{INDEX}}].recipient",
       "xPath": ""
     },
     {
