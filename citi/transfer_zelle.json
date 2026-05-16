@@ -60,7 +60,7 @@
     },
     {
       "type": "regex",
-      "value": "\"transactionStatus\":\"(?<transactionStatus>[^\"]+)\""
+      "value": "\"transactionStatus\":\"(?<transactionStatus>completedTransaction)\""
     },
     {
       "type": "regex",
@@ -72,7 +72,7 @@
     },
     {
       "type": "regex",
-      "value": "\"partyToken\":\"(?<partyToken>[^\"]+)\""
+      "value": "\"transactionId\":\"[^\"]+\"[^{}]{0,800}\"partyToken\":\"(?<partyToken>[^\"]+)\""
     }
   ],
   "responseRedactions": [
@@ -93,7 +93,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.transactionData[0].transactions[{{INDEX}}].partyToken",
+      "jsonPath": "$.transactionData[0].transactions[{{INDEX}}]",
       "xPath": ""
     }
   ],
