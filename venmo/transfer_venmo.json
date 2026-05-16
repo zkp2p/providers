@@ -65,7 +65,7 @@
     },
     {
       "type": "regex",
-      "value": "\"id\":\"(?<receiverId>[^\"]+)\""
+      "value": "\"receiver\":\\{[^{}]{0,400}\"id\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -86,7 +86,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.stories[{{INDEX}}].title.receiver.id",
+      "jsonPath": "$.stories[{{INDEX}}].title.receiver",
       "xPath": ""
     },
     {
