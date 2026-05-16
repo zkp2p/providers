@@ -71,7 +71,7 @@
     },
     {
       "type": "regex", 
-      "value": "\"status\":\"(?<status>[^\"]+)\""
+      "value": "\"status\":\"(?<status>DONE)\""
     },
     {
       "type": "regex",
@@ -87,7 +87,7 @@
     },
     {
       "type": "regex",
-      "value": "\"email\":\"(?<email>[^\"]+)\""
+      "value": "\"receiver\":\\{(?:[^{}]|\\{[^{}]*\\}){0,800}\"email\":\"(?<email>[^\"]+)\""
     }
   ],
   "responseRedactions": [
@@ -112,7 +112,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.receiver.email",
+      "jsonPath": "$.receiver",
       "xPath": ""
     }
   ]
