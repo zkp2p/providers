@@ -52,11 +52,11 @@
   "responseMatches": [
     {
       "type": "regex",
-      "value": "\"email\":\"(?<recvId>[^\"]+)\""
+      "value": "\"repeatTxn\":\\{[^{}]{0,400}\"email\":\"(?<recvId>[^\"]+)\""
     },
     {
       "type": "regex",
-      "value": "\"isPersonal\":(?<isPersonal>[true|false]+)"
+      "value": "\"isPersonal\":(?<isPersonal>true|false)"
     },
     {
       "type": "regex",
@@ -81,7 +81,7 @@
   ],
   "responseRedactions": [
     {
-      "jsonPath": "$.data.p2pRedirect.repeatTxn.email",
+      "jsonPath": "$.data.p2pRedirect.repeatTxn",
       "xPath": ""
     },
     {
