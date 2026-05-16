@@ -57,7 +57,7 @@
     },
     {
       "type": "regex",
-      "value": "\"status\":\"(?<status>[^\"]+)\""
+      "value": "\"status\":\"(?<status>COMPLETED)\""
     },
     {
       "type": "regex",
@@ -69,7 +69,7 @@
     },
     {
       "type": "regex",
-      "value": "\"aliasToken\":\"(?<aliasToken>[^\"]+)\""
+      "value": "\"targetAccount\":\\{[^{}]{0,600}\"aliasToken\":\"(?<aliasToken>[^\"]+)\""
     }
   ],
   "responseRedactions": [
@@ -90,7 +90,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.completedTransactions[{{INDEX}}].targetAccount.aliasToken",
+      "jsonPath": "$.completedTransactions[{{INDEX}}].targetAccount",
       "xPath": ""
     }
   ],
