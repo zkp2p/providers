@@ -87,7 +87,7 @@
     },
     {
       "type": "regex",
-      "value": "\"cashtag\":\"(?<receiverId>[^\"]+)\""
+      "value": "\"recipient\":\\{[^{}]{0,400}\"cashtag\":\"(?<receiverId>[^\"]+)\""
     },
     {
       "type": "regex",
@@ -95,7 +95,7 @@
     },
     {
       "type": "regex",
-      "value": "\"state\":\"(?<state>[^\"]+)\""
+      "value": "\"state\":\"(?<state>COMPLETE)\""
     }
   ],
   "responseRedactions": [
@@ -112,7 +112,7 @@
       "xPath": ""
     },
     {
-      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.recipient.cashtag",
+      "jsonPath": "$.activity_rows[{{INDEX}}].payment_history_inputs_row.recipient",
       "xPath": ""
     },
     {
